@@ -16,3 +16,4 @@ class PublicController extends AbstractController
         ]);
     }
 }
+
