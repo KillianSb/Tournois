@@ -18,7 +18,7 @@ class TournamentController extends AbstractController
     public function home(TournamentRepository $tournamentRepository): Response
     {
         return $this->render('tournament/home.html.twig', [
-            'tournaments' => $tournamentRepository->findAll(),
+            'tournaments' => $tournamentRepository->findAllTournament(),
         ]);
     }
 
