@@ -6,11 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -34,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column(length: 30)]
-    private ?string $nom = null;
+    private ?string $lastname = null;
 
     #[ORM\Column(length: 30)]
     private ?string $firstname = null;
@@ -43,10 +45,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $phoneNumber = null;
 
     #[ORM\Column]
-    private ?bool $isAdmin = null;
+    private ?bool $isAdmin = false;
 
     #[ORM\Column]
-    private ?bool $isActive = null;
+    private ?bool $isActive = true;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Tournament::class)]
     private Collection $tournaments;
@@ -142,14 +144,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getLastname(): ?string
     {
-        return $this->nom;
+        return $this->lastname;
     }
 
-    public function setNom(string $nom): static
+    public function setLastname(string $lastname): static
     {
-        $this->nom = $nom;
+        $this->lastname = $lastname;
 
         return $this;
     }

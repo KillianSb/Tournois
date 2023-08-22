@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crée un compte{% endblock %}
+
+{% block body %}
+    <h1>Crée un compte</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email, {
+            label: 'Adresse mail :'
+        }) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password :'
+        }) }}
+        {{ form_row(registrationForm.username, {
+            label: 'Pseudo :'
+        }) }}
+        {{ form_row(registrationForm.lastname, {
+            label: 'Nom :'
+        }) }}
+        {{ form_row(registrationForm.firstname, {
+            label: 'Prénom :'
+        }) }}
+        {{ form_row(registrationForm.phone_number, {
+            label: 'Numéro téléphone :'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms, {
+            label: 'Accepter les conditions'
+        }) }}
+
+        <button type="submit" class="btn">S'enregistrer</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
