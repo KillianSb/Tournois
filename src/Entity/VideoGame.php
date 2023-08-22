@@ -6,6 +6,7 @@ use App\Repository\VideoGameRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VideoGameRepository::class)]
 class VideoGame
@@ -16,16 +17,24 @@ class VideoGame
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message: "Veuillez indiquer le nombre d'équipe")]
+    #[Assert\NotNull]
+    #[Assert\Length(min: 3, minMessage: "Veuillez indiquer au moins 3 caractères")]
     private ?string $name = null;
 
     #[ORM\Column]
     private ?bool $isOnline = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Veuillez indiquer le nombre d'équipe")]
+    #[Assert\NotNull]
     private ?int $nbTeam = null;
 
     #[ORM\OneToMany(mappedBy: 'videogame', targetEntity: Tournament::class)]
     private Collection $tournaments;
+
+    #[ORM\Column(length: 255)]
+    private ?string $rules = null;
 
     public function __construct()
     {
@@ -91,6 +100,8 @@ class VideoGame
         return $this;
     }
 
+
+
     public function removeTournament(Tournament $tournament): static
     {
         if ($this->tournaments->removeElement($tournament)) {
@@ -99,6 +110,18 @@ class VideoGame
                 $tournament->setVideogame(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRules(): ?string
+    {
+        return $this->rules;
+    }
+
+    public function setRules(string $rules): static
+    {
+        $this->rules = $rules;
 
         return $this;
     }

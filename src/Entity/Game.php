@@ -20,11 +20,11 @@ class Game
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateEnd = null;
 
-    #[ORM\OneToOne(inversedBy: 'game', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'videogame', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Result $result = null;
 
-    #[ORM\ManyToOne(inversedBy: 'game')]
+    #[ORM\ManyToOne(inversedBy: 'videogame')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Tournament $tournament = null;
 
