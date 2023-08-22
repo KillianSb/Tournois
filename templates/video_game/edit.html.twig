@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier jeu vidéo{% endblock %}
+
+{% block body %}
+    <h1>Modifier un jeu vidéo</h1>
+
+    {{ include('video_game/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('video_game_index') }}">Retour</a>
+
+    {{ include('video_game/_delete_form.html.twig') }}
+{% endblock %}
