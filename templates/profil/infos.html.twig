@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+    <h1>Profil</h1>
+
+    {% block profil %}
+        <div class="blockProfil">
+            <div class="blockH2Profil">
+                <h2 id="h2Profil">Mon profil</h2>
+            </div>
+            <div class="informations">
+                <div class="infos">
+                    <p>Pseudo : </p>
+                    <p>{{ infosProfil.username }}</p>
+                </div>
+                <div class="infos">
+                    <p>Mail : </p>
+                    <p>{{ infosProfil.email }}</p>
+                </div>
+                <div class="infos">
+                    <p>Nom : </p>
+                    <p>{{ infosProfil.lastname }}</p>
+                </div>
+                <div class="infos">
+                    <p>Prénom : </p>
+                    <p>{{ infosProfil.firstname }}</p>
+                </div>
+                <div class="infos">
+                    <p>Numéro tel : </p>
+                    <p>{{ infosProfil.phoneNumber }}</p>
+                </div>
+                <div class="infos">
+                    {% if infosProfil.roles == "ROLE_ADMIN" %}
+                        <p>Role : </p>
+                        <p>Administrateur</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

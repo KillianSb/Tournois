@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Tournois{% endblock %}
+
+{% block body %}
+    <h1>Crée un nouveau tournois</h1>
+
+    {{ include('tournament/tournament_form.html.twig') }}
+
+    <a href="{{ path('_home') }}">Retour au tournois</a>
+{% endblock %}

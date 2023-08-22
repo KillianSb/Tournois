@@ -11,7 +11,7 @@ class PublicController extends AbstractController
     #[Route('/public', name: 'public_home')]
     public function home(): Response
     {
-        return $this->render('public/index.html.twig', [
+        return $this->render('public/home.html.twig', [
             'controller_name' => 'PublicController',
         ]);
     }
