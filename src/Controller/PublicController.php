@@ -9,10 +9,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class PublicController extends AbstractController
 {
     #[Route('/public', name: 'public_home')]
-    public function home(): Response
+    public function home(
+
+    ): Response
     {
         return $this->render('public/index.html.twig', [
             'controller_name' => 'PublicController',
         ]);
     }
+
 }
+

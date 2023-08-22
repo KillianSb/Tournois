@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Team{% endblock %}
+
+{% block body %}
+    <h1>Créer une nouvelle équipe</h1>
+
+    {{ include('equipe/_form.html.twig') }}
+
+    <a href="{{ path('_liste') }}">Retour à la liste</a>
+{% endblock %}
