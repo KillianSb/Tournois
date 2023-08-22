@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournament index{% endblock %}
+
+{% block body %}
+    <h1>Tournament index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Rules</th>
+                <th>DateBeginTournament</th>
+                <th>DateCreation</th>
+                <th>DateEndTournament</th>
+                <th>DateLimitRegistration</th>
+                <th>NbTeamMax</th>
+                <th>Info Tournois</th>
+                <th>Prix d'entrée</th>
+                <th>Récompense</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tournament in tournaments %}
+            <tr>
+                <td>{{ tournament.id }}</td>
+                <td>{{ tournament.name }}</td>
+                <td>{{ tournament.rules }}</td>
+                <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tournament.nbTeamMax }}</td>
+                <td>{{ tournament.tournamentInfo }}</td>
+                <td>{{ tournament.entryPrice }}</td>
+                <td>{{ tournament.reward }}</td>
+                <td>
+                    <a href="{{ path('_infos', {'id': tournament.id}) }}">Infos</a>
+                    <a href="{{ path('_mofidier', {'id': tournament.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('_nouveau') }}">Nouveau tournois</a>
+{% endblock %}
