@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/tournament')]
+#[Route('/tournois')]
 class TournamentController extends AbstractController
 {
-    #[Route('/', name: '_home', methods: ['GET'])]
+    #[Route('/', name: 'tournois_home', methods: ['GET'])]
     public function home(TournamentRepository $tournamentRepository): Response
     {
         return $this->render('tournament/home.html.twig', [
@@ -22,7 +22,7 @@ class TournamentController extends AbstractController
         ]);
     }
 
-    #[Route('/nouveau', name: '_nouveau', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'tournois_nouveau', methods: ['GET', 'POST'])]
     public function nouveau(Request $request, EntityManagerInterface $entityManager): Response
     {
         $tournament = new Tournament();
@@ -33,7 +33,7 @@ class TournamentController extends AbstractController
             $entityManager->persist($tournament);
             $entityManager->flush();
 
-            return $this->redirectToRoute('tournament_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tournament/nouveau.html.twig', [
@@ -42,7 +42,7 @@ class TournamentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: '_infos', methods: ['GET'])]
+    #[Route('/{id}', name: 'tournois_infos', methods: ['GET'])]
     public function infos(Tournament $tournament): Response
     {
         return $this->render('tournament/infos.html.twig', [
@@ -50,7 +50,7 @@ class TournamentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/modifier', name: '_modifier', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'tournois_modifier', methods: ['GET', 'POST'])]
     public function modifier(Request $request, Tournament $tournament, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TournamentType::class, $tournament);
@@ -59,7 +59,7 @@ class TournamentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('tournament_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tournament/modifier.html.twig', [
@@ -68,7 +68,7 @@ class TournamentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: '_supprimer', methods: ['POST'])]
+    #[Route('/{id}', name: 'tournois_supprimer', methods: ['POST'])]
     public function supprimer(Request $request, Tournament $tournament, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tournament->getId(), $request->request->get('_token'))) {
@@ -76,6 +76,6 @@ class TournamentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('tournament_home', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
     }
 }

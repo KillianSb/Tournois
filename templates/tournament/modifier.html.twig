@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Edit Tournament</h1>
 
-    {{ include('tournament/tournament_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('tournament/tournois_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_tournament_index') }}">back to list</a>
+    <a href="{{ path('tournois_home') }}">Retour au tournois</a>
 
     {{ include('tournament/supprimer.html.twig') }}
 {% endblock %}

@@ -54,9 +54,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tournament_index') }}">back to list</a>
+    <a href="{{ path('tournois_home') }}">Retour au tournois</a>
 
-    <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">edit</a>
+    <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}">Modifier</a>
 
     {{ include('tournament/supprimer.html.twig') }}
 {% endblock %}
