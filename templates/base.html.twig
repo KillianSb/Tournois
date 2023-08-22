@@ -12,7 +12,27 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+    <header>
+            <div class="connect">
+                {% if not app.user %}
+                    <li><a href="{{ path('security_login') }}">Se connecter</a></li>
+                    <li><a href="{{ path('registration_register') }}">S'enregistrer</a></li>
+                {% endif %}
+                {% if app.user %}
+                    <li><a href="{{ path('security_logout') }}">Se déconnecter - Bonjour {{ app.user.username }} !</a></li>
+                {% endif %}
+            </div>
+            <div>
+                <li><a href="{{ path('public_home') }}">Accueil</a></li>
+            </div>
+    </header>
+        {% block body %}
+
+            {% block profil %}
+            {% endblock %}
+
+        {% endblock %}
     </body>
 </html>

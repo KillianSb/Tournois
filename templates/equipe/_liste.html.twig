@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Team index{% endblock %}
+
+{% block body %}
+    <h1>Liste des équipes</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom d'équipe</th>
+                <th>Nombre de joueurs</th>
+                <th>Bio del'équipe</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+                <td>{{ team.id }}</td>
+                <td>{{ team.name }}</td>
+                <td>{{ team.nbPlayer }}</td>
+                <td>{{ team.bio }}</td>
+                <td>
+                    <a href="{{ path('_detail', {'id': team.id}) }}">Détail de l'équipe</a>
+                    <a href="{{ path('_detail', {'id': team.id}) }}">Modifier l'équipe</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('_enregistrement') }}">Créer une nouvelle équipe</a>
+{% endblock %}

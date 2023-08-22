@@ -6,11 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,6 +22,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Email]
+    #[Assert\NotBlank(message: "Le champs ne peu pas etre vide !")] // Contraint de validation not null
+    #[Assert\NotNull(message: "Le champs ne poeu pas etre null !")]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -28,25 +34,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern: "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/",
+        message: "Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre et un chiffre.")] // Contraint de validation Regex
     private ?string $password = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\Length(min: 4, max: 30, minMessage: "Trop court ! doit contenir minimum 2 caractère !", maxMessage: "Trop long !")] // Contraint de validation
+    #[Assert\NotBlank(message: "Le champs ne peu pas etre vide !")] // Contraint de validation not null
+    #[Assert\NotNull(message: "Le champs ne poeu pas etre null !")]
     private ?string $username = null;
 
     #[ORM\Column(length: 30)]
-    private ?string $nom = null;
+    #[Assert\Length(min: 3, max: 30, minMessage: "Trop court ! doit contenir minimum 2 caractère !", maxMessage: "Trop long !")] // Contraint de validation
+    #[Assert\NotBlank(message: "Le champs ne peu pas etre vide !")] // Contraint de validation not null
+    #[Assert\NotNull(message: "Le champs ne poeu pas etre null !")]
+    private ?string $lastname = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\Length(min: 2, max: 30, minMessage: "Trop court ! doit contenir minimum 2 caractère !", maxMessage: "Trop long !")] // Contraint de validation
+    #[Assert\NotBlank(message: "Le champs ne peu pas etre vide !")] // Contraint de validation not null
+    #[Assert\NotNull(message: "Le champs ne poeu pas etre null !")]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank(message: "Le champs ne peu pas etre vide !")] // Contraint de validation not null
+    #[Assert\NotNull(message: "Le champs ne poeu pas etre null !")]
     private ?string $phoneNumber = null;
 
     #[ORM\Column]
-    private ?bool $isAdmin = null;
+    private ?bool $isAdmin = false;
 
     #[ORM\Column]
-    private ?bool $isActive = null;
+    private ?bool $isActive = true;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Tournament::class)]
     private Collection $tournaments;
@@ -142,14 +162,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getLastname(): ?string
     {
-        return $this->nom;
+        return $this->lastname;
     }
 
-    public function setNom(string $nom): static
+    public function setLastname(string $lastname): static
     {
-        $this->nom = $nom;
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -258,4 +278,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->username . ' ' . $this->lastname . ' ' . $this->firstname . ' ' . $this->phoneNumber . ' ' . $this->email . ' ' . $this->isActive;
+    }
+
+
 }
