@@ -27,6 +27,9 @@ class Team
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'teams')]
     private Collection $user;
 
+    #[ORM\Column(length: 255)]
+    private ?string $bio = null;
+
     public function __construct()
     {
         $this->tournaments = new ArrayCollection();
@@ -109,6 +112,18 @@ class Team
     public function removeUser(User $user): static
     {
         $this->user->removeElement($user);
+
+        return $this;
+    }
+
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    public function setBio(string $bio): static
+    {
+        $this->bio = $bio;
 
         return $this;
     }
