@@ -21,6 +21,11 @@ class Team
     #[ORM\Column]
     private ?int $nbPlayer = null;
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     #[ORM\ManyToMany(targetEntity: Tournament::class, mappedBy: 'team')]
     private Collection $tournaments;
 

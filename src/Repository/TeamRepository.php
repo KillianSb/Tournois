@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Team;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,18 +22,6 @@ class TeamRepository extends ServiceEntityRepository
         parent::__construct($registry, Team::class);
     }
 
-    public function findAllUser(): Paginator {
-        $query = $this->createQueryBuilder('w')
-            ->leftJoin('w.user', 'u')
-            ->addSelect('u')
-            ->andWhere('w.isPublished = true')
-            ->addOrderBy('w.dateCreated', 'DESC')
-            ->setMaxResults(10)
-            ->getQuery();
-
-        $paginator = new Paginator($query);
-        return $paginator;
-    }
 //    /**
 //     * @return Team[] Returns an array of Team objects
 //     */

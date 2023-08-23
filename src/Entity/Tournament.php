@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\TournamentRepository;
+use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TournamentRepository::class)]
 class Tournament
@@ -23,27 +25,33 @@ class Tournament
     private ?string $rules = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateBeginTournament = null;
+    #[Assert\GreaterThanOrEqual(propertyPath:"dateCreation")]
+    private ?\DateTimeInterface $dateBeginTournament;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateCreation = null;
+    private ?\DateTimeInterface $dateCreation;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateEndTournament = null;
+    #[Assert\GreaterThanOrEqual(propertyPath:"dateCreation")]
+    private ?\DateTimeInterface $dateEndTournament;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateLimitRegistration = null;
+    #[Assert\LessThanOrEqual(propertyPath:"dateBeginTournament")]
+    private ?\DateTimeInterface $dateLimitRegistration;
 
     #[ORM\Column]
+    #[Assert\GreaterThanOrEqual(value:2, message: "Minimum 2 équipes")]
     private ?int $nbTeamMax = null;
 
     #[ORM\Column(length: 255)]
     private ?string $tournamentInfo = null;
 
     #[ORM\Column]
+    #[Assert\GreaterThanOrEqual(value:0, message: "Le prix d'entrée est gratuit 😊 ou supérieur")]
     private ?int $entryPrice = null;
 
     #[ORM\Column]
+    #[Assert\GreaterThanOrEqual(value:0, message: "La récompense ne peux pas être négative 🙃")]
     private ?int $reward = null;
 
     #[ORM\ManyToOne(inversedBy: 'tournaments')]
@@ -56,7 +64,7 @@ class Tournament
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?State $status = null;
+    private ?State $status;
 
     #[ORM\OneToMany(mappedBy: 'tournament', targetEntity: Game::class)]
     private Collection $game;
@@ -70,9 +78,24 @@ class Tournament
 
     public function __construct()
     {
+        //Initialisation à la date du jour
+        $timezoneParis = new DateTimeZone('Europe/Paris');
+
         $this->game = new ArrayCollection();
         $this->team = new ArrayCollection();
+        $this->status = new State('Ouvert');
+
+        $this->dateCreation = new \DateTime('now', $timezoneParis);
+        $this->dateBeginTournament = new \DateTime('now', $timezoneParis);
+        $this->dateEndTournament = new \DateTime('now', $timezoneParis);
+        $this->dateLimitRegistration = new \DateTime('now', $timezoneParis);
     }
+
+    public function __toString(): string
+    {
+        return $this->name . ' - ' . ' début du tournois le ' . $this->getDateBeginTournament()->format('d/m/Y ' . ' à ' . ' H:i');
+    }
+
 
     public function getId(): ?int
     {
