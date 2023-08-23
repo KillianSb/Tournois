@@ -3,11 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Team;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class TeamType extends AbstractType
 {
@@ -27,9 +28,11 @@ class TeamType extends AbstractType
             ->add('tournaments', null, [
                 "label" => "Choix du tournois",
             ])
-            //TODO : En attente de creation du formulaire pour les utilisateurs
-            ->add('user', null, [
-                "label" => "Inscription des joueurs",
+            ->add('user', EntityType::class, [
+                "class" => User::class,
+                'placeholder' => 'Nom du participant',
+                'multiple' => true,
+                'autocomplete' => true
             ])
         ;
     }
