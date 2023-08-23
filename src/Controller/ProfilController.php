@@ -20,6 +20,7 @@ class ProfilController extends AbstractController
     {
         $user = $this->getUser();
         $infosProfil = $userRepository->find($user);
-        return $this->render('profil/infos.html.twig', compact('infosProfil'));
+        $teams = $user->getTeams();
+        return $this->render('profil/infos.html.twig', compact('infosProfil', 'teams'));
     }
 }
