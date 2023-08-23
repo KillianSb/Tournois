@@ -21,6 +21,14 @@ class TournamentRepository extends ServiceEntityRepository
         parent::__construct($registry, Tournament::class);
     }
 
+    public function findAllTournament(): array{
+        $query = $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'ASC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Tournament[] Returns an array of Tournament objects
 //     */

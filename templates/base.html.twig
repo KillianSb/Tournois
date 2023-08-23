@@ -22,13 +22,20 @@
                 {% endif %}
                 {% if app.user %}
                     <li><a href="{{ path('security_logout') }}">Se déconnecter - Bonjour {{ app.user.username }} !</a></li>
+                    <li><a href="{{ path('profil_infos') }}">Profil</a></li>
                 {% endif %}
             </div>
             <div>
                 <li><a href="{{ path('public_home') }}">Accueil</a></li>
+                <li><a href="{{ path('tournois_home') }}">Tournois</a></li>
+                <li><a href="{{ path('video_game_index') }}">Jeux</a></li>
+                <li><a href="{{ path('_liste') }}">Equipe</a></li>
             </div>
     </header>
         {% block body %}
+
+            {% block profil %}
+            {% endblock %}
 
         {% endblock %}
     </body>

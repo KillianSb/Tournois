@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournament{% endblock %}
+
+{% block body %}
+    <h1>Tournament</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tournament.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ tournament.name }}</td>
+            </tr>
+            <tr>
+                <th>Rules</th>
+                <td>{{ tournament.rules }}</td>
+            </tr>
+            <tr>
+                <th>DateBeginTournament</th>
+                <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateCreation</th>
+                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateEndTournament</th>
+                <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateLimitRegistration</th>
+                <td>{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>NbTeamMax</th>
+                <td>{{ tournament.nbTeamMax }}</td>
+            </tr>
+            <tr>
+                <th>TournamentInfo</th>
+                <td>{{ tournament.tournamentInfo }}</td>
+            </tr>
+            <tr>
+                <th>EntryPrice</th>
+                <td>{{ tournament.entryPrice }}</td>
+            </tr>
+            <tr>
+                <th>Reward</th>
+                <td>{{ tournament.reward }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tournois_home') }}">Retour au tournois</a>
+
+    <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}">Modifier</a>
+
+    {{ include('tournament/supprimer.html.twig') }}
+{% endblock %}
