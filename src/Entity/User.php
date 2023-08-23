@@ -74,6 +74,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Team::class, mappedBy: 'user')]
     private Collection $teams;
 
+    #[ORM\Column(length: 255)]
+    private ?string $picture = 'build/images/avatar_1.svg';
+
     public function __construct()
     {
         $this->tournaments = new ArrayCollection();
@@ -284,10 +287,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString(): string
+    public function getPicture(): ?string
     {
-        return $this->username . ' ' . $this->lastname . ' ' . $this->firstname . ' ' . $this->phoneNumber . ' ' . $this->email . ' ' . $this->isActive;
+        return $this->picture;
     }
 
+    public function setPicture(string $picture): static
+    {
+        $this->picture = $picture;
 
+        return $this;
+    }
 }
