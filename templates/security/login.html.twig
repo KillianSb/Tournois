@@ -3,6 +3,7 @@
 {% block title %}Connection{% endblock %}
 
 {% block body %}
+{#
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -13,7 +14,6 @@
             Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('security_logout') }}">Se déconnecter</a>
         </div>
     {% endif %}
-
     <h1 class="h3 mb-3 font-weight-normal">Connection</h1>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
@@ -28,5 +28,51 @@
         Se connecter
     </button>
     <a href="{{ path('registration_register') }}">S'enregistrer</a>
+</form>
+#}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('security_logout') }}">Se déconnecter</a>
+        </div>
+    {% endif %}
+    <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+            <div class="text-center lg:text-left">
+                <h1 class="text-5xl font-bold">Bonjour !</h1>
+                <p class="py-6">Organiser, participé à des tournois avec des joueurs du monde entier et entre amis.</p>
+            </div>
+            <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div class="card-body">
+                    <div class="form-control">
+                        <label class="label" for="inputEmail">
+                            <span class="label-text">Email</span>
+                        </label>
+                        <input type="email" placeholder="Email" value="{{ last_username }}" name="email" id="inputEmail"
+                               class="input input-bordered" autocomplete="email" required autofocus />
+                    </div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Mot de passe</span>
+                        </label>
+                        <input type="text" placeholder="Mot de passe" class="input input-bordered" name="password" id="inputPassword" autocomplete="current-password" required/>
+                        <label class="label" for="inputPassword">
+                            <a href="{{ path('registration_register') }}" class="label-text-alt link link-hover">S'inscrire</a>
+                        </label>
+                    </div>
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                    <div class="form-control mt-6">
+                        <button class="btn btn-primary" type="submit">Connexion</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 {% endblock %}

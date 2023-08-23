@@ -41,10 +41,12 @@ class VideoGameType extends AbstractType
                     ]
                 ]
             )
+
             ->add('rules', TextType::class, [
                 'label' => 'Règles du jeu',
                 'required' => true,
             ])
+
         ;
     }
 
