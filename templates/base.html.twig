@@ -16,6 +16,38 @@
 
     <body>
     <header>
+
+        <div class="navbar bg-base-100">
+            <div class="flex-1">
+                <a class="btn btn-ghost normal-case text-xl" href="{{ path('public_home') }}">daisyUI</a>
+            </div>
+            <div class="flex-none">
+                <ul class="menu menu-horizontal px-1">
+                    {% if not app.user %}
+                        <li><a href="{{ path('security_login') }}">Connexion</a></li>
+                    {% endif %}
+                    {% if app.user %}
+                        <li><a href="{{ path('security_logout') }}">{{ app.user.username }} !</a></li>
+                    {% endif %}
+                    <li>
+                        <details>
+                            <summary>
+                                Parent
+                            </summary>
+                            <ul class="p-2 bg-base-100">
+                                {% if app.user %}
+                                    <li><a href="{{ path('profil_infos') }}">Profil</a></li>
+                                {% endif %}
+                                <li><a>Tournois</a></li>
+                                <li><a>Jeux</a></li>
+                                <li><a>Equipes</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
             <div class="connect">
                 {% if not app.user %}
                     <li><a href="{{ path('security_login') }}">Se connecter</a></li>

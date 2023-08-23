@@ -56,13 +56,18 @@
                                class="input input-bordered" autocomplete="email" required autofocus />
                     </div>
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label" for="inputPassword">
                             <span class="label-text">Mot de passe</span>
                         </label>
                         <input type="password" placeholder="Mot de passe" class="input input-bordered" name="password" id="inputPassword" autocomplete="current-password" required/>
-                        <label class="label" for="inputPassword">
+                        <label class="label">
                             <a href="{{ path('registration_register') }}" class="label-text-alt link link-hover">S'inscrire</a>
                         </label>
+                        {#
+                        <label class="label" >
+                            <a href="{{ path('mot_de_passe_oublie') }}" class="label-text-alt link link-hover">Mot de passe oublier</a>
+                        </label>
+                        #}
                     </div>
                     <input type="hidden" name="_csrf_token"
                            value="{{ csrf_token('authenticate') }}"
