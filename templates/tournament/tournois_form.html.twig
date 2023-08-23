@@ -1,4 +1,72 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="form-group">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.rules) }}
+    {{ form_widget(form.rules) }}
+</div>
+
+<div class="dateCreation">
+    <p>Date de création du tournois : {{ dateCreation | date('d F Y H:i') }}</p>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.dateBeginTournament) }}
+    {{ form_widget(form.dateBeginTournament) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.dateEndTournament) }}
+    {{ form_widget(form.dateEndTournament) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.dateLimitRegistration) }}
+    {{ form_widget(form.dateLimitRegistration) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.nbTeamMax) }}
+    {{ form_widget(form.nbTeamMax) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.tournamentInfo) }}
+    {{ form_widget(form.tournamentInfo) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.entryPrice) }}
+    {{ form_widget(form.entryPrice) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.reward) }}
+    {{ form_widget(form.reward) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.videogame) }}
+    {{ form_widget(form.videogame) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.location) }}
+    {{ form_widget(form.location) }}
+</div>
+
+<div class="status">
+    <p>Le tournois est : {{ status }}</p>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.team) }}
+    {{ form_widget(form.team) }}
+</div>
+
 {{ form_end(form) }}
+    <button class="btn">{{ button_label|default('Enregistre ton tournois !') }}</button>
+

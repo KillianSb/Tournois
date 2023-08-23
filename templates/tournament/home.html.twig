@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Rules</th>
                 <th>DateBeginTournament</th>
@@ -25,7 +24,6 @@
         <tbody>
         {% for tournament in tournaments %}
             <tr>
-                <td>{{ tournament.id }}</td>
                 <td>{{ tournament.name }}</td>
                 <td>{{ tournament.rules }}</td>
                 <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('Y-m-d H:i:s') : '' }}</td>
@@ -37,8 +35,8 @@
                 <td>{{ tournament.entryPrice }}</td>
                 <td>{{ tournament.reward }}</td>
                 <td>
-                    <a href="{{ path('_infos', {'id': tournament.id}) }}">Infos</a>
-                    <a href="{{ path('_mofidier', {'id': tournament.id}) }}">Modifier</a>
+                    <a href="{{ path('tournois_home', {'id': tournament.id}) }}">Infos</a>
+                    <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

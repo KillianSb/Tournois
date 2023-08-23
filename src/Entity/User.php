@@ -80,10 +80,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->teams = new ArrayCollection();
     }
 
-    public function __toString()
-    {
-        return $this->getUsername();
-    }
 
     public function getId(): ?int
     {
@@ -286,8 +282,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString(): string
     {
-        return $this->username . ' ' . $this->lastname . ' ' . $this->firstname . ' ' . $this->phoneNumber . ' ' . $this->email . ' ' . $this->isActive;
+        return $this->username;
     }
-
 
 }

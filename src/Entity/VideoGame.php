@@ -19,7 +19,7 @@ class VideoGame
     #[ORM\Column(length: 30)]
     #[Assert\NotBlank(message: "Veuillez indiquer le nombre d'équipe")]
     #[Assert\NotNull]
-    #[Assert\Length(min: 3, minMessage: "Veuillez indiquer au moins 3 caractères")]
+    #[Assert\Length(min: 2, minMessage: "Veuillez indiquer au moins 3 caractères")]
     private ?string $name = null;
 
     #[ORM\Column]
@@ -73,6 +73,11 @@ class VideoGame
     public function getNbTeam(): ?int
     {
         return $this->nbTeam;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public function setNbTeam(int $nbTeam): static

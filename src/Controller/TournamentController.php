@@ -26,6 +26,13 @@ class TournamentController extends AbstractController
     public function nouveau(Request $request, EntityManagerInterface $entityManager): Response
     {
         $tournament = new Tournament();
+
+        //Récupération du statut pour éviter la modification dans le formulaire
+        $status = $tournament->getStatus();
+
+        //Récupération de la date de création pour éviter la modification dans le formulaire
+        $dateCreation = $tournament->getDateCreation();
+
         $form = $this->createForm(TournamentType::class, $tournament);
         $form->handleRequest($request);
 
@@ -39,6 +46,8 @@ class TournamentController extends AbstractController
         return $this->render('tournament/nouveau.html.twig', [
             'tournament' => $tournament,
             'form' => $form,
+            'status' => $status,
+            'dateCreation' => $dateCreation
         ]);
     }
 

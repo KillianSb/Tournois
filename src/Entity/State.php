@@ -14,11 +14,21 @@ class State
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $status = null;
+    private ?string $status;
+
+    public function __construct(?string $status)
+    {
+        $this->status = $status;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString(): string
+    {
+        return $this->status;
     }
 
     public function getStatus(): ?string

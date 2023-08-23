@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\EnumerationStatus;
+use App\Entity\State;
+use App\Entity\Team;
 use App\Entity\Tournament;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,17 +25,16 @@ class TournamentType extends AbstractType
             ->add('dateBeginTournament', null,
                 ['label' => 'Date de debut du tournois']
             )
-            ->add('dateCreation', null,
-                ['label' => 'Date de creation du tournois']
-            )
             ->add('dateEndTournament', null,
                 ['label' => 'Date de fin du tournois']
             )
             ->add('dateLimitRegistration', null,
                 ['label' => 'Date limite d\'inscription du tournois']
             )
-            ->add('nbTeamMax', null,
-                ['label' => 'Nombre de team maximum du tournois']
+            ->add('nbTeamMax', null, [
+                'label' => 'Nombre de team maximum du tournois',
+                'data' => '2',
+                ]
             )
             ->add('tournamentInfo', null,
                 ['label' => 'Infos du tournois']
@@ -48,11 +51,12 @@ class TournamentType extends AbstractType
             ->add('location', null,
                 ['label' => 'Lieu du tournois']
             )
-            ->add('status', null,
-                ['label' => 'Statut du tournois']
-            )
-            ->add('team', null,
-                ['label' => 'Equipe du tournois']
+            ->add('team', EntityType::class, [
+                'class' => Team::class,
+                'label' => 'Equipe du tournois',
+                'multiple' => true,
+                'autocomplete' => true
+                ]
             )
         ;
     }
