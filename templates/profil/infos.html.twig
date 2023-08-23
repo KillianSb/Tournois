@@ -16,6 +16,7 @@
                     <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Nom : {{ infosProfil.lastname }}</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Prénom : {{ infosProfil.firstname }}</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Numéro tel : {{ infosProfil.phoneNumber }}</span>
+
                     {% if infosProfil.roles == "ROLE_ADMIN" %}
                         <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Role : Administrateur</span>
                     {% endif %}
