@@ -19,6 +19,14 @@
                 <th>Bio de l'équipe</th>
                 <td>{{ equipe.bio }}</td>
             </tr>
+            <tr>
+                <th>Liste des joueurs</th>
+                <td>
+                {% for user in equipe.user %}
+                    {{ user.username }}
+                {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 
