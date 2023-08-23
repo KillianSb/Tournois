@@ -24,7 +24,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('public_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('profil_infos', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/modifier.html.twig', [
