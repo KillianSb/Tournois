@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Team;
 use App\Form\TeamType;
 use App\Repository\TeamRepository;
+use App\Repository\UserRepository;
 use App\Services\Censurator;
+use Container0wT8gqy\getTeam2Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +21,7 @@ class TeamController extends AbstractController
 
     // Controleur de la liste des équipes *************************************************************************
     #[Route(
-        '/liste',
+        '/',
         name: '_liste',
         methods: ['GET'])]
     public function liste(
@@ -39,7 +41,7 @@ class TeamController extends AbstractController
         methods: ['GET', 'POST'])]
     public function enregistrement(
         Request $request,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
     ): Response
     {
         $team = new Team();
@@ -68,7 +70,7 @@ class TeamController extends AbstractController
     public function detail(
         Team $team
     ): Response
-    {
+    {;
         return $this->render('equipe/_detail.html.twig', [
             'equipe' => $team,
         ]);

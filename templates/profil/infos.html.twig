@@ -7,34 +7,18 @@
 
     {% block profil %}
         <div class="blockProfil">
-            <div class="blockH2Profil">
-                <h2 id="h2Profil">Mon profil</h2>
-            </div>
-            <div class="informations">
-                <div class="infos">
-                    <p>Pseudo : </p>
-                    <p>{{ infosProfil.username }}</p>
-                </div>
-                <div class="infos">
-                    <p>Mail : </p>
-                    <p>{{ infosProfil.email }}</p>
-                </div>
-                <div class="infos">
-                    <p>Nom : </p>
-                    <p>{{ infosProfil.lastname }}</p>
-                </div>
-                <div class="infos">
-                    <p>Prénom : </p>
-                    <p>{{ infosProfil.firstname }}</p>
-                </div>
-                <div class="infos">
-                    <p>Numéro tel : </p>
-                    <p>{{ infosProfil.phoneNumber }}</p>
-                </div>
-                <div class="infos">
+            <div class="w-full max-w-screen-xl bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex flex-col items-center p-14">
+                    <img class="w-32 h-32 mb-3 rounded-full shadow-lg" src="{{ asset(infosProfil.picture) }}" alt="avatar de {{ infosProfil.username }}"/>
+                    <h5 class="font-medium text-gray-900 dark:text-white m-4 text-4xl">Mon profil</h5>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Pseudo : {{ infosProfil.username }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Mail : {{ infosProfil.email }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Nom : {{ infosProfil.lastname }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Prénom : {{ infosProfil.firstname }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Numéro tel : {{ infosProfil.phoneNumber }}</span>
+
                     {% if infosProfil.roles == "ROLE_ADMIN" %}
-                        <p>Role : </p>
-                        <p>Administrateur</p>
+                        <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Role : Administrateur</span>
                     {% endif %}
                 </div>
             </div>
