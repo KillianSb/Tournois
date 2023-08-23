@@ -83,10 +83,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->teams = new ArrayCollection();
     }
 
-    public function __toString()
-    {
-        return $this->getUsername();
-    }
 
     public function getId(): ?int
     {
@@ -289,6 +285,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPicture(): ?string
     {
+
         return $this->picture;
     }
 

@@ -36,6 +36,11 @@ class Location
     #[ORM\Column(nullable: true)]
     private ?float $longitude = null;
 
+    public function __toString(): string
+    {
+        return $this->region;
+    }
+
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Tournament::class)]
     private Collection $tournaments;
 
