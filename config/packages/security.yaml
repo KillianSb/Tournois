@@ -26,6 +26,11 @@ security:
                 lifetime: 604800
                 path: /
                 always_remember_me: true
+    role_hierarchy:
+        ROLE_TEAM_LEADER : ROLE_USER
+        ROLE_ORGANIZER: ROLE_USER
+        ROLE_ADMIN: [ROLE_USER, ROLE_TEAM_LEADER, ROLE_ORGANIZER]
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -37,7 +42,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/profil, roles: ROLE_USER }
+        # - { path: ^/tournament, roles: ROLE_USER }
 
 when@test:
     security:
