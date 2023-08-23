@@ -59,7 +59,7 @@
                         <label class="label">
                             <span class="label-text">Mot de passe</span>
                         </label>
-                        <input type="text" placeholder="Mot de passe" class="input input-bordered" name="password" id="inputPassword" autocomplete="current-password" required/>
+                        <input type="password" placeholder="Mot de passe" class="input input-bordered" name="password" id="inputPassword" autocomplete="current-password" required/>
                         <label class="label" for="inputPassword">
                             <a href="{{ path('registration_register') }}" class="label-text-alt link link-hover">S'inscrire</a>
                         </label>
@@ -67,6 +67,11 @@
                     <input type="hidden" name="_csrf_token"
                            value="{{ csrf_token('authenticate') }}"
                     >
+                    <label>
+                        <input type="checkbox" name="_remember_me" checked>
+                        Rester connecté
+                    </label>
+
                     <div class="form-control mt-6">
                         <button class="btn btn-primary" type="submit">Connexion</button>
                     </div>

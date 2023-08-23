@@ -3,8 +3,9 @@
 {% block title %}Crée un compte{% endblock %}
 
 {% block body %}
-    <h1>Crée un compte</h1>
+{#
 
+    <h1>Crée un compte</h1>
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
@@ -35,4 +36,51 @@
 
         <button type="submit" class="btn">S'enregistrer</button>
     {{ form_end(registrationForm) }}
+#}
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+
+    <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+            <div class="text-center lg:text-left">
+                <h1 class="text-5xl font-bold">Inscription</h1>
+                <p class="py-6">Organiser, participé à des tournois avec des joueurs du monde entier et entre amis.</p>
+            </div>
+            <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div class="card-body">
+                    <div class="form-control">
+                        {{ form_row(registrationForm.email) }}
+                    </div>
+                    <div class="form-control">
+                        {{ form_row(registrationForm.username) }}
+                    </div>
+                    <div class="form-control">
+                        {{ form_row(registrationForm.lastname) }}
+                    </div>
+                    <div class="form-control">
+                        {{ form_row(registrationForm.firstname) }}
+                    </div>
+                    <div class="form-control">
+                        {{ form_row(registrationForm.picture) }}
+                    </div>
+                    <div class="form-control">
+                        {{ form_row(registrationForm.phone_number) }}
+                    </div>
+                    <div class="form-control">
+                        {{ form_row(registrationForm.plainPassword) }}
+                    </div>
+                    <div class="form-control">
+                        {{ form_row(registrationForm.agreeTerms) }}
+                    </div>
+
+                    <div class="form-control mt-6">
+                        <button class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(registrationForm) }}
+
 {% endblock %}
