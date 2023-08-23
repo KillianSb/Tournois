@@ -8,7 +8,7 @@
         <div class="hero-overlay bg-opacity-60"></div>
         <div class="hero-content text-center text-neutral-content">
             <div class="max-w-md">
-                <h1 class="mb-5 text-5xl font-bold">{{ video_game.name }}</h1>
+                <h1 class="mb-5 text-5xl font-bold">{{ videoGame.name }}</h1>
             </div>
         </div>
     </div>
@@ -37,6 +37,15 @@
             </button>
         </form>
 
+    </div>
+    <div>
+        {% for tournament in tournaments %}
+            <p>{{ tournament.name }}</p>
+        {% else %}
+            <tr>
+                <td>Aucun résultats</td>
+            </tr>
+        {% endfor %}
     </div>
 {#
     <h1>Jeu video</h1>
