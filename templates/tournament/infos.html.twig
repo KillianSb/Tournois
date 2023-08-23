@@ -8,47 +8,43 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ tournament.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
+                <th>Nom du tournois</th>
                 <td>{{ tournament.name }}</td>
             </tr>
             <tr>
-                <th>Rules</th>
+                <th>Règles</th>
                 <td>{{ tournament.rules }}</td>
             </tr>
             <tr>
-                <th>DateBeginTournament</th>
-                <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date de début du tournois</th>
+                <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('d F Y H:i') : '' }}</td>
             </tr>
             <tr>
-                <th>DateCreation</th>
-                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date de création</th>
+                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('d F Y H:i') : '' }}</td>
             </tr>
             <tr>
-                <th>DateEndTournament</th>
-                <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date de fin</th>
+                <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('d F Y H:i') : '' }}</td>
             </tr>
             <tr>
-                <th>DateLimitRegistration</th>
-                <td>{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date limite d'inscription</th>
+                <td>{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('d F Y H:i') : '' }}</td>
             </tr>
             <tr>
-                <th>NbTeamMax</th>
+                <th>Nombre d'équipe maximum</th>
                 <td>{{ tournament.nbTeamMax }}</td>
             </tr>
             <tr>
-                <th>TournamentInfo</th>
+                <th>Informations du tournois</th>
                 <td>{{ tournament.tournamentInfo }}</td>
             </tr>
             <tr>
-                <th>EntryPrice</th>
-                <td>{{ tournament.entryPrice }}</td>
+                <th>Prix d'entrée</th>
+                <td>{{ tournament.entryPrice }}€</td>
             </tr>
             <tr>
-                <th>Reward</th>
+                <th>Récompense 🤑</th>
                 <td>{{ tournament.reward }}</td>
             </tr>
         </tbody>
