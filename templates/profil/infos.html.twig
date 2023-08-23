@@ -9,7 +9,7 @@
         <div class="blockProfil">
             <div class="w-full max-w-screen-xl bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex flex-col items-center p-14">
-                    <img class="w-32 h-32 mb-3 rounded-full shadow-lg" src="/docs/images/people/profile-picture-3.jpg" alt="Bonnie image"/>
+                    <img class="w-32 h-32 mb-3 rounded-full shadow-lg" src="{{ asset(infosProfil.picture) }}" alt="avatar de {{ infosProfil.username }}"/>
                     <h5 class="font-medium text-gray-900 dark:text-white m-4 text-4xl">Mon profil</h5>
                     <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Pseudo : {{ infosProfil.username }}</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Mail : {{ infosProfil.email }}</span>
