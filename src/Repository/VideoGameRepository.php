@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\VideoGame;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<VideoGame>
@@ -29,7 +29,18 @@ class VideoGameRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findTournamentByVideoGame(): Paginator{
+        $query = $this->createQueryBuilder('t')
+            ->innerJoin('t.videoGame', 'g')
+            ->setParameter('date', new \DateTimeImmutable())
+            ->andWhere('g.dateBeginTournament > :date')
+            ->orderBy('g.dateBeginTournament', 'DESC')
+            ->getQuery();
 
+        $query->setMaxResults(10);
+
+        return new Paginator($query);
+    }
 
 //    /**
 //     * @return VideoGame[] Returns an array of VideoGame objects

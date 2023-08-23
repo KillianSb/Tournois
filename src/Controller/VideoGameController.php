@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\VideoGame;
 use App\Form\VideoGameType;
+use App\Repository\TournamentRepository;
 use App\Repository\VideoGameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,11 +44,20 @@ class VideoGameController extends AbstractController
     }
 
     #[Route('/{id}', name: 'video_game_show', methods: ['GET'])]
-    public function show(VideoGame $videoGame): Response
+    public function show(
+        VideoGame $videoGame,
+        VideoGameRepository $videoGameRepository,
+        TournamentRepository $tournamentRepository
+    ): Response
     {
-        return $this->render('video_game/show.html.twig', [
-            'video_game' => $videoGame,
-        ]);
+        $tournaments = $tournamentRepository->findAll();
+
+        return $this->render('video_game/show.html.twig',
+            compact(
+                'tournaments',
+                'videoGame'
+            )
+        );
     }
 
     #[Route('/{id}/modifier', name: 'video_game_edit', methods: ['GET', 'POST'])]
