@@ -2,12 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\EnumerationStatus;
-use App\Entity\State;
 use App\Entity\Team;
 use App\Entity\Tournament;
+use App\Entity\VideoGame;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -32,7 +32,7 @@ class TournamentType extends AbstractType
                 ['label' => 'Date limite d\'inscription du tournois']
             )
             ->add('nbTeamMax', null, [
-                'label' => 'Nombre de team maximum du tournois',
+                'label' => 'Nombre d\'équipe maximum',
                 'data' => '2',
                 ]
             )
@@ -45,8 +45,10 @@ class TournamentType extends AbstractType
             ->add('reward', null,
                 ['label' => 'Recompense du tournois']
             )
-            ->add('videogame', null,
-                ['label' => 'Jeu du tournois']
+            ->add('videogame', EntityType::class, [
+                'class' => Videogame::class,
+                'label' => 'Jeu du tournois'
+                ]
             )
             ->add('location', null,
                 ['label' => 'Lieu du tournois']

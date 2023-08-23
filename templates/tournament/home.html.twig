@@ -8,17 +8,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Rules</th>
-                <th>DateBeginTournament</th>
-                <th>DateCreation</th>
-                <th>DateEndTournament</th>
-                <th>DateLimitRegistration</th>
-                <th>NbTeamMax</th>
-                <th>Info Tournois</th>
+                <th>Nom du tournois</th>
+                <th>Régles</th>
+                <th>Date de début</th>
+                <th>Date de création</th>
+                <th>Date de fin de tournois</th>
+                <th>Date limmite d'inscription</th>
+                <th>Nombre d'équipe maximum</th>
+                <th>Informations du tournois</th>
                 <th>Prix d'entrée</th>
-                <th>Récompense</th>
-                <th>actions</th>
+                <th>Récompense 🤑</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,16 +26,16 @@
             <tr>
                 <td>{{ tournament.name }}</td>
                 <td>{{ tournament.rules }}</td>
-                <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('d F Y H:i') : '' }}</td>
+                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('d F Y H:i') : '' }}</td>
+                <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('d F Y H:i') : '' }}</td>
+                <td>{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('d F Y H:i') : '' }}</td>
                 <td>{{ tournament.nbTeamMax }}</td>
                 <td>{{ tournament.tournamentInfo }}</td>
-                <td>{{ tournament.entryPrice }}</td>
+                <td>{{ tournament.entryPrice }}€</td>
                 <td>{{ tournament.reward }}</td>
                 <td>
-                    <a href="{{ path('tournois_home', {'id': tournament.id}) }}">Infos</a>
+                    <a href="{{ path('tournois_infos', {'id': tournament.id}) }}">Infos</a>
                     <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}">Modifier</a>
                 </td>
             </tr>

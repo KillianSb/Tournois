@@ -3,4 +3,6 @@
 @tailwind utilities;
 
 body {
+    background-color: grey;
 }
+
