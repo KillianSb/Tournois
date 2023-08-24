@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Profil{% endblock %}
 
 {% block body %}
     <h1>Profil</h1>
@@ -10,19 +10,19 @@
             <div class="w-full max-w-screen-xl bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex justify-end px-4 pt-4">
                     <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-                        <span class="sr-only">Open dropdown</span>
+                        <span class="sr-only">Ouvrir la liste déroulante</span>
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
                             <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
                         </svg>
                     </button>
-                    <!-- Dropdown menu -->
+                    <!-- liste menu -->
                     <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                         <ul class="py-2" aria-labelledby="dropdownButton">
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Modifier</a>
+                                <a href="{{ path('utilisateur_modifier', {'id': infosProfil.id}) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Modifier</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Supprimer</a>
+                                <a href="{{ path('utilisateur_supprimer', {'id': infosProfil.id}) }}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Supprimer</a>
                             </li>
                         </ul>
                     </div>
@@ -36,7 +36,13 @@
                     <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Prénom : {{ infosProfil.firstname }}</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Numéro tel : {{ infosProfil.phoneNumber }}</span>
 
-                    {% if infosProfil.roles == "ROLE_ADMIN" %}
+                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Equipes : </span>
+                    {% for team in teams %}
+                        <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">{{ team.name }}</span>
+                    {% endfor %}
+
+
+                    {% if is_granted('ROLE_ADMIN') %}
                         <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Role : Administrateur</span>
                     {% endif %}
                 </div>
