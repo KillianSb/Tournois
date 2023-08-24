@@ -27,15 +27,17 @@
             </td>
         </tr>
         #}
-    <div class="grid grid-cols-3 gap-4 place-content-center ...">
+    <div class="grid grid-cols-3 gap-4 place-content-center m-5">
         {% for video_game in video_games %}
 
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
                 <a href="{{ path('video_game_show', {'id': video_game.id}) }}">
-                    <img class="rounded-t-lg" src="#" alt="" />
-                    <div class="p-5">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ video_game.name }}</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ video_game.rules }}</p>
+                    <div>
+                        <img class="rounded-t-lg" src="{{ asset(video_game.picture) }}" alt="" />
+                        <div class="p-5">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ video_game.name }}</h5>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ video_game.rules }}</p>
+                        </div>
                     </div>
                 </a>
             </div>

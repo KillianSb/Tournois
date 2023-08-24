@@ -36,6 +36,9 @@ class VideoGame
     #[ORM\Column(length: 255)]
     private ?string $rules = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $picture = null;
+
     public function __construct()
     {
         $this->tournaments = new ArrayCollection();
@@ -127,6 +130,18 @@ class VideoGame
     public function setRules(string $rules): static
     {
         $this->rules = $rules;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }
