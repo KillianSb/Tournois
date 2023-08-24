@@ -17,6 +17,10 @@
         "symfony/flex": "^2",
         "symfony/form": "6.3.*",
         "symfony/framework-bundle": "6.3.*",
+        "symfony/http-client": "6.3.*",
+        "symfony/mailer": "6.3.*",
+        "symfony/mailgun-mailer": "6.3.*",
+        "symfony/monolog-bundle": "^3.0",
         "symfony/runtime": "6.3.*",
         "symfony/security-bundle": "6.3.*",
         "symfony/stimulus-bundle": "^2.10",
@@ -26,11 +30,16 @@
         "symfony/validator": "6.3.*",
         "symfony/webpack-encore-bundle": "^2.0",
         "symfony/yaml": "6.3.*",
+        "symfonycasts/reset-password-bundle": "^1.17",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.50"
+        "symfony/debug-bundle": "6.3.*",
+        "symfony/maker-bundle": "^1.50",
+        "symfony/stopwatch": "6.3.*",
+        "symfony/var-dumper": "6.3.*",
+        "symfony/web-profiler-bundle": "6.3.*"
     },
     "config": {
         "allow-plugins": {
