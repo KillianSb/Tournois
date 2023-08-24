@@ -74,8 +74,14 @@
                            value="{{ csrf_token('authenticate') }}"
                     >
                     <label>
-                        <input type="checkbox" name="_remember_me" checked>
-                        Rester connecté
+                        <div class="flex flex-col">
+                            <div class="form-control w-40">
+                                <label class="cursor-pointer label">
+                                    <span class="label-text">Rester connecté</span>
+                                    <input type="checkbox"  name="_remember_me" class="toggle toggle-accent toggle-sm" checked />
+                                </label>
+                            </div>
+                        </div>
                     </label>
 
                     <div class="form-control mt-6">
