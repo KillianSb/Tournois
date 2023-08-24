@@ -72,7 +72,7 @@ class VideoGameController extends AbstractController
             return $this->redirectToRoute('video_game_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('video_game/edit.html.twig', [
+        return $this->render('video_game/modifier.html.twig', [
             'video_game' => $videoGame,
             'form' => $form,
         ]);

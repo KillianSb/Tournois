@@ -59,9 +59,16 @@ class TournamentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/modifier', name: 'tournois_modifier', methods: ['GET', 'POST'])]
+    #[Route(
+        '/{id}/modifier',
+        name: 'tournois_modifier',
+        methods: ['GET', 'POST']
+    )]
     public function modifier(Request $request, Tournament $tournament, EntityManagerInterface $entityManager): Response
     {
+        $dateCreation = $tournament->getDateCreation();
+        $status = $tournament->getStatus();
+
         $form = $this->createForm(TournamentType::class, $tournament);
         $form->handleRequest($request);
 
@@ -74,6 +81,8 @@ class TournamentController extends AbstractController
         return $this->render('tournament/modifier.html.twig', [
             'tournament' => $tournament,
             'form' => $form,
+            'dateCreation' => $dateCreation,
+            'status' => $status
         ]);
     }
 

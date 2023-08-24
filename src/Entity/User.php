@@ -34,9 +34,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\Regex(
+    //TODO exige au moins une lettre Majuscule
+/*    #[Assert\Regex(
         pattern: "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/",
-        message: "Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre et un chiffre.")] // Contraint de validation Regex
+        message: "Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre et un chiffre.")] // Contraint de validation Regex*/
     private ?string $password = null;
 
     #[ORM\Column(length: 30)]
@@ -224,6 +225,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isActive = $isActive;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->username;
     }
 
     /**

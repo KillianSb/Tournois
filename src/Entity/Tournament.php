@@ -78,7 +78,7 @@ class Tournament
 
     public function __construct()
     {
-        //Initialisation à la date du jour
+        //Initialisation des dates en fonction du fuseau horaire Paris
         $timezoneParis = new DateTimeZone('Europe/Paris');
 
         $this->game = new ArrayCollection();
@@ -95,7 +95,6 @@ class Tournament
     {
         return $this->name . ' - ' . ' début du tournois le ' . $this->getDateBeginTournament()->format('d/m/Y ' . ' à ' . ' H:i');
     }
-
 
     public function getId(): ?int
     {
