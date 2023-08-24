@@ -37,9 +37,20 @@
                     <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Numéro tel : {{ infosProfil.phoneNumber }}</span>
 
                     <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Equipes : </span>
-                    {% for team in teams %}
-                        <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">{{ team.name }}</span>
-                    {% endfor %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for team in teams %}
+                            <tr>
+                                <td>{{ team.name }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
 
 
                     {% if is_granted('ROLE_ADMIN') %}
