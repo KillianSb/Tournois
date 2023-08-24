@@ -28,6 +28,9 @@ class Game
     #[ORM\JoinColumn(nullable: false)]
     private ?Tournament $tournament = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $picture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +80,18 @@ class Game
     public function setTournament(?Tournament $tournament): static
     {
         $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }

@@ -60,5 +60,30 @@
                 </div>
             </div>
         </div>
+
+        <br>
+        <br>
+
+        <div class="blockProfil">
+            <div class="w-full max-w-screen-xl bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex flex-col items-center p-14">
+                    <h5 class="font-medium text-gray-900 dark:text-white m-4 text-4xl">Mes Tournois</h5>
+                    {% for tournament in tournaments %}
+                        <div class="hero h-48 m-5 rounded-3xl" style="background-image: url({{ asset(tournament.gamePicture) }});">
+                            <div class="hero-overlay bg-opacity-60 rounded-3xl"></div>
+                            <div class="hero-content text-center text-neutral-content">
+                                <div class="flex items-center mt-4 flex">
+                                    <a href="{{ path('tournois_infos', {id: tournament.id}) }}">
+                                        <span class="text-6xl text-white dark:text-white m-2 text-base flex justify-center">{{ tournament.name |title }}</span>
+                                        <span class="text-xl text-white dark:text-white m-2 text-base">Date Debut : {{ tournament.dateBeginTournament |date("m/d/Y", "Europe/Paris") }}</span>
+                                        <span class="text-xl text-white dark:text-white m-2 text-base">Date Fin : {{ tournament.dateEndTournament |date("m/d/Y", "Europe/Paris") }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     {% endblock %}
 {% endblock %}
