@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+    height: 100%;
+}
+
 body {
+    display: flex;
+    background-color: red;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    margin-top: 50px;
 }
 
