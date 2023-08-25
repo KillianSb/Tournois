@@ -3,35 +3,52 @@
 {% block title %}Team index{% endblock %}
 
 {% block body %}
-    <h1>Liste des équipes</h1>
+    <div class="container flex justify-center">
+        <h1 class="text-5xl font-bold">Liste des équipes</h1>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom d'équipe</th>
-                <th>Nombre de joueurs</th>
-                <th>Bio del'équipe</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for team in teams %}
-            <tr>
-                <td>{{ team.name }}</td>
-                <td>{{ team.nbPlayer }}</td>
-                <td>{{ team.bio }}</td>
-                <td>
-                    <a href="{{ path('_detail', {'id': team.id}) }}">Détail de l'équipe</a>
-                    <a href="{{ path('_detail', {'id': team.id}) }}">Modifier l'équipe</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Aucun enregistrement trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="overflow-x-auto">
+        <table class="table container flex">
+            <thead>
+                <tr>
+                    <th>Nom d'équipe</th>
+                    <th>Nombre de joueurs</th>
+                    <th>Bio del'équipe</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in teams %}
+                    <tr class="team-row" data-url="{{ path('_detail', {'id': team.id}) }}">
+                        <td>
+                            <div class="flex items-center space-x-3">
+                                <div class="avatar">
+                                    <div class="mask mask-squircle w-12 h-12">
+                                        <img src="{{ team.picture }}" alt="{{ team.name }}"/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="font-bold">{{ team.name }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ team.nbPlayer }}</td>
+                        <td>{{ team.bio }}</td>
+                        <td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-ghost btn-xs" href="{{ path('_modification', {'id': team.id}) }}">Modifier l'équipe</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                        <tr>
+                            <td colspan="5">Aucun enregistrement trouvé</td>
+                        </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <a href="{{ path('_enregistrement') }}">Créer une nouvelle équipe</a>
 {% endblock %}
+

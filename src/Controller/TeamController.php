@@ -116,6 +116,6 @@ class TeamController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('equipe_liste', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('_liste', [], Response::HTTP_SEE_OTHER);
     }
 }

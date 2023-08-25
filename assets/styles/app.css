@@ -24,3 +24,20 @@ footer {
     margin-top: 50px;
 }
 
+/*curseur sur ligne tableau équipe*/
+.team-row {
+    cursor: pointer;
+}
+
+.team-row {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.team-row:hover {
+    background-color: #ff3f3f;
+    transform: scale(1.01) translateZ(50px);
+}
+
+table tr {
+    border: solid black;
+}

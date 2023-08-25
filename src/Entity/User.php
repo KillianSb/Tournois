@@ -67,7 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $isAdmin = false;
 
     #[ORM\Column]
-    private ?bool $isActive = true;
+    private ?bool $isActive = false;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Tournament::class)]
     private Collection $tournaments;

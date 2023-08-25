@@ -84,6 +84,7 @@ class Tournament
         $this->team = new ArrayCollection();
         $this->setStatus('open');;
 
+
         $this->dateCreation = new \DateTime('now', $timezoneParis);
         $this->dateBeginTournament = new \DateTime('now', $timezoneParis);
         $this->setDateEndTournament($this->getDateBeginTournament()->add(new \DateInterval('P1D')));
