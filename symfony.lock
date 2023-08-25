@@ -35,6 +35,9 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
+    "gregwar/captcha-bundle": {
+        "version": "v2.2.0"
+    },
     "symfony/console": {
         "version": "6.3",
         "recipe": {

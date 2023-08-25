@@ -45,7 +45,7 @@
         <div class="hero-content flex-col lg:flex-row-reverse">
             <div class="text-center lg:text-left">
                 <h1 class="text-5xl font-bold">Inscription</h1>
-                <p class="py-6">Organiser, participé à des tournois avec des joueurs du monde entier et entre amis.</p>
+                <p class="py-6">Organiser, participer à des tournois avec des joueurs du monde entier et entre amis.</p>
             </div>
             <div class="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100 m-3">
                 <div class="card-body">
@@ -124,7 +124,10 @@
                         </div>
                     </div>
 
-                    <div class="form-control mt-6">
+                    <div class="form-control">
+                        {{ form_row(registrationForm.captcha) }}
+                    </div>
+                    <div class="form-control mt-6 ">
                         <button class="btn btn-primary">Inscription</button>
                     </div>
                 </div>
