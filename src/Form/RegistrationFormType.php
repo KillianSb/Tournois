@@ -25,24 +25,28 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Adresse mail ',
                 'attr' => [
                     'class' => 'input input-bordered',
+                    'placeholder' => 'Pierre@gmail.com',
                 ]
             ])
             ->add('username',TextType::class, [
                 'label' => 'Pseudo ',
                 'attr' => [
                     'class' => 'input input-bordered',
+                    'placeholder' => 'PierreP',
                 ]
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom ',
                 'attr' => [
                     'class' => 'input input-bordered',
+                    'placeholder' => 'Pierre',
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom ',
                 'attr' => [
                     'class' => 'input input-bordered',
+                    'placeholder' => 'Pierre',
                 ]
             ])
             ->add('picture', TextType::class, [
@@ -56,6 +60,7 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Numéro de téléphone ',
                 'attr' => [
                     'class' => 'input input-bordered',
+                    'placeholder' => '0422521010',
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [
@@ -65,7 +70,8 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password',
-                    'class' => 'input input-bordered'
+                    'class' => 'input input-bordered',
+                    'placeholder' => '****',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -76,14 +82,6 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'Votre mot de passe doit être au moins {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
-                    ]),
-                ],
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'Vous devez accepter nos conditions.',
                     ]),
                 ],
             ])

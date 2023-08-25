@@ -39,13 +39,20 @@
 
     </div>
     <div>
-        {% for tournament in tournaments %}
+{#        {% for tournament in tournaments %}
             <p>{{ tournament.name }}</p>
         {% else %}
             <tr>
                 <td>Aucun résultats</td>
             </tr>
-        {% endfor %}
+        {% endfor %}#}
+
+        <h2>Tournois associés :</h2>
+        <ul>
+            {% for tournament in tournaments %}
+                <li>{{ tournament.name }}</li>
+            {% endfor %}
+        </ul>
     </div>
 {#
     <h1>Jeu video</h1>
