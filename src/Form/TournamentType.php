@@ -31,11 +31,12 @@ class TournamentType extends AbstractType
             ->add('dateLimitRegistration', null,
                 ['label' => 'Date limite d\'inscription du tournois']
             )
+
             ->add('nbTeamMax', null, [
                 'label' => 'Nombre d\'équipe maximum',
                 'data' => '2',
-                ]
-            )
+            ])
+
             ->add('tournamentInfo', null,
                 ['label' => 'Infos du tournois']
             )
