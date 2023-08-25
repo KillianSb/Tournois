@@ -66,7 +66,5 @@
     {{ form_label(form.team) }}
     {{ form_widget(form.team) }}
 </div>
-
+<button class="btn">{{ button_label|default('Enregistre ton tournois !') }}</button>
 {{ form_end(form) }}
-    <button class="btn">{{ button_label|default('Enregistre ton tournois !') }}</button>
-
