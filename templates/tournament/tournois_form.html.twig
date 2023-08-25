@@ -1,5 +1,5 @@
 {{ form_start(form) }}
-<div class="form-group">
+<div class="form-group ">
     {{ form_label(form.name) }}
     {{ form_widget(form.name) }}
 </div>
@@ -9,14 +9,16 @@
     {{ form_widget(form.rules) }}
 </div>
 
-<div class="dateCreation">
-    <p>Date de création du tournois : {{ dateCreation | date('d F Y H:i') }}</p>
-</div>
-
 <div class="form-group">
     {{ form_label(form.dateBeginTournament) }}
     {{ form_widget(form.dateBeginTournament) }}
 </div>
+
+{#
+    <div class="dateCreation block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        <p>Date de création du tournois : {{ dateCreation | date('d F Y H:i') }}</p>
+    </div>
+
 
 <div class="form-group">
     {{ form_label(form.dateEndTournament) }}
@@ -27,6 +29,7 @@
     {{ form_label(form.dateLimitRegistration) }}
     {{ form_widget(form.dateLimitRegistration) }}
 </div>
+#}
 
 <div class="form-group">
     {{ form_label(form.nbTeamMax) }}
@@ -58,13 +61,15 @@
     {{ form_widget(form.location) }}
 </div>
 
-<div class="status">
-    <p>Le tournois est : {{ status }}</p>
-</div>
-
+{#
+    <div class="status">
+        <p>Le tournois est : {{ status }}</p>
+    </div>
 <div class="form-group">
     {{ form_label(form.team) }}
     {{ form_widget(form.team) }}
 </div>
+#}
 <button class="btn">{{ button_label|default('Enregistre ton tournois !') }}</button>
+
 {{ form_end(form) }}
