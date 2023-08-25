@@ -10,10 +10,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[Route('/tournois')]
 class TournamentController extends AbstractController
 {
+
+    public function __construct(
+        public HttpClientInterface $client
+    ) {
+    }
     #[Route('/', name: 'tournois_home', methods: ['GET'])]
     public function home(TournamentRepository $tournamentRepository): Response
     {
@@ -23,18 +29,41 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'tournois_nouveau', methods: ['GET', 'POST'])]
-    public function nouveau(Request $request, EntityManagerInterface $entityManager): Response
+    public function nouveau(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        HttpClientInterface $client
+    ): Response
     {
-        $tournament = new Tournament();
+        /*
+        //Requête de l'API La Poste pour récupérer les adresses
 
+        $response = $client->request('GET', 'https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port');
+
+        $statusCode = $response->getStatusCode();
+        $content = $response->getContent();
+
+        //$data = file_get_contents('data.json');
+        $obj = json_decode($content);
+        foreach ($obj->features as $feature) {
+            //echo $feature->properties->label . "<br>";
+            $result[] = $feature->properties->label;
+        }
+        */
+        //dd($result);
+
+        $tournament = new Tournament();
         //Récupération du statut pour éviter la modification dans le formulaire
-        $status = $tournament->getStatus();
+        //$status = $tournament->getStatus();
 
         //Récupération de la date de création pour éviter la modification dans le formulaire
-        $dateCreation = $tournament->getDateCreation();
+        //$dateCreation = $tournament->getDateCreation();
 
         $form = $this->createForm(TournamentType::class, $tournament);
         $form->handleRequest($request);
+
+        $user = $this->getUser();
+        $tournament->setUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($tournament);
@@ -46,8 +75,8 @@ class TournamentController extends AbstractController
         return $this->render('tournament/nouveau.html.twig', [
             'tournament' => $tournament,
             'form' => $form,
-            'status' => $status,
-            'dateCreation' => $dateCreation
+            //'status' => $status,
+            //'dateCreation' => $dateCreation,
         ]);
     }
 

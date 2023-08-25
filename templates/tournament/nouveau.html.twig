@@ -3,9 +3,13 @@
 {% block title %}Nouveau Tournois{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau tournois</h1>
+    <h1 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Créer un nouveau tournois</h1>
+    <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
+        <div class="">
+            {{ include('tournament/tournois_form.html.twig') }}
+        </div>
+    </div>
 
-    {{ include('tournament/tournois_form.html.twig') }}
 
     <a href="{{ path('tournois_home') }}">Retour au tournois</a>
 {% endblock %}

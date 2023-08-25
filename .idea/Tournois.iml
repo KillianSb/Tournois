@@ -85,6 +85,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/uid" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-autocomplete" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/web-profiler-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client-contracts" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
