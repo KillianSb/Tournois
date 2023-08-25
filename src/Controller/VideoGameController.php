@@ -50,7 +50,7 @@ class VideoGameController extends AbstractController
         TournamentRepository $tournamentRepository
     ): Response
     {
-        $tournaments = $tournamentRepository->findAll();
+        $tournaments = $tournamentRepository->findBy(['videogame' => $videoGame]);
 
         return $this->render('video_game/show.html.twig',
             compact(

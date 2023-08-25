@@ -46,19 +46,47 @@
                 <h1 class="text-5xl font-bold">Inscription</h1>
                 <p class="py-6">Organiser, participer à des tournois avec des joueurs du monde entier et entre amis.</p>
             </div>
-            <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div class="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100 m-3">
                 <div class="card-body">
+
                     <div class="form-control">
-                        {{ form_row(registrationForm.email) }}
+                        <div class="form-control w-54">
+                            <label class="infos-register label flex justify-center flex-col">
+                                {{ form_label(registrationForm.email) }}
+                                {{ form_widget(registrationForm.email) }}
+                                {{ form_errors(registrationForm.email) }}
+                            </label>
+                        </div>
                     </div>
+
                     <div class="form-control">
-                        {{ form_row(registrationForm.username) }}
+                        <div class="form-control w-54 block">
+                            <label class="infos-register label flex justify-center flex-col">
+                                {{ form_label(registrationForm.username) }}
+                                {{ form_widget(registrationForm.username) }}
+                                {{ form_errors(registrationForm.username) }}
+                            </label>
+                        </div>
                     </div>
+
                     <div class="form-control">
-                        {{ form_row(registrationForm.lastname) }}
+                        <div class="form-control w-54">
+                            <label class="infos-register label flex justify-center flex-col">
+                                {{ form_label(registrationForm.lastname) }}
+                                {{ form_widget(registrationForm.lastname) }}
+                                {{ form_errors(registrationForm.lastname) }}
+                            </label>
+                        </div>
                     </div>
+
                     <div class="form-control">
-                        {{ form_row(registrationForm.firstname) }}
+                        <div class="form-control w-54">
+                            <label class="infos-register label flex justify-center flex-col">
+                                {{ form_label(registrationForm.firstname) }}
+                                {{ form_widget(registrationForm.firstname) }}
+                                {{ form_errors(registrationForm.firstname) }}
+                            </label>
+                        </div>
                     </div>
                     {#
                     <div class="form-control">
@@ -67,19 +95,39 @@
                     #}
 
                     <div class="form-control">
-                        {{ form_row(registrationForm.phone_number) }}
+                        <div class="form-control w-54">
+                            <label class="infos-register label flex justify-center flex-col">
+                                {{ form_label(registrationForm.phone_number) }}
+                                {{ form_widget(registrationForm.phone_number) }}
+                                {{ form_errors(registrationForm.phone_number) }}
+                            </label>
+                        </div>
                     </div>
+
                     <div class="form-control">
-                        {{ form_row(registrationForm.plainPassword) }}
+                        <div class="form-control w-54">
+                            <label class="infos-register label flex justify-center flex-col">
+                                {{ form_label(registrationForm.plainPassword) }}
+                                {{ form_widget(registrationForm.plainPassword) }}
+                                {{ form_errors(registrationForm.plainPassword) }}
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-control">
-                        {{ form_row(registrationForm.agreeTerms) }}
+
+                    <div class="form-control ">
+                        <div class="form-control w-54">
+                            <label class="infos-register label flex justify-center">
+                                <span class="label-text m-3">Accepter les conditions</span>
+                                <input type="checkbox" class="toggle toggle-accent toggle-sm" required />
+                            </label>
+                        </div>
                     </div>
+
                     <div class="form-control">
                         {{ form_row(registrationForm.captcha) }}
                     </div>
                     <div class="form-control mt-6 ">
-                        <button class="btn btn-primary">S'inscrire</button>
+                        <button class="btn btn-primary">Inscription</button>
                     </div>
                 </div>
             </div>

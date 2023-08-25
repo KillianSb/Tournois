@@ -62,13 +62,6 @@ class Tournament
     #[ORM\JoinColumn(nullable: false)]
     private ?Location $location = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?State $status;
-
-    #[ORM\OneToMany(mappedBy: 'tournament', targetEntity: Game::class)]
-    private Collection $game;
-
     #[ORM\ManyToOne(inversedBy: 'tournaments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
@@ -76,19 +69,26 @@ class Tournament
     #[ORM\ManyToMany(targetEntity: Team::class, inversedBy: 'tournaments')]
     private Collection $team;
 
+    #[ORM\ManyToOne(inversedBy: 'tournaments')]
+    private ?Game $game = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $status = null;
+
     public function __construct()
     {
         //Initialisation des dates en fonction du fuseau horaire Paris
         $timezoneParis = new DateTimeZone('Europe/Paris');
 
-        $this->game = new ArrayCollection();
+        //$this->game = new ArrayCollection();
         $this->team = new ArrayCollection();
-        $this->status = new State();
+        $this->setStatus('open');;
+
 
         $this->dateCreation = new \DateTime('now', $timezoneParis);
         $this->dateBeginTournament = new \DateTime('now', $timezoneParis);
-        $this->dateEndTournament = new \DateTime('now', $timezoneParis);
-        $this->dateLimitRegistration = new \DateTime('now', $timezoneParis);
+        $this->setDateEndTournament($this->getDateBeginTournament()->add(new \DateInterval('P1D')));
+        $this->setDateLimitRegistration($this->getDateBeginTournament());
     }
 
     public function __toString(): string
@@ -245,17 +245,6 @@ class Tournament
         return $this;
     }
 
-    public function getStatus(): ?State
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?State $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Game>
@@ -319,6 +308,25 @@ class Tournament
     public function removeTeam(Team $team): static
     {
         $this->team->removeElement($team);
+
+        return $this;
+    }
+
+    public function setGame(?Game $game): static
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }
