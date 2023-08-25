@@ -4,7 +4,6 @@
 
 {% block body %}
 {#
-
     <h1>Crée un compte</h1>
     {{ form_errors(registrationForm) }}
 
@@ -80,12 +79,11 @@
                         {{ form_row(registrationForm.captcha) }}
                     </div>
                     <div class="form-control mt-6 ">
-                        <button class="btn btn-primary">Se connecter</button>
+                        <button class="btn btn-primary">S'inscrire</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     {{ form_end(registrationForm) }}
-
 {% endblock %}

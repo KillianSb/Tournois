@@ -3,6 +3,16 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <h1>Titre</h1>
-
+    <h1>Page d'accueil</h1>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div>
+                <div class="divMess">
+                    <div class="messFlash">
+                        {{ message }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
 {% endblock %}

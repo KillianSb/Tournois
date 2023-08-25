@@ -83,7 +83,7 @@ class Tournament
 
         $this->game = new ArrayCollection();
         $this->team = new ArrayCollection();
-        $this->status = new State('Ouvert');
+        $this->status = new State();
 
         $this->dateCreation = new \DateTime('now', $timezoneParis);
         $this->dateBeginTournament = new \DateTime('now', $timezoneParis);
