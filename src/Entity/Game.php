@@ -35,6 +35,9 @@ class Game
     }
 
 
+    #[ORM\Column(length: 255)]
+    private ?string $picture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,17 +79,8 @@ class Game
         return $this;
     }
 
-    public function getTournament(): ?Tournament
-    {
-        return $this->tournament;
-    }
+    
 
-    public function setTournament(?Tournament $tournament): static
-    {
-        $this->tournament = $tournament;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Tournament>
@@ -114,6 +108,16 @@ class Game
                 $tournament->setGame(null);
             }
         }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): static
+    {
+        $this->picture = $picture;
+
 
         return $this;
     }

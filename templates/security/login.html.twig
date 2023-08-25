@@ -62,6 +62,7 @@
                         <input type="password" placeholder="Mot de passe" class="input input-bordered" name="password" id="inputPassword" autocomplete="current-password" required/>
                         <label class="label">
                             <a href="{{ path('registration_register') }}" class="label-text-alt link link-hover">S'inscrire</a>
+                            <a href="{{ path('_mot_de_passe_oublie') }}" class="label-text-alt link link-hover">Mot de passe oublié ?</a>
                         </label>
                         {#
                         <label class="label" >
@@ -73,8 +74,14 @@
                            value="{{ csrf_token('authenticate') }}"
                     >
                     <label>
-                        <input type="checkbox" name="_remember_me" checked>
-                        Rester connecté
+                        <div class="flex flex-col">
+                            <div class="form-control w-40">
+                                <label class="cursor-pointer label">
+                                    <span class="label-text">Rester connecté</span>
+                                    <input type="checkbox"  name="_remember_me" class="toggle toggle-accent toggle-sm"/>
+                                </label>
+                            </div>
+                        </div>
                     </label>
 
                     <div class="form-control mt-6">

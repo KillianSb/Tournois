@@ -30,21 +30,57 @@
                 <div class="flex flex-col items-center p-14">
                     <img class="w-32 h-32 mb-3 rounded-full shadow-lg" src="{{ asset(infosProfil.picture) }}" alt="avatar de {{ infosProfil.username }}"/>
                     <h5 class="font-medium text-gray-900 dark:text-white m-4 text-4xl">Mon profil</h5>
-                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Pseudo : {{ infosProfil.username }}</span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Mail : {{ infosProfil.email }}</span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Nom : {{ infosProfil.lastname }}</span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Prénom : {{ infosProfil.firstname }}</span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Numéro tel : {{ infosProfil.phoneNumber }}</span>
-
-                    <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Equipes : </span>
-                    {% for team in teams %}
-                        <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">{{ team.name }}</span>
-                    {% endfor %}
-
-
+                    <span class="text-lg text-gray-500 dark:text-gray-400 m-2 text-base">Pseudo : {{ infosProfil.username }}</span>
+                    <span class="text-lg text-gray-500 dark:text-gray-400 m-2 text-base">Mail : {{ infosProfil.email }}</span>
+                    <span class="text-lg text-gray-500 dark:text-gray-400 m-2 text-base">Nom : {{ infosProfil.lastname }}</span>
+                    <span class="text-lg text-gray-500 dark:text-gray-400 m-2 text-base">Prénom : {{ infosProfil.firstname }}</span>
+                    <span class="text-lg text-gray-500 dark:text-gray-400 m-2 text-base">Numéro tel : {{ infosProfil.phoneNumber }}</span>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">Role : Administrateur</span>
+                        <span class="text-lg text-gray-500 dark:text-gray-400 m-2 text-base">Role : Administrateur</span>
                     {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="blockProfil">
+            <div class="w-full max-w-screen-xl bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex flex-col items-center p-14">
+                    <h5 class="font-medium text-gray-900 dark:text-white m-4 text-4xl">Mes Equipes</h5>
+                    {% for team in teams %}
+                        <div class="flex items-center mt-4">
+                            <a href="{{ path('_detail', {id: team.id}) }}">
+                                <img class="w-32 h-32 mb-3 rounded-full shadow-lg" src="{{ asset(team.picture) }}" alt="avatar de {{ team.name }}"/>
+                                <span class="text-sm text-gray-500 dark:text-gray-400 m-2 text-base">{{ team.name }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="blockProfil">
+            <div class="w-full max-w-screen-xl bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex flex-col items-center p-14">
+                    <h5 class="font-medium text-gray-900 dark:text-white m-4 text-4xl">Mes Tournois</h5>
+                    {% for tournament in tournaments %}
+                        <div class="hero h-48 m-5 rounded-3xl" style="background-image: url({{ asset(tournament.gamePicture) }});">
+                            <div class="hero-overlay bg-opacity-60 rounded-3xl"></div>
+                            <div class="hero-content text-center text-neutral-content">
+                                <div class="flex items-center mt-4 flex">
+                                    <a href="{{ path('tournois_infos', {id: tournament.id}) }}">
+                                        <span class="text-2em text-white dark:text-white m-2 text-base flex justify-center underline ">{{ tournament.name |title }}</span>
+                                        <span class="text-xl text-white dark:text-white m-2 text-base">Date Debut : {{ tournament.dateBeginTournament |date("d/m/y H:i", "Europe/Paris") }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -5,9 +5,6 @@ namespace App\Controller;
 use App\Entity\Team;
 use App\Form\TeamType;
 use App\Repository\TeamRepository;
-use App\Repository\UserRepository;
-use App\Services\Censurator;
-use Container0wT8gqy\getTeam2Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -119,6 +116,6 @@ class TeamController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('_liste', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('equipe_liste', [], Response::HTTP_SEE_OTHER);
     }
 }

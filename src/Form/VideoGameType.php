@@ -46,6 +46,11 @@ class VideoGameType extends AbstractType
                 'required' => true,
             ])
 
+            ->add('picture', TextType::class, [
+                'label' => 'Image du jeu',
+                'required' => true,
+            ])
+
         ;
     }
 
