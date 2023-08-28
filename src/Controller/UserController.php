@@ -48,13 +48,11 @@ class UserController extends AbstractController
     #[Route('desactiver/{id}', name: 'utilisateur_desactiver', methods: ['GET','POST'])]
     public function desactiverUtilisateur(Request $request, User $user, EntityManagerInterface $entityManager, Security $security): Response
     {
-
         // Désactiver l'utilisateur actuel
         $security->getUser()->setIsActive(0);
         $entityManager->flush();
+
         // Déconnexion de l'utilisateur actuel
-
         return $this->redirectToRoute('security_logout', [], Response::HTTP_SEE_OTHER);
-
     }
 }

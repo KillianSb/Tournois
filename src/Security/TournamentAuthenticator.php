@@ -2,12 +2,14 @@
 
 namespace App\Security;
 
+use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
@@ -19,6 +21,9 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 class TournamentAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
+
+    private $tokenStorage;
+    private $session;
 
     public const LOGIN_ROUTE = 'security_login';
 
@@ -44,6 +49,18 @@ class TournamentAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        $user = $token->getUser();
+
+        // Check if user is not active
+        if ($user instanceof User && $user->isIsActive() === false) {
+            // Get the user from the token storage
+            /*$user = $this->tokenStorage->getToken()->getUser();*/
+            $session = $request->getSession();
+            $session->set('inactive', 'Votre compte n\'est pas actif. Veuillez contacter l\'assistance.');
+
+            return new RedirectResponse($this->urlGenerator->generate('security_logout'));
+        }
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
