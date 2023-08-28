@@ -69,7 +69,7 @@ class TournamentController extends AbstractController
         $tournament->setUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(["ROLE_ADMIN"]);
+            $user->setRoles(["ROLE_ORGANIZER"]);
             $entityManager->persist($tournament);
             $entityManager->persist($user);
             $entityManager->flush();
