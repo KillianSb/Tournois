@@ -42,6 +42,7 @@ class Team
     {
         $this->tournaments = new ArrayCollection();
         $this->user = new ArrayCollection();
+        $this->setPicture("build/images/default-team.svg");
     }
 
     public function getId(): ?int

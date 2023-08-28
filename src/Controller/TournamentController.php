@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Tournament;
 use App\Form\TournamentType;
+use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,10 +82,20 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'tournois_infos', methods: ['GET'])]
-    public function infos(Tournament $tournament): Response
+    public function infos(
+        Tournament $tournament,
+        TeamRepository $teamRepository)
+    : Response
     {
+        $teams = $teamRepository->findAll();
+
+        // Mélange des équipes
+        // TODO : A mettre en base de donnée pour stocker 1 fois (nouvelle entité ?)
+        shuffle($teams);
+
         return $this->render('tournament/infos.html.twig', [
             'tournament' => $tournament,
+            'teams' => $teams,
         ]);
     }
 

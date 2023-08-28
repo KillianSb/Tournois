@@ -88,7 +88,7 @@ class RegistrationController extends AbstractController
         }
         $user->setIsActive(true);
         $entityManager->flush();
-        $this->addFlash('success', 'Account Verified! You can now log in.');
+        $this->addFlash('success', 'Votre compte est bien vérifié ! Vous pouvez vous connecter.');
         return $this->redirectToRoute('security_login');
     }
 

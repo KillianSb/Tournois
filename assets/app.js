@@ -1,4 +1,4 @@
-
+import './bootstrap';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -10,3 +10,4 @@
 import './styles/app.css';
 import './styles/profil.scss';
 import './js/script.js';
+
