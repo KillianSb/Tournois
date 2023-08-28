@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 #[Route('/equipe')]
@@ -20,7 +21,9 @@ class TeamController extends AbstractController
     #[Route(
         '/',
         name: '_liste',
-        methods: ['GET'])]
+        methods: ['GET']
+    )]
+    #[IsGranted('ROLE_USER')]
     public function liste(
         TeamRepository $teamRepository
     ): Response
@@ -35,7 +38,9 @@ class TeamController extends AbstractController
     #[Route(
         '/enregistrement',
         name: '_enregistrement',
-        methods: ['GET', 'POST'])]
+        methods: ['GET', 'POST']
+    )]
+    #[IsGranted('ROLE_USER')]
     public function enregistrement(
         Request $request,
         EntityManagerInterface $entityManager,
@@ -63,7 +68,9 @@ class TeamController extends AbstractController
     #[Route(
         '/detail{id}',
         name: '_detail',
-        methods: ['GET'])]
+        methods: ['GET']
+    )]
+    #[IsGranted('ROLE_USER')]
     public function detail(
         Team $team
     ): Response
@@ -77,7 +84,10 @@ class TeamController extends AbstractController
     #[Route(
         '/{id}/modification',
         name: '_modification',
-        methods: ['GET', 'POST'])]
+        methods: ['GET', 'POST']
+    )]
+    #[IsGranted('ROLE_USER')]
+    // TODO Mettre un champ "chef d'"équipe" pour faire la vérification
     public function modification(
         Request $request,
         Team $team,
@@ -105,6 +115,8 @@ class TeamController extends AbstractController
         name: '_supprimer',
         methods: ['POST']
     )]
+    #[IsGranted('ROLE_USER')]
+    // TODO Mettre un champ "chef d'"équipe" pour faire la vérification
     public function supprimer(
         Request $request,
         Team $team,
