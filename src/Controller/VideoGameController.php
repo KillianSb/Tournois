@@ -11,11 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/jeu')]
 class VideoGameController extends AbstractController
 {
     #[Route('x', name: 'video_game_index', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(VideoGameRepository $videoGameRepository): Response
     {
         return $this->render('video_game/index.html.twig', [
@@ -24,6 +26,7 @@ class VideoGameController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'video_game_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $videoGame = new VideoGame();
@@ -44,6 +47,7 @@ class VideoGameController extends AbstractController
     }
 
     #[Route('/{id}', name: 'video_game_show', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function show(
         VideoGame $videoGame,
         VideoGameRepository $videoGameRepository,
@@ -61,6 +65,7 @@ class VideoGameController extends AbstractController
     }
 
     #[Route('/{id}/modifier', name: 'video_game_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, VideoGame $videoGame, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(VideoGameType::class, $videoGame);
@@ -79,6 +84,7 @@ class VideoGameController extends AbstractController
     }
 
     #[Route('/{id}', name: 'video_game_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, VideoGame $videoGame, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$videoGame->getId(), $request->request->get('_token'))) {
