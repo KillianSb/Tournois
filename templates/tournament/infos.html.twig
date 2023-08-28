@@ -45,7 +45,7 @@
             </tr>
             <tr>
                 <th>Récompense 🤑</th>
-                <td>{{ tournament.reward }}</td>
+                <td>{{ tournament.reward }}€</td>
             </tr>
         </tbody>
     </table>
@@ -55,4 +55,57 @@
     <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}">Modifier</a>
 
     {{ include('tournament/supprimer.html.twig') }}
+
+    <!-- Tableau du tournois -->
+
+    <div class="container flex justify-center">
+        <h1 class="text-5xl font-bold">Tableau du tournois</h1>
+    </div>
+        <div class="arbres">
+            <div id="arbre1">
+                <div class="round1">
+                    {% for i in 0..(teams|length-1) %}
+                        {% set team1 = teams[i] %}
+                        {% set nextIndex = i + 1 %}
+                        {% if nextIndex < teams|length-1 %}
+                            {% set team2 = teams[nextIndex] %}
+                            <div class="equipe">
+                                <p> <span class="mask mask-squircle w-12 h-12"><img src="{{ asset(team1.picture) }}" alt="{{ team1 }}"/></span>{{ team1 }}</p>
+                                <span>VS</span>
+                                <p><span class="mask mask-squircle w-12 h-12"><img src="{{ asset(team2.picture) }}" alt="{{ team2 }}"/></span>{{ team2 }}</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="round2">
+                <div class="equipe">
+                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
+                    <span>VS</span>
+                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
+                </div>
+                <div class="equipe">
+                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
+                    <span>VS</span>
+                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
+                </div>
+            </div>
+            <div class="round3">
+                <div class="finaliste">
+                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe finaliste</p>
+                </div>
+                <span>VS</span>
+                <div class="finaliste">
+                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe finaliste</p>
+                </div>
+            </div>
+
+            <div class="round4">
+                <div class="gagnant">
+                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>Winner !</p>
+                </div>
+            </div>
+        </div>
+    <br>
+
 {% endblock %}
