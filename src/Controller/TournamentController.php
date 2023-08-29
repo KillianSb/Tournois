@@ -233,6 +233,16 @@ class TournamentController extends AbstractController
                     throw new \Exception('Jeton CSRF invalide.');
                 }
 
-        return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
+            } else {
+                // L'utilisateur n'a pas les droits nécessaires
+                /*throw $this->createAccessDeniedException();*/
+                return $this->redirectToRoute('error_403', [], Response::HTTP_SEE_OTHER);
+            }
+        } else {
+            // L'utilisateur n'est pas autorisé à accéder à cette page
+            /*throw $this->createAccessDeniedException();*/
+            return $this->redirectToRoute('error_403', [], Response::HTTP_SEE_OTHER);
+        }
     }
 }
