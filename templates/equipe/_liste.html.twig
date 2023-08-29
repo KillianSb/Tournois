@@ -14,7 +14,9 @@
                     <th>Nom d'équipe</th>
                     <th>Nombre de joueurs</th>
                     <th>Bio del'équipe</th>
-                    <th>Actions</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Actions</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +26,7 @@
                             <div class="flex items-center space-x-3">
                                 <div class="avatar">
                                     <div class="mask mask-squircle w-12 h-12">
-                                        <img src="{{ team.picture }}" alt="{{ team.name }}"/>
+                                        <img src="{{ asset(team.picture) }}" alt="{{ team.name }}"/>
                                     </div>
                                 </div>
                                 <div>

@@ -21,7 +21,9 @@ class TeamController extends AbstractController
     #[Route(
         '/',
         name: '_liste',
-        methods: ['GET'])]
+        methods: ['GET']
+    )]
+    #[IsGranted('ROLE_USER')]
     public function liste(
         TeamRepository $teamRepository
     ): Response
@@ -38,17 +40,15 @@ class TeamController extends AbstractController
         name: '_enregistrement',
         methods: ['GET', 'POST']
     )]
+    #[IsGranted('ROLE_USER')]
     public function enregistrement(
         Request $request,
         EntityManagerInterface $entityManager,
     ): Response
     {
         $team = new Team();
-            //$team->addUser();
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
-        //dd($form->getData());
-        dd($team);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -68,7 +68,9 @@ class TeamController extends AbstractController
     #[Route(
         '/detail{id}',
         name: '_detail',
-        methods: ['GET'])]
+        methods: ['GET']
+    )]
+    #[IsGranted('ROLE_USER')]
     public function detail(
         Team $team
     ): Response
@@ -110,7 +112,10 @@ class TeamController extends AbstractController
     #[Route(
         '/{id}/modification',
         name: '_modification',
-        methods: ['GET', 'POST'])]
+        methods: ['GET', 'POST']
+    )]
+    #[IsGranted('ROLE_USER')]
+    // TODO Mettre un champ "chef d'"équipe" pour faire la vérification
     public function modification(
         Request $request,
         Team $team,
@@ -138,6 +143,8 @@ class TeamController extends AbstractController
         name: '_supprimer',
         methods: ['POST']
     )]
+    #[IsGranted('ROLE_USER')]
+    // TODO Mettre un champ "chef d'"équipe" pour faire la vérification
     public function supprimer(
         Request $request,
         Team $team,

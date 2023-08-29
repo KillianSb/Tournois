@@ -24,7 +24,7 @@
         "symfony/monolog-bundle": "^3.0",
         "symfony/runtime": "6.3.*",
         "symfony/security-bundle": "6.3.*",
-        "symfony/stimulus-bundle": "^2.10",
+        "symfony/stimulus-bundle": "^2.11",
         "symfony/twig-bundle": "6.3.*",
         "symfony/ux-autocomplete": "^2.11",
         "symfony/ux-turbo": "^2.10",

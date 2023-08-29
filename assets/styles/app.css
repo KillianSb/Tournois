@@ -7,9 +7,7 @@ html, body {
 }
 
 body {
-
     display: flex;
-    background-color: #0d9488;
     flex-direction: column;
     margin: 0;
     padding: 0;
@@ -18,6 +16,7 @@ body {
 
 main {
     flex: 1 0 auto;
+    background-color: #0d9488;
 }
 
 footer {
@@ -41,3 +40,116 @@ footer {
 table tr {
     border: solid black;
 }
+
+/*Tableau du tournois***********************************************************/
+#tree {
+    display:table;
+    width:60%;
+    vertical-align:middle;
+    margin-bottom: 2em;
+}
+
+#tree2 {
+    display:table;
+    width:60%;
+    vertical-align:middle;
+}
+
+.level{
+    display:table-cell;
+    width:33%;
+    vertical-align:middle;
+}
+
+.item {
+    border-right : solid black 5px;
+    margin-bottom: 3em;
+    margin-right: 3em;
+}
+
+.item p {
+    display: flex;
+    justify-content: center;
+    border : solid black;
+}
+
+.item span {
+    display: flex;
+    justify-content: center;
+}
+
+/*Tableau de tournois******************************************************/
+.arbres {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.round {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.equipe,
+.gagnant,
+.finaliste {
+    margin-bottom: 3em;
+    position: relative;
+}
+
+.equipe p,
+.gagnant p,
+.finaliste p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 1em;
+    position: relative;
+    z-index: 1;
+}
+
+.equipe::after,
+.gagnant::after,
+.finaliste::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid #ccc;
+    border-left: none;
+    z-index: 0;
+}
+
+.equipe::after {
+    left: 100%;
+    width: 20px;
+    height: 5em;
+}
+
+.finaliste:first-child::after {
+    left: 100%;
+    width: 20px;
+    height: 9em;
+    top: 170%;
+}
+
+.gagnant::after {
+    right: 100%;
+    width: 50px;
+    height: 1px;
+    top: 50%;
+}
+
+.equipe span,
+.round3 span {
+    display: flex;
+    justify-content: center;
+}
+
+

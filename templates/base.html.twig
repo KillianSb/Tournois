@@ -24,7 +24,7 @@
                 <a class="btn btn-ghost normal-case text-xl" href="{{ path('public_home') }}">Tournaments Master</a>
             </div>
             <div class="flex-none">
-                <ul class="menu menu-horizontal px-1">
+                <ul class="menu menu-horizontal px-1 mr-12">
                     {% if not app.user %}
                         <li><a href="{{ path('security_login') }}">Connexion</a></li>
                     {% endif %}
@@ -36,7 +36,7 @@
                             <summary>
                                 Menu
                             </summary>
-                            <ul class="p-2 bg-base-100">
+                            <ul class="p-2 bg-base-100 mr-12 z-50">
                                 {% if app.user %}
                                     <li><a href="{{ path('profil_infos') }}">Profil</a></li>
                                 {% endif %}
@@ -63,10 +63,9 @@
     </main>
     <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
         <div class="grid grid-flow-col gap-4">
-            <a class="link link-hover">About us</a>
+            <a class="link link-hover">À propos de nous</a>
             <a class="link link-hover">Contact</a>
-            <a class="link link-hover">Jobs</a>
-            <a class="link link-hover">Press kit</a>
+            <a class="link link-hover">Equipe</a>
         </div>
         <div>
             <div class="grid grid-flow-col gap-4">

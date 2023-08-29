@@ -46,6 +46,10 @@ class TeamType extends AbstractType
                 'autocomplete' => true
             ])
 
+            ->add('picture', null, [
+                "label" => "Image Equipe"
+            ])
+
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
                 $form = $event->getForm();
                 $team = $event->getData();
