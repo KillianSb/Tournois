@@ -131,6 +131,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function addOrganizerRole()
+    {
+        $roles = $this->getRoles();
+        if (!in_array('ROLE_ORGANIZER', $roles)) {
+            $roles[] = 'ROLE_ORGANIZER';
+            $this->setRoles($roles);
+            return $this;
+        }
+        return $this;
+    }
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */

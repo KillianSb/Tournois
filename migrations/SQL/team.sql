@@ -1,0 +1,9 @@
+INSERT INTO tournament_db.team (id, name, nb_player, bio, picture) VALUES (16, 'Team 1', 2, 'zerazreaze', 'build/images/default-team.svg');
+INSERT INTO tournament_db.team (id, name, nb_player, bio, picture) VALUES (17, 'Team 2', 2, 'azrzear', 'build/images/avatar_1.svg');
+INSERT INTO tournament_db.team (id, name, nb_player, bio, picture) VALUES (18, 'Team 3', 2, 'zaerazre', 'build/images/basketball.svg');
+INSERT INTO tournament_db.team (id, name, nb_player, bio, picture) VALUES (19, 'Team 4', 2, 'hrtyrey', 'build/images/bowling.svg');
+INSERT INTO tournament_db.team (id, name, nb_player, bio, picture) VALUES (20, 'Team 5', 2, 'zerazer', 'build/images/dartboard.svg');
+INSERT INTO tournament_db.team (id, name, nb_player, bio, picture) VALUES (21, 'Team 6', 2, 'fgsdfg', 'build/images/dynamite.svg');
+INSERT INTO tournament_db.team (id, name, nb_player, bio, picture) VALUES (22, 'Team 7', 2, 'qfazer', 'build/images/fort.svg');
+INSERT INTO tournament_db.team (id, name, nb_player, bio, picture) VALUES (23, 'Team 8', 2, 'sdfgsdfg', 'build/images/ps-controller.svg');
+INSERT INTO tournament_db.team (id, name, nb_player, bio, picture) VALUES (24, 'Team Fin', 2, 'zerzerzer', 'build/images/default-team.svg');
