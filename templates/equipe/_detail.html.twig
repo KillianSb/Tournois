@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Équipe{% endblock %}
+{% block title %}{{ team.name }}{% endblock %}
 
 {% block body %}
     <h1>Équipe</h1>
@@ -9,22 +9,22 @@
         <tbody>
             <tr>
                 <th>Nom de l'équipe</th>
-                <td>{{ equipe.name }}</td>
+                <td>{{ team.name }}</td>
             </tr>
             <tr>
                 <th>Nombre de joueurs</th>
-                <td>{{ equipe.nbPlayer }}</td>
+                <td>{{ team.nbPlayer }}</td>
             </tr>
             <tr>
                 <th>Bio de l'équipe</th>
-                <td>{{ equipe.bio }}</td>
+                <td>{{ team.bio }}</td>
             </tr>
             <tr>
-                <th>Liste des joueurs</th>
+                <th>Liste des joueurs : </th>
                 <td>
-                {% for user in equipe.user %}
-                    {{ user.username }}
-                {% endfor %}
+                    {% for user in team.user %}
+                        {{ user.username }}
+                    {% endfor %}
                 </td>
             </tr>
         </tbody>
@@ -32,7 +32,9 @@
 
     <a href="{{ path('_liste') }}">back to list</a>
 
-    <a href="{{ path('_modification', {'id': equipe.id}) }}">edit</a>
+    <a href="{{ path('_modification', {'id': team.id}) }}">edit</a>
+
+    <a href="{{ path('rejoindre', {'id': team.id}) }}">Rejoindre</a>
 
     {{ include('equipe/_delete_form.html.twig') }}
 

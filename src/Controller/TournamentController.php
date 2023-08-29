@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Team;
 use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,6 +95,9 @@ class TournamentController extends AbstractController
     public function infos(Tournament $tournament, TeamRepository $teamRepository): Response
 
     {
+        $teams = $tournament->getTeam();
+        //dd($teams->count());
+
         $teams = $teamRepository->findAll();
 
         // Mélange des équipes
@@ -100,7 +106,67 @@ class TournamentController extends AbstractController
 
         return $this->render('tournament/infos.html.twig', [
             'tournament' => $tournament,
-            'teams' => $teams,
+            'teams' => $teams
+        ]);
+    }
+
+    #[Route('/{id}/rejoindre', name: 'tournois_join', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function rejoindre(
+        Tournament $tournament,
+        TeamRepository $teamRepository,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $user = $this->getUser();
+
+        if ($user == null) {
+            return $this->redirectToRoute('security_login', [], Response::HTTP_SEE_OTHER);
+        }
+
+        $team = $request->query->get('equipes');
+        if ($team != null) {
+            $team = $teamRepository->find($team);
+            $tournament->addTeam($team); //Ajout d'un étournament
+            $entityManager->persist($tournament);
+            $entityManager->flush();
+        }
+        dump($team);
+
+        if ($user->getTeams()->count() >= $tournament->getNbTeamMax()) {
+            return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('tournament/rejoindre.html.twig', [
+            'tournament' => $tournament,
+            'team' => $team,
+            'user' => $user
+        ]);
+    }
+
+
+    #[Route(
+        '/{id}/rejoindre/test',
+        name: 'tournois_join_team',
+        requirements: ['id' => '\d+'],
+        methods: ['POST', 'GET']
+    )]
+    public function rejoindreTournament(
+        Request $request,
+        int $id,
+    ): Response
+    {
+
+        if ($this->getUser() == null) {
+            return $this->redirectToRoute('security_login', [], Response::HTTP_SEE_OTHER);
+        }
+
+            /*
+                $tournament->addTeam($team);
+                $entityManager->persist($tournament);
+                $entityManager->flush();
+            */
+        return $this->render('tournament/test.html.twig', [
+            'id' => $id
         ]);
     }
 

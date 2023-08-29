@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ team.name }}{% endblock %}
+
+{% block body %}
+    <h1>Liste des utilisateurs : </h1>
+    <div class="list-group">
+        {% for equipe in team.user %}
+            {{ equipe.username }}
+        {% endfor %}
+    </div>
+
+    <h1>Equipe : </h1>
+    {{ team }}
+
+
+{% endblock %}

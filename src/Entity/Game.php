@@ -110,6 +110,9 @@ class Game
         }
     }
 
+        return $this;
+    }
+
     public function getPicture(): ?string
     {
         return $this->picture;
