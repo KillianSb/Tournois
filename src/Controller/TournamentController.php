@@ -101,10 +101,13 @@ class TournamentController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
-        $teams = $tournament->getTeam();
+/*        $teams = $tournament->getTeam();
         //dd($teams->count());
 
-        $teams = $teamRepository->findAll();
+        $teams = $teamRepository->findAll();*/
+
+        $teams = $teamRepository->findTeamsByTournament($tournament->getId());
+        /*dd($teams);*/
 
         // Vérifier si le tableau d'équipes mélangées existe déjà pour ce tournoi
         if ($tournament->getTableTeamTournament() == null) {
