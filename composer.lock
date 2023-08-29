@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "47dc951c04cabb296e28863b77b8da5d",
+    "content-hash": "f4765343134d76989b33b6c7a62df3dd",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -6395,7 +6395,7 @@
         },
         {
             "name": "symfony/ux-autocomplete",
-            "version": "v2.10.0",
+            "version": "v2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-autocomplete.git",
@@ -6466,7 +6466,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-autocomplete/tree/v2.10.0"
+                "source": "https://github.com/symfony/ux-autocomplete/tree/v2.11.0"
             },
             "funding": [
                 {

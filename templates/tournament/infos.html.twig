@@ -12,6 +12,10 @@
                 <td>{{ tournament.name }}</td>
             </tr>
             <tr>
+                <th>Jeu</th>
+                <td>{{ tournament.game }}</td>
+            </tr>
+            <tr>
                 <th>Règles</th>
                 <td>{{ tournament.rules }}</td>
             </tr>
@@ -50,9 +54,20 @@
         </tbody>
     </table>
 
+    <div>
+        {% for equipe in teams %}
+            {{ equipe.name }}
+        {% endfor %}
+    </div>
+
     <a href="{{ path('tournois_home') }}">Retour au tournois</a>
 
     <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}">Modifier</a>
 
+    <a href="{{ path('tournois_join', {'id': tournament.id}) }}">Rejoindre</a>
+
     {{ include('tournament/supprimer.html.twig') }}
+    {#
+        {{ include('tournament/rejoindre.html.twig') }}
+    #}
 {% endblock %}

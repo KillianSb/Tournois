@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Team;
 use App\Form\TeamType;
 use App\Repository\TeamRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,15 +36,19 @@ class TeamController extends AbstractController
     #[Route(
         '/enregistrement',
         name: '_enregistrement',
-        methods: ['GET', 'POST'])]
+        methods: ['GET', 'POST']
+    )]
     public function enregistrement(
         Request $request,
         EntityManagerInterface $entityManager,
     ): Response
     {
         $team = new Team();
+            //$team->addUser();
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
+        //dd($form->getData());
+        dd($team);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -68,9 +73,37 @@ class TeamController extends AbstractController
         Team $team
     ): Response
     {;
+        $user = $this->getUser()->getId();
+        $listUser = $team->getUser();
+        //dd($listUser);
+
         return $this->render('equipe/_detail.html.twig', [
-            'equipe' => $team,
+            'team' => $team,
+            'userId' => $user
         ]);
+    }
+
+    #[Route(
+        '/detail{id}/rejoindre',
+        name: 'rejoindre',
+        methods: ['GET', 'POST'])]
+    public function joinTeam(
+        Team $team,
+        EntityManagerInterface $entityManager
+    ): Response
+    {;
+        $user = $this->getUser();
+        //dd($team->getUser());
+        //dd($user);
+
+        $team->addUser($user);
+        $entityManager->persist($team);
+        $entityManager->flush();
+
+        return $this->render(
+            'equipe/rejoindre.html.twig',
+            compact('user', 'team')
+        );
     }
 
     // Controleur de l'edition d'une équipe **************************************************************************

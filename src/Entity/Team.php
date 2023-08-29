@@ -42,6 +42,7 @@ class Team
     {
         $this->tournaments = new ArrayCollection();
         $this->user = new ArrayCollection();
+        $this->setPicture("");
     }
 
     public function getId(): ?int
