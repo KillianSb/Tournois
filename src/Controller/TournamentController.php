@@ -75,9 +75,9 @@ class TournamentController extends AbstractController
         $tournament->setUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(["ROLE_ORGANIZER"]);
-            $entityManager->persist($tournament);
+            $user->addOrganizerRole();
             $entityManager->persist($user);
+            $entityManager->persist($tournament);
             $entityManager->flush();
 
             return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
@@ -193,7 +193,7 @@ class TournamentController extends AbstractController
         $user = $security->getUser();
 
         // Vérifier si l'utilisateur est connecté et son ID correspond à l'ID du tournoi
-        if ($user && $user->getId() === $tournament->getUser()->getId()){
+        if ($user && $user->getId() === $tournament->getUser()->getId() || $this->isGranted('ROLE_SUPER_ADMIN', $user) || $this->isGranted('ROLE_ADMIN', $user)){
             // Vérifier si l'utilisateur a le rôle nécessaire
             if ($this->isGranted('ROLE_ORGANIZER', $user) || $this->isGranted('ROLE_ADMIN', $user)) {
                 $form = $this->createForm(TournamentType::class, $tournament);
@@ -230,7 +230,7 @@ class TournamentController extends AbstractController
         $user = $security->getUser();
 
         // Vérifier si l'utilisateur est connecté et son ID correspond à l'ID du tournoi
-        if ($user && $user->getId() === $tournament->getUser()->getId()) {
+        if ($user && $user->getId() === $tournament->getUser()->getId() || $this->isGranted('ROLE_SUPER_ADMIN', $user) || $this->isGranted('ROLE_ADMIN', $user)) {
             // Vérifier si l'utilisateur a le rôle nécessaire
             if ($this->isGranted('ROLE_ORGANIZER', $user)) {
                 if ($this->isCsrfTokenValid('delete'.$tournament->getId(), $request->request->get('_token'))) {
