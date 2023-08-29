@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 
+use App\Entity\Game;
 use App\Entity\TableTeamTournament;
 use App\Entity\Team;
 use App\Entity\Tournament;
+use App\Form\GameType;
 use App\Form\TournamentType;
 use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
@@ -138,9 +140,28 @@ class TournamentController extends AbstractController
             $teams = $shuffledTeams;
         }
 
+        // Création formulaire partie
+        $game = new Game();
+        $selectedTeam = $tournament->getTeam();
+        $form = $this->createForm(GameType::class, $game, [
+            'selected_teams' => $selectedTeam,]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // TODO : Récupération de l'équipe pour affichage du form
+
+            $entityManager->persist($game);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('tournament/infos.html.twig', [
             'tournament' => $tournament,
-            'teams' => $teams
+            'teams' => $teams,
+            'form' => $form
         ]);
     }
 
@@ -165,6 +186,8 @@ class TournamentController extends AbstractController
             $tournament->addTeam($team); //Ajout d'un étournament
             $entityManager->persist($tournament);
             $entityManager->flush();
+
+            return $this->redirectToRoute('tournois_infos', [], Response::HTTP_SEE_OTHER);
         }
         dump($team);
 

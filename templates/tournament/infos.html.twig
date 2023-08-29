@@ -64,6 +64,16 @@
 
     {{ include('tournament/supprimer.html.twig') }}
 
+    <!-- Résultats parties-->
+    <div class="container flex justify-center">
+        <h1 class="text-5xl font-bold">Résultats des parties</h1>
+    </div>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+    {{ form_end(form) }}
+
     <!-- Tableau du tournois -->
 
     <div class="container flex justify-center">

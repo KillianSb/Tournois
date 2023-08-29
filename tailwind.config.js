@@ -5,6 +5,9 @@ module.exports = {
     "./templates/**/*.html.twig",
   ],
   theme: {
+    colors: {
+      'gold': '#DABE76',
+    },
     extend: {
       fontSize: {
         'xs': '.75rem',
@@ -20,7 +23,7 @@ module.exports = {
         '6xl': '4rem',
         '7xl': '5rem',
         '2em': '2em',
-      }
+      },
     },
   },
   plugins: [require("daisyui")],
