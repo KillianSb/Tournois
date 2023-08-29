@@ -89,7 +89,7 @@ class TournamentController extends AbstractController
     #[Route('/{id}', name: 'tournois_infos', methods: ['GET'])]
 
     #[IsGranted('ROLE_USER')]
-    public function infos(Tournament $tournament): Response
+    public function infos(Tournament $tournament, TeamRepository $teamRepository): Response
 
     {
         $teams = $teamRepository->findAll();
