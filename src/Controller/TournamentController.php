@@ -90,7 +90,6 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'tournois_infos', methods: ['GET'])]
-
     #[IsGranted('ROLE_USER')]
     public function infos(Tournament $tournament, TeamRepository $teamRepository): Response
 
@@ -111,6 +110,7 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}/rejoindre', name: 'tournois_join', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ORGANIZER')]
     public function rejoindre(
         Tournament $tournament,
         TeamRepository $teamRepository,
@@ -133,40 +133,13 @@ class TournamentController extends AbstractController
         }
         dump($team);
 
-        if ($user->getTeams()->count() >= $tournament->getNbTeamMax()) {
+/*        if ($user->getTeams()->count() >= $tournament->getNbTeamMax()) {
             return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
-        }
+        }*/
         return $this->render('tournament/rejoindre.html.twig', [
             'tournament' => $tournament,
             'team' => $team,
             'user' => $user
-        ]);
-    }
-
-
-    #[Route(
-        '/{id}/rejoindre/test',
-        name: 'tournois_join_team',
-        requirements: ['id' => '\d+'],
-        methods: ['POST', 'GET']
-    )]
-    public function rejoindreTournament(
-        Request $request,
-        int $id,
-    ): Response
-    {
-
-        if ($this->getUser() == null) {
-            return $this->redirectToRoute('security_login', [], Response::HTTP_SEE_OTHER);
-        }
-
-            /*
-                $tournament->addTeam($team);
-                $entityManager->persist($tournament);
-                $entityManager->flush();
-            */
-        return $this->render('tournament/test.html.twig', [
-            'id' => $id
         ]);
     }
 

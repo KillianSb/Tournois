@@ -108,8 +108,6 @@ class Game
                 $tournament->setGame(null);
             }
         }
-    }
-
         return $this;
     }
 
