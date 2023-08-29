@@ -72,11 +72,17 @@
         <div class="arbres">
             <div id="arbre1">
                 <div class="round1">
-                    {% for team in teams %}
-                            <div class="equipeShuffled">
-                                <p> <span class="mask mask-squircle w-12 h-12"><img src="{{ asset(team.picture) }}" alt="{{ team }}"/></span>{{ team }}</p>
-                            </div>
-                            <hr class="ligne-entre-equipes">
+                    {% for i in range(0, teams|length - 1, 2) %}
+                        <div class="equipeShuffled">
+                            <p><span class="mask mask-squircle w-12 h-12"><img src="{{ asset(teams[i].picture) }}" alt="{{ teams[i] }}"/></span>
+                                {{ teams[i] }}
+                            </p>
+                        </div>
+                        <div class="equipeShuffled2">
+                            <p><span class="mask mask-squircle w-12 h-12"><img src="{{ asset(teams[i + 1].picture) }}" alt="{{ teams[i + 1] }}"/></span>
+                                {{ teams[i + 1] }}
+                            </p>
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -94,7 +100,6 @@
                 <div class="finaliste">
                     <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe finaliste</p>
                 </div>
-                <span>VS</span>
                 <div class="finaliste">
                     <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe finaliste</p>
                 </div>
