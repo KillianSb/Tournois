@@ -250,9 +250,9 @@ class Tournament
 
 
     /**
-     * @return Collection<int, Game>
+     * @return Game|Collection
      */
-    public function getGame(): Collection
+    public function getGame(): Collection|Game|null
     {
         return $this->game;
     }

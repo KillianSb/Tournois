@@ -108,6 +108,7 @@ class Game
                 $tournament->setGame(null);
             }
         }
+        return $this;
     }
 
     public function getPicture(): ?string
