@@ -75,6 +75,9 @@ class Tournament
     #[ORM\Column(length: 20)]
     private ?string $status = null;
 
+    #[ORM\OneToOne(mappedBy: 'tournaments', cascade: ['persist', 'remove'])]
+    private ?TableTeamTournament $tableTeamTournament = null;
+
     public function __construct()
     {
         //Initialisation des dates en fonction du fuseau horaire Paris
@@ -330,4 +333,22 @@ class Tournament
 
         return $this;
     }
+
+    public function getTableTeamTournament(): ?TableTeamTournament
+    {
+        return $this->tableTeamTournament;
+    }
+
+    public function setTableTeamTournament(TableTeamTournament $tableTeamTournament): static
+    {
+        // set the owning side of the relation if necessary
+        if ($tableTeamTournament->getTournaments() !== $this) {
+            $tableTeamTournament->setTournaments($this);
+        }
+
+        $this->tableTeamTournament = $tableTeamTournament;
+
+        return $this;
+    }
+
 }

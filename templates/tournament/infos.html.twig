@@ -72,29 +72,21 @@
         <div class="arbres">
             <div id="arbre1">
                 <div class="round1">
-                    {% for i in 0..(teams|length-1) %}
-                        {% set team1 = teams[i] %}
-                        {% set nextIndex = i + 1 %}
-                        {% if nextIndex < teams|length-1 %}
-                            {% set team2 = teams[nextIndex] %}
-                            <div class="equipe">
-                                <p> <span class="mask mask-squircle w-12 h-12"><img src="{{ asset(team1.picture) }}" alt="{{ team1 }}"/></span>{{ team1 }}</p>
-                                <span>VS</span>
-                                <p><span class="mask mask-squircle w-12 h-12"><img src="{{ asset(team2.picture) }}" alt="{{ team2 }}"/></span>{{ team2 }}</p>
+                    {% for team in teams %}
+                            <div class="equipeShuffled">
+                                <p> <span class="mask mask-squircle w-12 h-12"><img src="{{ asset(team.picture) }}" alt="{{ team }}"/></span>{{ team }}</p>
                             </div>
-                        {% endif %}
+                            <hr class="ligne-entre-equipes">
                     {% endfor %}
                 </div>
             </div>
             <div class="round2">
                 <div class="equipe">
                     <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
-                    <span>VS</span>
                     <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
                 </div>
                 <div class="equipe">
                     <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
-                    <span>VS</span>
                     <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
                 </div>
             </div>
