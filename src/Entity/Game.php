@@ -32,11 +32,15 @@ class Game
     public function __construct()
     {
         $this->tournaments = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
 
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
+
+    #[ORM\ManyToMany(targetEntity: Team::class, inversedBy: 'games')]
+    private Collection $teams;
 
     public function getId(): ?int
     {
@@ -79,8 +83,6 @@ class Game
         return $this;
     }
 
-    
-
 
     /**
      * @return Collection<int, Tournament>
@@ -120,7 +122,31 @@ class Game
     {
         $this->picture = $picture;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Team>
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Team $team): static
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams->add($team);
+        }
 
         return $this;
     }
+
+    public function removeTeam(Team $team): static
+    {
+        $this->teams->removeElement($team);
+
+        return $this;
+    }
+
 }

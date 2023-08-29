@@ -4,6 +4,15 @@
 
 html, body {
     height: 100%;
+    background-color: black;
+}
+
+.logo {
+    z-index: 51;
+}
+
+.ulMenu {
+    background-color: black;
 }
 
 body {
