@@ -95,6 +95,7 @@ table tr {
 }
 
 .equipe,
+.equipeShuffled,
 .gagnant,
 .finaliste {
     margin-bottom: 3em;
@@ -102,6 +103,7 @@ table tr {
 }
 
 .equipe p,
+.equipeShuffled p,
 .gagnant p,
 .finaliste p {
     display: flex;
@@ -116,6 +118,7 @@ table tr {
 
 .equipe::after,
 .gagnant::after,
+.ligne::after,
 .finaliste::after {
     content: "";
     position: absolute;
@@ -132,11 +135,18 @@ table tr {
     height: 5em;
 }
 
+.ligne::after {
+    left: 15.8%;
+    width: 20px;
+    height: 10em;
+    top: 102%;
+}
+
 .finaliste:first-child::after {
     left: 100%;
     width: 20px;
     height: 9em;
-    top: 170%;
+    top: 135%;
 }
 
 .gagnant::after {

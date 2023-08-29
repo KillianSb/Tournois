@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\TableTeamTournament;
 use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TeamRepository;
@@ -89,14 +90,43 @@ class TournamentController extends AbstractController
     #[Route('/{id}', name: 'tournois_infos', methods: ['GET'])]
 
     #[IsGranted('ROLE_USER')]
-    public function infos(Tournament $tournament): Response
-
+    public function infos(
+        Tournament $tournament,
+        TeamRepository $teamRepository,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response
     {
         $teams = $teamRepository->findAll();
 
-        // Mélange des équipes
-        // TODO : A mettre en base de donnée pour stocker 1 fois (nouvelle entité ?)
-        shuffle($teams);
+        // Vérifier si le tableau d'équipes mélangées existe déjà pour ce tournoi
+        if ($tournament->getTableTeamTournament() == null) {
+            // Mélange des équipes
+            shuffle($teams);
+
+            // Créer un tableau d'IDs d'équipes mélangées
+            $shuffledTeamIds = array_map(function ($teams) {
+                return $teams->getId();
+            }, $teams);
+
+            $tableTeamTournament = new TableTeamTournament();
+            $tableTeamTournament->setShuffleTableTeam($shuffledTeamIds);
+
+            // Associer le tableau d'équipes mélangées au tournoi
+            $tournament->setTableTeamTournament($tableTeamTournament);
+
+            $entityManager->persist($tableTeamTournament);
+            $entityManager->flush();
+
+        } else {
+            // Si le tableau est déjà créé, récupérez les IDs mélangés et récupérez les équipes correspondantes
+            $shuffledTeamIds = $tournament->getTableTeamTournament()->getShuffleTableTeam();
+            $shuffledTeams = [];
+            foreach ($shuffledTeamIds as $teamsId) {
+                $shuffledTeams[] = $teamRepository->find($teamsId);
+            }
+            $teams = $shuffledTeams;
+        }
 
         return $this->render('tournament/infos.html.twig', [
             'tournament' => $tournament,
