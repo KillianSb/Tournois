@@ -25,6 +25,9 @@ module.exports = {
         '2em': '2em',
       },
     },
+    height: {
+      em: '30em',
+    }
   },
   plugins: [require("daisyui")],
 }

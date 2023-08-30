@@ -118,7 +118,7 @@ class TournamentController extends AbstractController
             }
             $teams = $shuffledTeams;
         }
-
+/*
         // Création formulaire partie
         $game = new Game();
         $selectedTeam = $tournament->getTeam();
@@ -135,12 +135,16 @@ class TournamentController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
-        }
+        }*/
+
+        // Récupérer le chemin de l'image du jeu associé
+        $gameImage = $tournament->getVideogame()->getPicture();
 
         return $this->render('tournament/infos.html.twig', [
             'tournament' => $tournament,
             'teams' => $teams,
-            'form' => $form
+            'gameImage' => $gameImage
+            /*'form' => $form*/
         ]);
     }
 
