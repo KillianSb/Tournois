@@ -6,18 +6,8 @@
                 "fetch": "eager",
                 "autoimport": {
                     "tom-select/dist/css/tom-select.default.css": true,
-                    "tom-select/dist/css/tom-select.tailwind.css": false
+                    "tom-select/dist/css/tom-select.bootstrap5.css": false
                 }
-            }
-        },
-        "@symfony/ux-turbo": {
-            "turbo-core": {
-                "enabled": true,
-                "fetch": "eager"
-            },
-            "mercure-turbo-stream": {
-                "enabled": false,
-                "fetch": "eager"
             }
         }
     },

@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 
+use App\Entity\Game;
 use App\Entity\TableTeamTournament;
 use App\Entity\Team;
 use App\Entity\Tournament;
+use App\Form\GameType;
 use App\Form\TournamentType;
 use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
@@ -55,9 +57,9 @@ class TournamentController extends AbstractController
         $tournament->setUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(["ROLE_ORGANIZER"]);
-            $entityManager->persist($tournament);
+            $user->addOrganizerRole();
             $entityManager->persist($user);
+            $entityManager->persist($tournament);
             $entityManager->flush();
 
             return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
@@ -80,10 +82,13 @@ class TournamentController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
-        $teams = $tournament->getTeam();
+/*        $teams = $tournament->getTeam();
         //dd($teams->count());
 
-        $teams = $teamRepository->findAll();
+        $teams = $teamRepository->findAll();*/
+
+        $teams = $teamRepository->findTeamsByTournament($tournament->getId());
+        /*dd($teams);*/
 
         // Vérifier si le tableau d'équipes mélangées existe déjà pour ce tournoi
         if ($tournament->getTableTeamTournament() == null) {
@@ -114,9 +119,28 @@ class TournamentController extends AbstractController
             $teams = $shuffledTeams;
         }
 
+        // Création formulaire partie
+        $game = new Game();
+        $selectedTeam = $tournament->getTeam();
+        $form = $this->createForm(GameType::class, $game, [
+            'selected_teams' => $selectedTeam,]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // TODO : Récupération de l'équipe pour affichage du form
+
+            $entityManager->persist($game);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('tournament/infos.html.twig', [
             'tournament' => $tournament,
-            'teams' => $teams
+            'teams' => $teams,
+            'form' => $form
         ]);
     }
 
@@ -141,6 +165,8 @@ class TournamentController extends AbstractController
             $tournament->addTeam($team); //Ajout d'un étournament
             $entityManager->persist($tournament);
             $entityManager->flush();
+
+            return $this->redirectToRoute('tournois_infos', [], Response::HTTP_SEE_OTHER);
         }
         dump($team);
 
@@ -169,7 +195,7 @@ class TournamentController extends AbstractController
         $user = $security->getUser();
 
         // Vérifier si l'utilisateur est connecté et son ID correspond à l'ID du tournoi
-        if ($user && $user->getId() === $tournament->getUser()->getId()){
+        if ($user && $user->getId() === $tournament->getUser()->getId() || $this->isGranted('ROLE_SUPER_ADMIN', $user) || $this->isGranted('ROLE_ADMIN', $user)){
             // Vérifier si l'utilisateur a le rôle nécessaire
             if ($this->isGranted('ROLE_ORGANIZER', $user) || $this->isGranted('ROLE_ADMIN', $user)) {
                 $form = $this->createForm(TournamentType::class, $tournament);
@@ -206,7 +232,7 @@ class TournamentController extends AbstractController
         $user = $security->getUser();
 
         // Vérifier si l'utilisateur est connecté et son ID correspond à l'ID du tournoi
-        if ($user && $user->getId() === $tournament->getUser()->getId()) {
+        if ($user && $user->getId() === $tournament->getUser()->getId() || $this->isGranted('ROLE_SUPER_ADMIN', $user) || $this->isGranted('ROLE_ADMIN', $user)) {
             // Vérifier si l'utilisateur a le rôle nécessaire
             if ($this->isGranted('ROLE_ORGANIZER', $user)) {
                 if ($this->isCsrfTokenValid('delete'.$tournament->getId(), $request->request->get('_token'))) {

@@ -25,7 +25,7 @@ class UserController extends AbstractController
         $currentUser = $security->getUser();
 
         // Vérifier si l'utilisateur est connecté et son ID correspond à l'ID passé en paramètre
-        if ($currentUser && $currentUser->getId() === $user->getId()) {
+        if ($currentUser && $currentUser->getId() === $user->getId() || $this->isGranted('ROLE_SUPER_ADMIN', $user) || $this->isGranted('ROLE_ADMIN', $user)) {
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
@@ -65,7 +65,7 @@ class UserController extends AbstractController
         $currentUser = $security->getUser();
 
         // Vérifier si l'utilisateur est connecté et son ID correspond à l'ID passé en paramètre
-        if ($currentUser && $currentUser->getId() === $user->getId()) {
+        if ($currentUser && $currentUser->getId() === $user->getId() || $this->isGranted('ROLE_SUPER_ADMIN', $user) || $this->isGranted('ROLE_ADMIN', $user)) {
             // Désactiver l'utilisateur actuel
             $currentUser->setIsActive(false);
             $entityManager->flush();

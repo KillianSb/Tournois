@@ -46,4 +46,13 @@ class TeamRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findTeamsByTournament(?int $tournamentId)
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.tournaments', 'tournois')
+            ->andWhere('tournois.id = :tournamentId')
+            ->setParameter('tournamentId', $tournamentId)
+            ->getQuery()
+            ->getResult();
+    }
 }
