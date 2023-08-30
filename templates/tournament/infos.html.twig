@@ -3,7 +3,7 @@
 {% block title %}Tournament{% endblock %}
 
 {% block body %}
-    <h1>Tournament</h1>
+    <h1 class="text-5xl font-bold">Tournament</h1>
 
     <table class="table">
         <tbody>
@@ -20,21 +20,23 @@
                 <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('d F Y H:i') : '' }}</td>
             </tr>
             <tr>
-                <th>Date de création</th>
-                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('d F Y H:i') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date de fin</th>
-                <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('d F Y H:i') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Date limite d'inscription</th>
                 <td>{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('d F Y H:i') : '' }}</td>
             </tr>
+            {#
+            <tr>
+                <th>Date de création</th>
+                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('d F Y H:i') : '' }}</td>
+            </tr>
+                <tr>
+                    <th>Date de fin</th>
+                    <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('d F Y H:i') : '' }}</td>
+                </tr>
             <tr>
                 <th>Nombre d'équipe maximum</th>
                 <td>{{ tournament.nbTeamMax }}</td>
             </tr>
+            #}
             <tr>
                 <th>Informations du tournois</th>
                 <td>{{ tournament.tournamentInfo }}</td>

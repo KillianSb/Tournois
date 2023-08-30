@@ -48,6 +48,7 @@ class TeamController extends AbstractController
     ): Response
     {
         $team = new Team();
+        $team->setUser($this->getUser());
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
 
@@ -78,11 +79,13 @@ class TeamController extends AbstractController
     {;
         $user = $this->getUser()->getId();
         $listUser = $team->getUser();
+        $leaderId = $team->getLeaderId();
         //dd($listUser);
 
         return $this->render('equipe/_detail.html.twig', [
             'team' => $team,
-            'userId' => $user
+            'userId' => $user,
+            'leaderId' => $leaderId
         ]);
     }
 
@@ -90,14 +93,13 @@ class TeamController extends AbstractController
         '/detail{id}/rejoindre',
         name: 'rejoindre',
         methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function joinTeam(
         Team $team,
         EntityManagerInterface $entityManager
     ): Response
     {;
         $user = $this->getUser();
-        //dd($team->getUser());
-        //dd($user);
 
         $team->addUser($user);
         $entityManager->persist($team);

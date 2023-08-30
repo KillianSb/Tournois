@@ -50,7 +50,9 @@
             </tbody>
         </table>
     </div>
-
-    <a href="{{ path('_enregistrement') }}">Créer une nouvelle équipe</a>
+    
+    {% if is_granted('ROLE_USER') %}
+        <a class="btn btn-ghost btn-xs" href="{{ path('_enregistrement') }}">Créer une nouvelle équipe</a>
+    {% endif %}
 {% endblock %}
 

@@ -38,6 +38,9 @@ class Team
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
+    #[ORM\Column]
+    private ?int $leaderId = null;
+
     public function __construct()
     {
         $this->tournaments = new ArrayCollection();
@@ -145,6 +148,18 @@ class Team
     public function setPicture(string $picture): static
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getLeaderId(): ?int
+    {
+        return $this->leaderId;
+    }
+
+    public function setLeaderId(int $leaderId): static
+    {
+        $this->leaderId = $leaderId;
 
         return $this;
     }
