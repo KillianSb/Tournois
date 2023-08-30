@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Page d'accueil</h1>
+    <img class="flex  logo h-48 w-50 rounded-3xl flex justify-center" src="{{ asset('build/images/Logo.tournament.png') }}" alt="Logo de la multinationnal">
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div>
