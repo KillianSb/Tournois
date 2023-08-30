@@ -3,56 +3,59 @@
 {% block title %}Tournament{% endblock %}
 
 {% block body %}
-    <h1 class="text-5xl font-bold">{{ tournament.name }}</h1>
+    <h1 class="text-5xl font-bold">Tournament</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Nom du tournois</th>
-                <td>{{ tournament.name }}</td>
-            </tr>
-            <tr>
-                <th>Règles</th>
-                <td>{{ tournament.rules }}</td>
-            </tr>
-            <tr>
-                <th>Date de début du tournois</th>
-                <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('d F Y H:i') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date limite d'inscription</th>
-                <td>{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('d F Y H:i') : '' }}</td>
-            </tr>
-            {#
-            <tr>
-                <th>Date de création</th>
-                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('d F Y H:i') : '' }}</td>
-            </tr>
-                <tr>
-                    <th>Date de fin</th>
-                    <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('d F Y H:i') : '' }}</td>
-                </tr>
-            <tr>
-                <th>Nombre d'équipe maximum</th>
-                <td>{{ tournament.nbTeamMax }}</td>
-            </tr>
-            #}
-            <tr>
-                <th>Informations du tournois</th>
-                <td>{{ tournament.tournamentInfo }}</td>
-            </tr>
-            <tr>
-                <th>Prix d'entrée</th>
-                <td>{{ tournament.entryPrice }}€</td>
-            </tr>
-            <tr>
-                <th>Récompense 🤑</th>
-                <td>{{ tournament.reward }}€</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="card bg-black-100 shadow-xl">
+        <figure><img class="hero h-em object-cover" src="{{ asset(gameImage) }}" alt="Image du jeux du tournois" /></figure>
+        <div class="card-body block">
+            <div>
+                <h2 class="card-title flex justify-center">
+                    {{ tournament.name }}
+                    <div class="badge badge-accent">{{ tournament.status }}</div>
+                </h2>
+            </div>
 
-    <a href="{{ path('tournois_home') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Retour au tournois</a>
+            <div class="card-infos block m-7">
+                <p class="underline flex justify-center">Règles</p>
+                <p class="flex justify-center">{{ tournament.rules }}</p>
+            </div>
+
+            <div class="card-infos block m-7">
+                <p class="underline flex justify-center">Date début</p>
+                <p class="flex justify-center">{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('d F Y H:i') : '' }}</p>
+            </div>
+
+            <div class="card-infos block m-7">
+                <p class="underline flex justify-center">Date limite d'inscription</p>
+                <p class="flex justify-center">{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('d F Y H:i') : '' }}</p>
+            </div>
+
+            <div class="card-infos block m-7">
+                <p class="underline flex justify-center">Information du tournois</p>
+                <p class="flex justify-center"><{{ tournament.tournamentInfo }}</p>
+            </div>
+
+            <div class="card-actions flex justify-center">
+                <div class="card-infos block">
+                    <p class="flex inline-flex">Prix d'entrée :</p>
+                    <div class="badge badge-outline flex inline-flex">{{ tournament.entryPrice }}€</div>
+                </div>
+
+                <div class="card-infos block">
+                    <p class="flex inline-flex">Récompense :</p>
+                    <div class="badge badge-outline flex inline-flex">{{ tournament.reward }}€</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#    <div>
+        {% for equipe in teams %}
+            {{ equipe.name }}
+        {% endfor %}
+    </div>#}
+
+    <a href="{{ path('tournois_home') }}">Retour au tournois</a>
 
     <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Modifier</a>
     {% if tournament.dateBeginTournament|date < "now"|date   %}
@@ -66,10 +69,10 @@
         <h1 class="text-5xl font-bold">Résultats des parties</h1>
     </div>
 
-    {{ form_start(form) }}
+{#    {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
-    {{ form_end(form) }}
+    {{ form_end(form) }}#}
 
     <!-- Tableau du tournois -->
 
