@@ -29,5 +29,8 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "tw-elements": "^1.0.0-rc.1"
     }
 }

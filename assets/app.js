@@ -13,3 +13,10 @@ import './styles/app.css';
 import './styles/profil.scss';
 import './js/script.js';
 
+// Initialization for ES Users
+import {
+    Carousel,
+    initTE,
+} from "tw-elements";
+
+initTE({ Carousel });
