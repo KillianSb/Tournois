@@ -76,7 +76,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $teams;
 
     #[ORM\Column(length: 255)]
-    private ?string $picture = 'build/images/avatar_1.svg';
+    private ?string $picture = '/build/images/avatar_1.svg';
 
     public function __construct()
     {
