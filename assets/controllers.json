@@ -9,16 +9,6 @@
                     "tom-select/dist/css/tom-select.bootstrap5.css": false
                 }
             }
-        },
-        "@symfony/ux-turbo": {
-            "turbo-core": {
-                "enabled": true,
-                "fetch": "eager"
-            },
-            "mercure-turbo-stream": {
-                "enabled": false,
-                "fetch": "eager"
-            }
         }
     },
     "entrypoints": []
