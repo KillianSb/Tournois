@@ -30,7 +30,6 @@ class CheckStateCommand extends Command
     {
         $this
             ->addArgument('time', InputArgument::OPTIONAL, 'gap between each check')
-            ->schedule('*/5 * * * *')
         ;
     }
 
