@@ -162,11 +162,11 @@ class TournamentController extends AbstractController
         $team = $request->query->get('equipes');
         if ($team != null) {
             $team = $teamRepository->find($team);
-            $tournament->addTeam($team); //Ajout d'un étournament
+            $tournament->addTeam($team); //Ajout d'une équipe
             $entityManager->persist($tournament);
             $entityManager->flush();
 
-            return $this->redirectToRoute('tournois_infos', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
         }
         dump($team);
 

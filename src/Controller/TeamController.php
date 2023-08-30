@@ -48,12 +48,13 @@ class TeamController extends AbstractController
     ): Response
     {
         $team = new Team();
-        $team->setUser($this->getUser());
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
+        $user = $this->getUser();
+
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $team->setLeaderId($user->getId());
             $entityManager->persist($team);
             $entityManager->flush();
 

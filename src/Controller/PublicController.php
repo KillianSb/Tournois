@@ -10,13 +10,19 @@ class PublicController extends AbstractController
 {
     #[Route('/', name: 'public_home')]
     public function home(
-
     ): Response
     {
         return $this->render('public/home.html.twig', [
-            'controller_name' => 'PublicController',
         ]);
     }
 
+    #[Route('/a-propos-de-nous', name: 'public_aboutus')]
+    public function aboutus(
+    ): Response
+    {
+        return $this->render('public/aboutus.html.twig', [
+
+        ]);
+    }
 }
 
