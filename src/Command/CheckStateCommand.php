@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Repository\TournamentRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,33 +13,45 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'check-state',
-    description: 'Add a short description for your command',
+    description: 'Verfier le statut des tournois toutes les 15 minutes',
 )]
 class CheckStateCommand extends Command
 {
+
+    protected function __construct(
+        TournamentRepository $tournamentRepository
+    ) {
+        parent::__construct();
+        $this->tournamentRepository = $tournamentRepository;
+    }
+
+    private TournamentRepository $tournamentRepository;
     protected function configure(): void
     {
         $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->addArgument('time', InputArgument::OPTIONAL, 'gap between each check')
+            ->schedule('*/5 * * * *')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
-
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
-        }
-
-        if ($input->getOption('option1')) {
-            // ...
-        }
-
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+            $this->checkState();
 
         return Command::SUCCESS;
+    }
+
+    protected function checkState():void{
+
+        $tournaments = $this->tournamentRepository->findAllTournament();
+        foreach ($tournaments as $tournament){
+            if ($tournament->getDateBeginTournament() > new \DateTime('now' && $tournament->getDateEndTournament() > new \DateTime('now'))){
+                $tournament->setStatut("En cours");
+            } elseif ($tournament->getDateEndTournament() < new \DateTime('now')){
+                $tournament->setStatut("Terminé");
+            } elseif (count($tournament->getTeam()) == $tournament->getNbTeamMax()){
+                $tournament->setStatut("Cloturée");
+            }
+        }
     }
 }
