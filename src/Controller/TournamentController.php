@@ -131,7 +131,7 @@ dd($result);
             $entityManager->flush();
 
             return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
-        }*/
+        }
 
         // Récupérer le chemin de l'image du jeu associé
         $gameImage = $tournament->getVideogame()->getPicture();
