@@ -11,6 +11,8 @@ use App\Entity\Tournament;
 use App\Form\GameType;
 use App\Form\ResultType;
 use App\Form\TournamentType;
+use App\Repository\ResultRepository;
+use App\Repository\TableTeamTournamentRepository;
 use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,7 +81,9 @@ class TournamentController extends AbstractController
         Tournament $tournament,
         TeamRepository $teamRepository,
         Request $request,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ResultRepository $resultRepository,
+        TableTeamTournamentRepository $tableTeamTournamentRepository
     ): Response
     {
 /*        $teams = $tournament->getTeam();
@@ -132,6 +136,10 @@ class TournamentController extends AbstractController
 
             return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
         }
+
+        $idTableTeamTournament = $tableTeamTournamentRepository->findAll();
+        $results = $resultRepository->findAll();
+
 
         // Récupérer le chemin de l'image du jeu associé
         $gameImage = $tournament->getVideogame()->getPicture();

@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\Result;
 use App\Entity\Team;
+use App\Entity\Tournament;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,6 +38,10 @@ class ResultType extends AbstractType
                 'attr' => [
                     'class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
                 ]
+            ])
+
+            ->add('idTournament', HiddenType::class, [
+                'data' => $this->tournament->getId(),
             ])
         ;
     }

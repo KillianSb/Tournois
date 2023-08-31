@@ -1,55 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Tournament{% endblock %}
-
-{% block javascripts %}
-    <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            const equipeGagnantes = document.querySelectorAll('.equipeShuffled');
-
-            for (const equipe of equipeGagnantes) {
-                // Récupérer les données de l'équipe gagnante depuis la base de données
-                const equipeId = equipe.getAttribute('id');
-                fetch("http://localhost:8003/get_winner_data")
-                    .then(r=> r.json())
-                    .then(res => console.log(res));
-
-
-                // Vérifier si l'équipe gagnante doit passer au round suivant
-                const nbPartie = winnerData.nb_partie;
-                const equipePosition = winnerData.equipe_position;
-
-                if (nbPartie !== 1) {
-
-                    // Sélectionner l'élément HTML de l'étape du tournoi suivant en fonction de nb_partie
-                    const nouvelleEtape = document.querySelector(`.round${nbPartie}`);
-
-                    // Calculer la position d'ajout en fonction de equipePosition
-                    const positionAjout = (equipePosition % 2 === 1) ? (equipePosition / 2) + 1 : Math.floor(equipePosition / 2);
-
-                    // Créer une nouvelle div pour l'équipe gagnante au round suivant
-                    const nouvelleEquipeDiv = document.createElement('div');
-                    nouvelleEquipeDiv.classList.add('equipe');
-                    nouvelleEquipeDiv.innerHTML = `
-                        <div class="text-gold mb-10">
-                            <span class="mask mask-squircle w-12 h-12">
-                                <img src="${equipe.querySelector('img').src}" alt=""/>
-                            </span>
-                        </div>
-                    `;
-
-                    // Ajouter la nouvelle équipe gagnante au round suivant à la position calculée
-                    const equipesDansEtape = nouvelleEtape.querySelectorAll('.equipe');
-                    if (positionAjout >= equipesDansEtape.length) {
-                        nouvelleEtape.appendChild(nouvelleEquipeDiv);
-                    } else {
-                        nouvelleEtape.insertBefore(nouvelleEquipeDiv, equipesDansEtape[positionAjout]);
-                    }
-                }
-            }
-        });
-    </script>
-{% endblock %}
 {% block body %}
     <h1 class="text-5xl font-bold">Tournament</h1>
 
@@ -131,6 +82,9 @@
     {% if tournament.status == 'open' %}
         <div class="arbres">
             <div id="arbre1">
+                <div class="container flex justify-center mx-auto">
+                    <h2 class="text-4xl font-bold text-gold">Round 1</h2>
+                </div>
                 <div class="round1">
                     {% for team in teams %}
                         <div class="equipeShuffled" id="{{ loop.index }}">
@@ -143,6 +97,9 @@
                 </div>
             </div>
             <div class="round2">
+                <div class="container flex justify-center mx-auto">
+                    <h2 class="text-4xl font-bold text-gold">Round 2</h2>
+                </div>
                 <div class="equipe">
 
                 </div>
@@ -151,6 +108,9 @@
                 </div>
             </div>
             <div class="round3">
+                <div class="container flex justify-center mx-auto">
+                    <h2 class="text-4xl font-bold text-gold">Round 3</h2>
+                </div>
                 <div class="finaliste">
 
                 </div>
@@ -158,8 +118,10 @@
 
                 </div>
             </div>
-
             <div class="round4">
+                <div class="container flex justify-center mx-auto">
+                    <h2 class="text-4xl font-bold text-gold">Winner</h2>
+                </div>
                 <div class="gagnant">
 
                 </div>

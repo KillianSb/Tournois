@@ -23,7 +23,11 @@ class Result
 
     #[ORM\ManyToOne(inversedBy: 'results')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['teamWinner'])]
     private ?Team $teamWinner = null;
+
+    #[ORM\Column]
+    private ?int $idTournament = null;
 
     public function __toString(): string
     {
@@ -84,6 +88,18 @@ class Result
             'equipe_position' => $this->getTeamWinner(),
             'winners' => $this->getTeamWinner()
         ];
+    }
+
+    public function getIdTournament(): ?int
+    {
+        return $this->idTournament;
+    }
+
+    public function setIdTournament(int $idTournament): static
+    {
+        $this->idTournament = $idTournament;
+
+        return $this;
     }
 
 
