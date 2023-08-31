@@ -2,13 +2,9 @@
 
 namespace App\Controller;
 
-
-
-use App\Entity\Game;
 use App\Entity\Result;
 use App\Entity\TableTeamTournament;
 use App\Entity\Tournament;
-use App\Form\GameType;
 use App\Form\ResultType;
 use App\Form\TournamentType;
 use App\Repository\ResultRepository;
@@ -123,7 +119,6 @@ class TournamentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /*dd($result);*/
             $entityManager->persist($result);
             $entityManager->flush();
         }
@@ -139,7 +134,7 @@ class TournamentController extends AbstractController
             if ($teamWinner) {
                 $teamWinnerIds[] = $teamWinner->getId();
             }
-        }/*dd($teamWinnerIds);*/
+        }
 
         // Trouver les emplacements des équipes gagnantes dans le tableau ShuffleTableTeam
         $teamPositions = [];
@@ -150,7 +145,7 @@ class TournamentController extends AbstractController
                     $teamPositions[$teamId] = $position;
                 }
             }
-        }/*dd($teamPositions);*/
+        }
 
         // Récupérer le chemin de l'image du jeu associé
         $gameImage = $tournament->getVideogame()->getPicture();

@@ -50,7 +50,6 @@ class VideoGameController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function show(
         VideoGame $videoGame,
-        VideoGameRepository $videoGameRepository,
         TournamentRepository $tournamentRepository
     ): Response
     {
