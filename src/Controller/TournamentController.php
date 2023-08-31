@@ -165,11 +165,12 @@ class TournamentController extends AbstractController
             'teams' => $teams,
             'gameImage' => $gameImage,
             'form' => $form,
-            'teamPositions' => $teamPositions
+            'teamPositions' => $teamPositions,
             'user' => $user,
-            'nbTeam' => $nbTeam,
+            'nbTeam' => $nbTeam
         ]);
     }
+
 
     #[Route('/{id}/rejoindre', name: 'tournois_join', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ORGANIZER')]
