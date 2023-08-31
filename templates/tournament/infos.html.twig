@@ -5,9 +5,9 @@
 {% block body %}
     <h1 class="text-5xl font-bold">Tournament</h1>
 
-    <div class="card bg-black-100 shadow-xl">
+    <div class="card bg-black-100 shadow-2xl">
         <figure><img class="hero h-em object-cover" src="{{ asset(gameImage) }}" alt="Image du jeux du tournois" /></figure>
-        <div class="card-body block">
+        <div class="card-body block shadow-2xl">
             <div>
                 <h2 class="card-title flex justify-center">
                     {{ tournament.name }}
@@ -83,7 +83,36 @@
     {% if tournament.status == 'open' %}
         <div class="arbres">
             <div id="arbre1">
+                <div class="container flex justify-center mx-auto">
+                    <h2 class="text-4xl font-bold text-gold">Round 1</h2>
+                </div>
                 <div class="round1">
+                    {% for team in teams %}
+                        <div class="equipeShuffled" id="{{ loop.index }}">
+                            <div class="text-gold">
+                                <span id="equipeGagnante" class="mask mask-squircle w-12 h-12"><img src="{{ asset(team.picture) }}" alt="{{ team }}"/></span>{{ team }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <div class="round2">
+                <div class="container flex justify-center mx-auto">
+                    <h2 class="text-4xl font-bold text-gold">Round 2</h2>
+                </div>
+                <div class="r1">
+                </div>
+            </div>
+
+
+
+            <div class="round3">
+                <div class="container flex justify-center mx-auto">
+                    <h2 class="text-4xl font-bold text-gold">Round 3</h2>
+                </div>
+                <div class="">
                     {% for team in teams %}
                         <div class="equipeShuffled" id="equipe{{ loop.index }}">
                             <div class="text-gold">
@@ -93,26 +122,14 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="round2">
-                <div class="equipe">
-                    <div class="text-gold mb-10"><span></span></div>
-                    <div class="text-gold mb-52"><span></span></div>
-                </div>
-                <div class="equipe">
-                    <div class="text-gold mb-10"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
-                    <div class="text-gold"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
-                </div>
-            </div>
-            <div class="round3">
-                <div class="finaliste">
-                    <div class="text-gold mb-52"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
-                </div>
-                <div class="finaliste">
-                    <div class="text-gold"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
-                </div>
-            </div>
 
             <div class="round4">
+                <div class="container flex justify-center mx-auto">
+                    <h2 class="text-4xl font-bold text-gold">Winner !</h2>
+                </div>
+                <div>
+                    <img class="flex  logo h-16 w-28" src="{{ asset('build/images/Crown.PNG') }}" alt="Logo de la multinationnal">
+                </div>
                 <div class="gagnant">
                     <div class="text-gold"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
                 </div>
@@ -120,12 +137,5 @@
         </div>
     {% endif %}
     <br>
-
-    {#                        <form method="post" action="{{ path('tournois_infos', {'id': tournament.id}) }}">#}
-    {#                            <input type="hidden" name="result[winnerTeam]" value="{{ teams[i + 1] }}">#}
-    {#                            <button type="submit">#}
-    {#                                <img class="w-8 h-8" src="{{ asset('build/images/tick.svg') }}" alt="validation">#}
-    {#                            </button>#}
-    {#                        </form>#}
 
 {% endblock %}

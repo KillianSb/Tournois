@@ -11,11 +11,11 @@
         <table class="table container flex">
             <thead>
                 <tr>
-                    <th>Nom d'équipe</th>
-                    <th>Nombre de joueurs</th>
-                    <th>Bio del'équipe</th>
+                    <th class="text-gold text-lg">Nom d'équipe</th>
+                    <th class="text-gold text-lg">Nombre de joueurs</th>
+                    <th class="text-gold text-lg">Bio de l'équipe</th>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <th>Actions</th>
+                        <th class="text-gold text-lg">Actions</th>
                     {% endif %}
                 </tr>
             </thead>

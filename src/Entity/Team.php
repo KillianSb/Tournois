@@ -40,7 +40,6 @@ class Team
 
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'teams')]
     private Collection $games;
-
     #[ORM\Column]
     private ?int $leaderId = null;
 

@@ -2,13 +2,9 @@
 
 namespace App\Controller;
 
-
-
-use App\Entity\Game;
 use App\Entity\Result;
 use App\Entity\TableTeamTournament;
 use App\Entity\Tournament;
-use App\Form\GameType;
 use App\Form\ResultType;
 use App\Form\TournamentType;
 use App\Repository\TeamRepository;
@@ -119,19 +115,19 @@ class TournamentController extends AbstractController
             $teams = $shuffledTeams;
         }
 
-    //Création formulaire partie
+    //Création tableau
         $result = new Result();
         $form = $this->createForm(ResultType::class, $result);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-dd($result);
+            //dd($result);
             $entityManager->persist($result);
             $entityManager->flush();
 
             return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
-        }*/
+        }
 
         // Récupérer le chemin de l'image du jeu associé
         $gameImage = $tournament->getVideogame()->getPicture();
