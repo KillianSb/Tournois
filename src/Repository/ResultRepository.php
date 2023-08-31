@@ -3,9 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Result;
-use App\Entity\Tournament;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,6 +19,17 @@ class ResultRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Result::class);
+    }
+
+    public function findNbPartieByTeamWinnerId($teamId)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r.nbPartie')
+            ->leftJoin('r.teamWinner', 't')
+            ->where('t.id = :teamId')
+            ->setParameter('teamId', $teamId)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 //    /**

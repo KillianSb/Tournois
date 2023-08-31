@@ -7,6 +7,8 @@ use App\Entity\TableTeamTournament;
 use App\Entity\Tournament;
 use App\Form\ResultType;
 use App\Form\TournamentType;
+use App\Repository\ResultRepository;
+use App\Repository\TableTeamTournamentRepository;
 use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -70,8 +73,6 @@ class TournamentController extends AbstractController
         return $this->render('tournament/nouveau.html.twig', [
             'tournament' => $tournament,
             'form' => $form,
-            //'status' => $status,
-            //'dateCreation' => $dateCreation,
         ]);
     }
 
@@ -81,18 +82,16 @@ class TournamentController extends AbstractController
         Tournament $tournament,
         TeamRepository $teamRepository,
         Request $request,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ResultRepository $resultRepository,
+        TableTeamTournamentRepository $tableTeamTournamentRepository
     ): Response
     {
+
         $user = $this->getUser();
         $nbTeam = count($tournament->getTeam());
-/*        $teams = $tournament->getTeam();
-        //dd($teams->count());
-
-        $teams = $teamRepository->findAll();*/
 
         $teams = $teamRepository->findTeamsByTournament($tournament->getId());
-        /*dd($teams);*/
 
         // Vérifier si le tableau d'équipes mélangées existe déjà pour ce tournoi
         if ($tournament->getTableTeamTournament() == null) {
@@ -130,11 +129,32 @@ class TournamentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //dd($result);
             $entityManager->persist($result);
             $entityManager->flush();
+        }
 
-            return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
+        $result = $resultRepository->findAll();
+        $resultTournament = $tableTeamTournamentRepository->findBy(['tournaments' => $tournament]);
+
+
+        // Récupérer les IDs des équipes gagnantes
+        $teamWinnerIds = [];
+        foreach ($result as $resultItem) {
+            $teamWinner = $resultItem->getTeamWinner();
+            if ($teamWinner) {
+                $teamWinnerIds[] = $teamWinner->getId();
+            }
+        }
+
+        // Trouver les emplacements des équipes gagnantes dans le tableau ShuffleTableTeam
+        $teamPositions = [];
+        foreach ($resultTournament as $tableTeamTournament) {
+            $shuffledTeamIds = $tableTeamTournament->getShuffleTableTeam();
+            foreach ($shuffledTeamIds as $position => $teamId) {
+                if (in_array($teamId, $teamWinnerIds)) {
+                    $teamPositions[$teamId] = $position;
+                }
+            }
         }
 
         // Récupérer le chemin de l'image du jeu associé
@@ -144,9 +164,10 @@ class TournamentController extends AbstractController
             'tournament' => $tournament,
             'teams' => $teams,
             'gameImage' => $gameImage,
+            'form' => $form,
+            'teamPositions' => $teamPositions
             'user' => $user,
             'nbTeam' => $nbTeam,
-            /*'form' => $form*/
         ]);
     }
 
@@ -156,34 +177,45 @@ class TournamentController extends AbstractController
         Tournament $tournament,
         TeamRepository $teamRepository,
         Request $request,
-        EntityManagerInterface $entityManager
-    ): Response
-    {
+        EntityManagerInterface $entityManager,
+        SessionInterface $session
+    ): Response {
         $user = $this->getUser();
 
         if ($user == null) {
             return $this->redirectToRoute('security_login', [], Response::HTTP_SEE_OTHER);
         }
 
-        $team = $request->query->get('equipes');
-        if ($team != null) {
-            $team = $teamRepository->find($team);
-            $tournament->addTeam($team); //Ajout d'une équipe
+        $teamId = $request->query->get('equipes');
+        if ($teamId != null) {
+            $team = $teamRepository->find($teamId);
+
+            // Vérifier si les joueurs de l'équipe sont déjà inscrits dans d'autres équipes du tournoi
+            $players = $team->getUser();
+            foreach ($tournament->getTeam() as $otherTeam) {
+                if ($otherTeam->getId() !== $team->getId()) {
+                    foreach ($otherTeam->getUser() as $otherPlayer) {
+                        if ($players->contains($otherPlayer)) {
+                            // Afficher un message d'erreur et empêcher l'inscription
+                            $session->getFlashBag()->add('error', 'Un joueur de cette équipe est déjà inscrit dans une autre équipe du tournoi.');
+                            return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
+                        }
+                    }
+                }
+            }
+
+            // Si aucune duplication n'est trouvée, inscrivez l'équipe au tournoi
+            $tournament->addTeam($team);
             $entityManager->persist($tournament);
             $entityManager->flush();
 
+            $session->getFlashBag()->add('success', 'L\'équipe a été inscrite avec succès au tournoi.');
             return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
         }
-        dump($team);
 
-
-
-/*        if ($user->getTeams()->count() >= $tournament->getNbTeamMax()) {
-            return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);
-        }*/
         return $this->render('tournament/rejoindre.html.twig', [
             'tournament' => $tournament,
-            'team' => $team,
+            'team' => $teamId,
             'user' => $user
         ]);
     }
@@ -223,7 +255,6 @@ class TournamentController extends AbstractController
                 ]);
             } else {
                 // L'utilisateur n'a pas les droits nécessaires
-                /*throw $this->createAccessDeniedException();*/
                 return $this->redirectToRoute('error_403', [], Response::HTTP_SEE_OTHER);
             }
         } else {
@@ -259,7 +290,6 @@ class TournamentController extends AbstractController
             }
         } else {
             // L'utilisateur n'est pas autorisé à accéder à cette page
-            /*throw $this->createAccessDeniedException();*/
             return $this->redirectToRoute('error_403', [], Response::HTTP_SEE_OTHER);
         }
     }

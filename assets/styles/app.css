@@ -118,7 +118,6 @@ table tr {
 
 .equipe div,
 .equipeShuffled div,
-.equipeShuffled2 div,
 .gagnant div,
 .finaliste div {
     display: flex;
@@ -131,10 +130,16 @@ table tr {
     z-index: 1;
 }
 
-.equipe::after,
-.gagnant::after,
-.equipeShuffled::after,
-.finaliste::after {
+.equipe:first-child::after,
+.equipe:nth-child(2)::after,
+.equipe:nth-child(4)::after,
+.equipe:nth-child(6)::after,
+.gagnant:first-child::after,
+.equipeShuffled:first-child::after,
+.equipeShuffled:nth-child(3)::after,
+.equipeShuffled:nth-child(5)::after,
+.equipeShuffled:nth-child(7)::after,
+.finaliste:first-child::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -144,7 +149,10 @@ table tr {
     z-index: 0;
 }
 
-.equipeShuffled::after {
+.equipeShuffled:first-child::after,
+.equipeShuffled:nth-child(3)::after,
+.equipeShuffled:nth-child(5)::after,
+.equipeShuffled:nth-child(7)::after {
     left: 100%;
     width: 20px;
     height: 9em;
@@ -152,10 +160,14 @@ table tr {
 }
 
 
-.equipe::after {
+.equipe:first-child::after,
+.equipe:nth-child(2)::after,
+.equipe:nth-child(4)::after,
+.equipe:nth-child(6)::after {
     left: 100%;
     width: 20px;
-    height: 5em;
+    height: 10em;
+    top: 130%;
 }
 
 .finaliste:first-child::after {

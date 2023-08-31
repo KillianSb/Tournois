@@ -6,6 +6,7 @@ use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
 class Team
@@ -13,9 +14,11 @@ class Team
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['teamWinner'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Groups(['teamWinner'])]
     private ?string $name = null;
 
     #[ORM\Column]
@@ -43,12 +46,16 @@ class Team
     #[ORM\Column]
     private ?int $leaderId = null;
 
+    #[ORM\OneToMany(mappedBy: 'teamWinner', targetEntity: Result::class)]
+    private Collection $results;
+
     public function __construct()
     {
         $this->tournaments = new ArrayCollection();
         $this->user = new ArrayCollection();
         $this->setPicture("build/images/default-team.svg");
         $this->games = new ArrayCollection();
+        $this->results = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,6 +197,36 @@ class Team
     public function setLeaderId(int $leaderId): static
     {
         $this->leaderId = $leaderId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Result>
+     */
+    public function getResults(): Collection
+    {
+        return $this->results;
+    }
+
+    public function addResult(Result $result): static
+    {
+        if (!$this->results->contains($result)) {
+            $this->results->add($result);
+            $result->setTeamWinner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResult(Result $result): static
+    {
+        if ($this->results->removeElement($result)) {
+            // set the owning side to null (unless already changed)
+            if ($result->getTeamWinner() === $this) {
+                $result->setTeamWinner(null);
+            }
+        }
 
         return $this;
     }

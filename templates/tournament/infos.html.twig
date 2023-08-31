@@ -13,7 +13,15 @@
             <div>
                 <h2 class="card-title flex justify-center">
                     {{ tournament.name }}
-                    <div class="badge badge-accent">{{ tournament.status }}</div>
+                    {% if tournament.status == 'Ouvert' %}
+                        <div class="badge badge-accent">{{ tournament.status }}</div>
+                    {% endif %}
+                    {% if tournament.status =='Cloturé' %}
+                        <div class="badge badge-primary">{{ tournament.status }}</div>
+                    {% endif %}
+                    {% if tournament.status == 'Fermé' %}
+                        <div class="badge badge-secondary">{{ tournament.status }}</div>
+                    {% endif %}
                 </h2>
             </div>
             <div class="card-infos block m-7">
@@ -64,14 +72,22 @@
         </div>
     </div>
 
-{#    <div>
-        {% for equipe in teams %}
-            {{ equipe.name }}
-        {% endfor %}
-    </div>
+    <a class="text-gold" href="{{ path('tournois_home') }}">Retour au tournois</a>
 
-    {% if user.id == tournament.user.id %}
-        {{ include('tournament/supprimer.html.twig') }}
+    <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Modifier</a>
+
+    {% for type, messages in app.flashes %}
+        <div class="alert alert-{{ type }}">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+    {% if tournament.dateBeginTournament|date > "now"|date   %}
+        <a href="{{ path('tournois_join', {'id': tournament.id}) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Rejoindre</a>
     {% endif %}
 #}
 
@@ -80,10 +96,10 @@
         <h1 class="text-5xl font-bold text-gold">Inscrivez votre victoire !</h1>
     </div>
 
-{#    {{ form_start(form) }}
+    {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
-    {{ form_end(form) }}#}
+    {{ form_end(form) }}
 
     <!-- Tableau du tournois -->
 
@@ -91,7 +107,7 @@
         <h2 class="text-4xl font-bold">Tableau du tournois</h2>
     </div>
 
-    {% if tournament.status == 'open' %}
+    {% if tournament.status == 'Ouvert' %}
         <div class="arbres">
             <div id="arbre1">
                 <div class="container flex justify-center mx-auto">
@@ -100,8 +116,9 @@
                 <div class="round1">
                     {% for team in teams %}
                         <div class="equipeShuffled" id="{{ loop.index }}">
-                            <div class="text-gold">
-                                <span id="equipeGagnante" class="mask mask-squircle w-12 h-12"><img src="{{ asset(team.picture) }}" alt="{{ team }}"/></span>{{ team }}
+                            <div class= text-gold">
+                                <span id="equipeGagnante" class="mask mask-squircle w-12 h-12"><img src="{{ asset(team.picture) }}" alt="{{ team }}"/></span>
+                                <p>{{ team }}</p>
                             </div>
                         </div>
                     {% endfor %}
@@ -113,8 +130,17 @@
                 <div class="container flex justify-center mx-auto">
                     <h2 class="text-4xl font-bold text-gold">Round 2</h2>
                 </div>
-                <div class="r1">
-                </div>
+                {% for teamId, position in teamPositions %}
+                    {% set team = teams[position] %}
+                    <div class="equipe">
+                        <div class="text-gold mb-10">
+                        <span class="mask mask-squircle w-12 h-12">
+                            <img src="{{ asset(team.picture) }}" alt="{{ team.name }}" />
+                        </span>
+                            <p>{{ team.name }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
 
 
@@ -123,17 +149,16 @@
                 <div class="container flex justify-center mx-auto">
                     <h2 class="text-4xl font-bold text-gold">Round 3</h2>
                 </div>
-                <div class="">
-                    {% for team in teams %}
-                        <div class="equipeShuffled" id="equipe{{ loop.index }}">
-                            <div class="text-gold">
-                                <span id="equipeGagnante" class="mask mask-squircle w-12 h-12"><img src="{{ asset(team.picture) }}" alt="{{ team }}"/></span>{{ team }}
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
+{#                {% for teamId, position in teamPositions %}
+                    {% set team = teams[position] %}
+                    <div class="finaliste">
+                    <span class="mask mask-squircle w-12 h-12">
+                        <img src="{{ asset(team.picture) }}" alt="{{ team.name }}"/>
+                    </span>
+                        <p>{{ team.name }}</p>
+                    </div>
+                {% endfor %}#}
             </div>
-
             <div class="round4">
                 <div class="container flex justify-center mx-auto">
                     <h2 class="text-4xl font-bold text-gold">Winner !</h2>
@@ -142,7 +167,7 @@
                     <img class="flex  logo h-16 w-28" src="{{ asset('build/images/Crown.PNG') }}" alt="Logo de la multinationnal">
                 </div>
                 <div class="gagnant">
-                    <div class="text-gold"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
+
                 </div>
             </div>
         </div>
