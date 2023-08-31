@@ -89,7 +89,6 @@
     {% if tournament.dateBeginTournament|date > "now"|date   %}
         <a href="{{ path('tournois_join', {'id': tournament.id}) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Rejoindre</a>
     {% endif %}
-#}
 
     <!-- Gestion des parties -->
     <div class="container flex justify-center mx-auto">
@@ -149,7 +148,7 @@
                 <div class="container flex justify-center mx-auto">
                     <h2 class="text-4xl font-bold text-gold">Round 3</h2>
                 </div>
-{#                {% for teamId, position in teamPositions %}
+                {# {% for teamId, position in teamPositions %}
                     {% set team = teams[position] %}
                     <div class="finaliste">
                     <span class="mask mask-squircle w-12 h-12">

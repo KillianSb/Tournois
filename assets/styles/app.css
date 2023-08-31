@@ -26,6 +26,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
+    height: 100vh;
 }
 
 main {
@@ -97,8 +98,10 @@ table tr {
     flex-direction: row;
     align-items: center;
     gap: 50px;
+    background-color: #1a1a1aFF;
     flex-wrap: wrap;
     justify-content: space-around;
+    border: solid #DABE76 1px;
 }
 
 .round {

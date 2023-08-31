@@ -2,6 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Team;
+use App\Entity\Tournament;
+use App\Entity\User;
+use App\Entity\VideoGame;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -29,7 +33,7 @@ class AdminDashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        return $this->render('some/path/my-dashboard.html.twig');
+        return $this->render('admin');
     }
 
     public function configureDashboard(): Dashboard
@@ -41,6 +45,9 @@ class AdminDashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Tournois', 'fas fa-list', Tournament::class);
+        yield MenuItem::linkToCrud('Equipes', 'fas fa-list', Team::class);
+        yield MenuItem::linkToCrud('Jeux', 'fas fa-list', VideoGame::class);
     }
 }
