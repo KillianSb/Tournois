@@ -13,55 +13,33 @@ class Result
     #[ORM\Column]
     private ?int $id = null;
 
+    // Faire une relation avec Team
     #[ORM\Column]
-    private ?int $nbPoint = null;
-
-    #[ORM\Column]
-    private ?int $winnerScore = null;
-
-    #[ORM\Column]
-    private ?int $looserScore = null;
+    private ?string $winnerTeam = null;
 
     #[ORM\OneToOne(mappedBy: 'result', cascade: ['persist', 'remove'])]
     private ?Game $game = null;
 
+    #[ORM\Column]
+    private ?int $nbPartie = null;
+
+    public function __toString(): string
+    {
+        return $this->winnerTeam;
+    }
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNbPoint(): ?int
+    public function getWinnerTeam(): ?string
     {
-        return $this->nbPoint;
+        return $this->winnerTeam;
     }
 
-    public function setNbPoint(int $nbPoint): static
+    public function setWinnerTeam(string $winnerTeam): static
     {
-        $this->nbPoint = $nbPoint;
-
-        return $this;
-    }
-
-    public function getWinnerScore(): ?int
-    {
-        return $this->winnerScore;
-    }
-
-    public function setWinnerScore(int $winnerScore): static
-    {
-        $this->winnerScore = $winnerScore;
-
-        return $this;
-    }
-
-    public function getLooserScore(): ?int
-    {
-        return $this->looserScore;
-    }
-
-    public function setLooserScore(int $looserScore): static
-    {
-        $this->looserScore = $looserScore;
+        $this->winnerTeam = $winnerTeam;
 
         return $this;
     }
@@ -79,6 +57,18 @@ class Result
         }
 
         $this->game = $game;
+
+        return $this;
+    }
+
+    public function getNbPartie(): ?int
+    {
+        return $this->nbPartie;
+    }
+
+    public function setNbPartie(int $nbPartie): static
+    {
+        $this->nbPartie = $nbPartie;
 
         return $this;
     }

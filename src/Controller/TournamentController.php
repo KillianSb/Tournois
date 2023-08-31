@@ -3,18 +3,18 @@
 namespace App\Controller;
 
 
+
 use App\Entity\Game;
+use App\Entity\Result;
 use App\Entity\TableTeamTournament;
-use App\Entity\Team;
 use App\Entity\Tournament;
 use App\Form\GameType;
+use App\Form\ResultType;
 use App\Form\TournamentType;
 use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -93,9 +93,8 @@ class TournamentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'tournois_infos', methods: ['GET'])]
+    #[Route('/{id}', name: 'tournois_infos', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
-  
     public function infos(
         Tournament $tournament,
         TeamRepository $teamRepository,
@@ -140,19 +139,15 @@ class TournamentController extends AbstractController
             $teams = $shuffledTeams;
         }
 
-        // Création formulaire partie
-        $game = new Game();
-        $selectedTeam = $tournament->getTeam();
-        $form = $this->createForm(GameType::class, $game, [
-            'selected_teams' => $selectedTeam,]);
+    //Création formulaire partie
+        $result = new Result();
+        $form = $this->createForm(ResultType::class, $result);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // TODO : Récupération de l'équipe pour affichage du form
-
-            $entityManager->persist($game);
+dd($result);
+            $entityManager->persist($result);
             $entityManager->flush();
 
             return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
@@ -187,9 +182,11 @@ class TournamentController extends AbstractController
             $entityManager->persist($tournament);
             $entityManager->flush();
 
-            return $this->redirectToRoute('tournois_infos', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
         }
         dump($team);
+
+
 
 /*        if ($user->getTeams()->count() >= $tournament->getNbTeamMax()) {
             return $this->redirectToRoute('tournois_home', [], Response::HTTP_SEE_OTHER);

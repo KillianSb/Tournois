@@ -112,11 +112,11 @@ table tr {
     position: relative;
 }
 
-.equipe p,
-.equipeShuffled p,
-.equipeShuffled2 p,
-.gagnant p,
-.finaliste p {
+.equipe div,
+.equipeShuffled div,
+.equipeShuffled2 div,
+.gagnant div,
+.finaliste div {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -157,8 +157,8 @@ table tr {
 .finaliste:first-child::after {
     left: 100%;
     width: 20px;
-    height: 9em;
-    top: 135%;
+    height: 20em;
+    top: 230%;
 }
 
 .gagnant::after {

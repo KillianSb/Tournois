@@ -3,9 +3,11 @@
 {% block title %}Tournament{% endblock %}
 
 {% block body %}
-    <h1>Tournament</h1>
+    <div class="container flex justify-center mx-auto">
+        <h1 class="text-5xl font-bold text-gold">Tournois</h1>
+    </div>
 
-    <table class="table">
+    <table class="table text-gold">
         <tbody>
             <tr>
                 <th>Nom du tournois</th>
@@ -50,23 +52,23 @@
         </tbody>
     </table>
 
-    <div>
+    <div class="text-gold">
         {% for equipe in teams %}
             {{ equipe.name }}
         {% endfor %}
     </div>
 
-    <a href="{{ path('tournois_home') }}">Retour au tournois</a>
+    <a class="text-gold" href="{{ path('tournois_home') }}">Retour au tournois</a>
 
-    <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}">Modifier</a>
+    <a class="text-gold" href="{{ path('tournois_modifier', {'id': tournament.id}) }}">Modifier</a>
 
-    <a href="{{ path('tournois_join', {'id': tournament.id}) }}">Rejoindre</a>
+    <a class="text-gold" href="{{ path('tournois_join', {'id': tournament.id}) }}">Rejoindre</a>
 
     {{ include('tournament/supprimer.html.twig') }}
 
-    <!-- Résultats parties-->
-    <div class="container flex justify-center">
-        <h1 class="text-5xl font-bold">Résultats des parties</h1>
+    <!-- Gestion des parties -->
+    <div class="container flex justify-center mx-auto">
+        <h1 class="text-5xl font-bold text-gold">Inscrivez votre victoire !</h1>
     </div>
 
     {{ form_start(form) }}
@@ -74,53 +76,58 @@
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
     {{ form_end(form) }}
 
-    <!-- Tableau du tournois -->
 
-    <div class="container flex justify-center">
-        <h1 class="text-5xl font-bold">Tableau du tournois</h1>
+    <!-- Tableau du tournois -->
+    <div class="container flex justify-center mx-auto">
+        <h1 class="text-5xl font-bold text-gold">Tableau du tournois</h1>
     </div>
+
+    {% if tournament.status == 'open' %}
         <div class="arbres">
             <div id="arbre1">
                 <div class="round1">
-                    {% for i in range(0, teams|length - 1, 2) %}
-                        <div class="equipeShuffled">
-                            <p><span class="mask mask-squircle w-12 h-12"><img src="{{ asset(teams[i].picture) }}" alt="{{ teams[i] }}"/></span>
-                                {{ teams[i] }}
-                            </p>
-                        </div>
-                        <div class="equipeShuffled2">
-                            <p><span class="mask mask-squircle w-12 h-12"><img src="{{ asset(teams[i + 1].picture) }}" alt="{{ teams[i + 1] }}"/></span>
-                                {{ teams[i + 1] }}
-                            </p>
+                    {% for team in teams %}
+                        <div class="equipeShuffled" id="equipe{{ loop.index }}">
+                            <div class="text-gold">
+                                <span id="equipeGagnante" class="mask mask-squircle w-12 h-12"><img src="{{ asset(team.picture) }}" alt="{{ team }}"/></span>{{ team }}
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
             </div>
             <div class="round2">
                 <div class="equipe">
-                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
-                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
+                    <div class="text-gold mb-10"><span></span></div>
+                    <div class="text-gold mb-52"><span></span></div>
                 </div>
                 <div class="equipe">
-                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
-                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe gagnante 1</p>
+                    <div class="text-gold mb-10"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
+                    <div class="text-gold"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
                 </div>
             </div>
             <div class="round3">
                 <div class="finaliste">
-                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe finaliste</p>
+                    <div class="text-gold mb-52"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
                 </div>
                 <div class="finaliste">
-                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>équipe finaliste</p>
+                    <div class="text-gold"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
                 </div>
             </div>
 
             <div class="round4">
                 <div class="gagnant">
-                    <p><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span>Winner !</p>
+                    <div class="text-gold"><span class="mask mask-squircle w-12 h-12"><img src="" alt=""/></span></div>
                 </div>
             </div>
         </div>
+    {% endif %}
     <br>
+
+    {#                        <form method="post" action="{{ path('tournois_infos', {'id': tournament.id}) }}">#}
+    {#                            <input type="hidden" name="result[winnerTeam]" value="{{ teams[i + 1] }}">#}
+    {#                            <button type="submit">#}
+    {#                                <img class="w-8 h-8" src="{{ asset('build/images/tick.svg') }}" alt="validation">#}
+    {#                            </button>#}
+    {#                        </form>#}
 
 {% endblock %}
