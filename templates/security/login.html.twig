@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connection{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
 {#
@@ -31,10 +31,7 @@
 </form>
 #}
 <form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        <div class="alert alert-danger">{{ error }}</div>
-    {% endif %}
+
     {% if inactive_account_error %}
         <div class="alert alert-danger">{{ inactive_account_error }}</div>
     {% endif %}
@@ -52,6 +49,20 @@
             </div>
             <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <div class="card-body">
+                    {% if error %}
+                        <div role="alert">
+                            <div class="box_warning font-bold rounded-t px-4 py-2">
+                                Danger
+                            </div>
+                            <div class="text_box_warning border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 ">
+                                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                            </div>
+                        </div>
+                        {#
+                        <div class="alert alert-danger text-red-700">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        <div class="alert alert-danger">{{ error }}</div>
+                        #}
+                    {% endif %}
                     <div class="form-control">
                         <label class="label" for="inputEmail">
                             <span class="label-text">Email</span>

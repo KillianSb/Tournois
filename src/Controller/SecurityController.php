@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class SecurityController extends AbstractController
 {
 
-    #[Route(path: '/connection', name: 'security_login')]
+    #[Route(path: '/connexion', name: 'security_login')]
     public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         if ($this->getUser()) {
