@@ -165,7 +165,7 @@ class TournamentController extends AbstractController
             'teams' => $teams,
             'gameImage' => $gameImage,
             'form' => $form,
-            'teamPositions' => $teamPositions
+            'teamPositions' => $teamPositions,
             'user' => $user,
             'nbTeam' => $nbTeam,
         ]);
