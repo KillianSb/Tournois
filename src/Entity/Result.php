@@ -13,7 +13,6 @@ class Result
     #[ORM\Column]
     private ?int $id = null;
 
-    // Faire une relation avec Team
     #[ORM\Column]
     private ?string $winnerTeam = null;
 
