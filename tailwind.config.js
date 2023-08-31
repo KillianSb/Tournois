@@ -3,6 +3,8 @@ module.exports = {
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
+    "./src/**/*.{html,js}",
+    "./node_modules/tw-elements/dist/js/**/*.js"
   ],
   theme: {
     colors: {
@@ -25,6 +27,10 @@ module.exports = {
         '2em': '2em',
       },
     },
+    height: {
+      em: '30em',
+    }
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"),require("tw-elements/dist/plugin.cjs")],
+  darkMode: "class"
 }

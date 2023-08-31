@@ -21,6 +21,11 @@ class Team
     #[ORM\Column]
     private ?int $nbPlayer = null;
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     #[ORM\ManyToMany(targetEntity: Tournament::class, mappedBy: 'team')]
     private Collection $tournaments;
 
@@ -36,16 +41,15 @@ class Team
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'teams')]
     private Collection $games;
 
+    #[ORM\Column]
+    private ?int $leaderId = null;
+
     public function __construct()
     {
         $this->tournaments = new ArrayCollection();
         $this->user = new ArrayCollection();
         $this->setPicture("build/images/default-team.svg");
         $this->games = new ArrayCollection();
-    }
-    public function __toString(): string
-    {
-        return $this->name;
     }
 
     public function getId(): ?int
@@ -175,6 +179,18 @@ class Team
         if ($this->games->removeElement($game)) {
             $game->removeTeam($this);
         }
+
+        return $this;
+    }
+
+    public function getLeaderId(): ?int
+    {
+        return $this->leaderId;
+    }
+
+    public function setLeaderId(int $leaderId): static
+    {
+        $this->leaderId = $leaderId;
 
         return $this;
     }

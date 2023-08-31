@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 html, body {
-    height: 100%;
+    background-color: #1a1a1aFF;
+    color: #DABE76;
+}
+
+.navbar,.footer {
     background-color: black;
+    color: #DABE76;
 }
 
 .logo {
@@ -25,7 +30,6 @@ body {
 
 main {
     flex: 1 0 auto;
-    background-color: #0d9488;
 }
 
 footer {

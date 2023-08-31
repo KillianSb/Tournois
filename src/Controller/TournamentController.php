@@ -33,8 +33,10 @@ class TournamentController extends AbstractController
     #[Route('/', name: 'tournois_home', methods: ['GET'])]
     public function home(TournamentRepository $tournamentRepository): Response
     {
+        $tournaments = $tournamentRepository->findAllTournament();
+
         return $this->render('tournament/home.html.twig', [
-            'tournaments' => $tournamentRepository->findAllTournament(),
+            'tournaments' => $tournaments
         ]);
     }
 
@@ -42,33 +44,11 @@ class TournamentController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function nouveau(
         Request $request,
-        EntityManagerInterface $entityManager,
-        HttpClientInterface $client
+        EntityManagerInterface $entityManager
     ): Response
     {
-        /*
-        //Requête de l'API La Poste pour récupérer les adresses
-
-        $response = $client->request('GET', 'https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port');
-
-        $statusCode = $response->getStatusCode();
-        $content = $response->getContent();
-
-        //$data = file_get_contents('data.json');
-        $obj = json_decode($content);
-        foreach ($obj->features as $feature) {
-            //echo $feature->properties->label . "<br>";
-            $result[] = $feature->properties->label;
-        }
-        */
-        //dd($result);
 
         $tournament = new Tournament();
-        //Récupération du statut pour éviter la modification dans le formulaire
-        //$status = $tournament->getStatus();
-
-        //Récupération de la date de création pour éviter la modification dans le formulaire
-        //$dateCreation = $tournament->getDateCreation();
 
         $form = $this->createForm(TournamentType::class, $tournament);
         $form->handleRequest($request);
@@ -151,12 +131,16 @@ dd($result);
             $entityManager->flush();
 
             return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
-        }
+        }*/
+
+        // Récupérer le chemin de l'image du jeu associé
+        $gameImage = $tournament->getVideogame()->getPicture();
 
         return $this->render('tournament/infos.html.twig', [
             'tournament' => $tournament,
             'teams' => $teams,
-            'form' => $form
+            'gameImage' => $gameImage
+            /*'form' => $form*/
         ]);
     }
 
@@ -178,7 +162,7 @@ dd($result);
         $team = $request->query->get('equipes');
         if ($team != null) {
             $team = $teamRepository->find($team);
-            $tournament->addTeam($team); //Ajout d'un étournament
+            $tournament->addTeam($team); //Ajout d'une équipe
             $entityManager->persist($tournament);
             $entityManager->flush();
 
