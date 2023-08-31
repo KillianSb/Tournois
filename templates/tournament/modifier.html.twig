@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Tournament{% endblock %}
+{% block title %}{{ tournament.name }}{% endblock %}
 
 {% block body %}
-    <h1>Modifier Tournoi</h1>
+    <h1 class="text-5xl font-bold">Modifier Tournoi</h1>
 
     {{ include('tournament/tournois_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('tournois_home') }}">Retour au tournois</a>
+    <a href="{{ path('tournois_home') }}" class="btn btn-ghost btn-xs">Retour au tournois</a>
 
-    {{ include('tournament/supprimer.html.twig') }}
+    {#
+        {{ include('tournament/supprimer.html.twig') }}
+    #}
 {% endblock %}

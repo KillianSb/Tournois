@@ -56,10 +56,16 @@ class VideoGameController extends AbstractController
     {
         $tournaments = $tournamentRepository->findBy(['videogame' => $videoGame]);
 
+        $teamCounts = [];
+        foreach ($tournaments as $tournament) {
+            $teamCounts[$tournament->getId()] = count($tournament->getTeam());
+        }
+
         return $this->render('video_game/show.html.twig',
             compact(
                 'tournaments',
-                'videoGame'
+                'videoGame',
+                'teamCounts'
             )
         );
     }

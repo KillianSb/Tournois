@@ -34,9 +34,15 @@ class TournamentController extends AbstractController
     public function home(TournamentRepository $tournamentRepository): Response
     {
         $tournaments = $tournamentRepository->findAllTournament();
+        // Tableau avec le nombre d'équipes par tournois
+        $teamCounts = [];
+        foreach ($tournaments as $tournament) {
+            $teamCounts[$tournament->getId()] = count($tournament->getTeam());
+        }
 
         return $this->render('tournament/home.html.twig', [
-            'tournaments' => $tournaments
+            'tournaments' => $tournaments,
+            'teamCounts' => $teamCounts
         ]);
     }
 
@@ -82,6 +88,8 @@ class TournamentController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
+        $user = $this->getUser();
+        $nbTeam = count($tournament->getTeam());
 /*        $teams = $tournament->getTeam();
         //dd($teams->count());
 
@@ -139,7 +147,9 @@ dd($result);
         return $this->render('tournament/infos.html.twig', [
             'tournament' => $tournament,
             'teams' => $teams,
-            'gameImage' => $gameImage
+            'gameImage' => $gameImage,
+            'user' => $user,
+            'nbTeam' => $nbTeam,
             /*'form' => $form*/
         ]);
     }
