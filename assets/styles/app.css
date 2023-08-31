@@ -199,3 +199,13 @@ table tr {
 .inputForm {
     background-color: #1a1a1aFF;
 }
+
+.box_warning {
+    background-color: #dc4242;
+    color: white;
+}
+
+.text_box_warning {
+    color: #dc4242;
+
+}
