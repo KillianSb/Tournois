@@ -3,7 +3,8 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <h1>Page d'accueil</h1>
+    <div class="mt-10">
+    </div>
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div>
@@ -16,9 +17,6 @@
         {% endfor %}
     {% endfor %}
     <img class="logo h-48 w-50 rounded-3xl flex justify-center" src="{{ asset('build/images/Logo.tournament.png') }}" alt="Logo de la multinationnal">
-
-
-
 
     <div
         id="carouselDarkVariant"

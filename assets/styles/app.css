@@ -178,4 +178,12 @@ table tr {
     justify-content: center;
 }
 
+/* ------------------ Page Tournoi ------------------- */
 
+.valeurBtn {
+    color: #1a1a1aFF;
+}
+
+.inputForm {
+    background-color: #1a1a1aFF;
+}

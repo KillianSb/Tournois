@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tournament{% endblock %}
+{% block title %}{{ tournament.name }}{% endblock %}
 
 {% block body %}
-    <h1 class="text-5xl font-bold">Tournament</h1>
+    <h1 class="text-5xl font-bold text-center">Tournoi</h1>
+
+    <a href="{{ path('tournois_home') }}" class="valeurBtn text-white bg-gold hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-4 my-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Retour au tournois</a>
 
     <div class="card bg-black-100 shadow-xl">
         <figure><img class="hero h-em object-cover" src="{{ asset(gameImage) }}" alt="Image du jeux du tournois" /></figure>
@@ -13,6 +15,10 @@
                     {{ tournament.name }}
                     <div class="badge badge-accent">{{ tournament.status }}</div>
                 </h2>
+            </div>
+            <div class="card-infos block m-7">
+                <p class="underline flex justify-center">Nombre d'équipes</p>
+                <p class="flex justify-center">{{ nbTeam }} / {{ tournament.nbTeamMax }}</p>
             </div>
 
             <div class="card-infos block m-7">
@@ -46,6 +52,15 @@
                     <div class="badge badge-outline flex inline-flex">{{ tournament.reward }}€</div>
                 </div>
             </div>
+            <div class="footer-card flex justify-center mt-4">
+                {% if user.id == tournament.user.id %}
+                    <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}" class="valeurBtn text-white bg-gold hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-4 my-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Modifier</a>
+                {% endif %}
+
+                {% if tournament.dateBeginTournament|date < "now"|date   %}
+                    <a href="{{ path('tournois_join', {'id': tournament.id}) }}" class="valeurBtn text-white bg-gold hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-4 my-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Rejoindre</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 
@@ -53,16 +68,12 @@
         {% for equipe in teams %}
             {{ equipe.name }}
         {% endfor %}
-    </div>#}
+    </div>
 
-    <a href="{{ path('tournois_home') }}">Retour au tournois</a>
-
-    <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Modifier</a>
-    {% if tournament.dateBeginTournament|date < "now"|date   %}
-        <a href="{{ path('tournois_join', {'id': tournament.id}) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Rejoindre</a>
+    {% if user.id == tournament.user.id %}
+        {{ include('tournament/supprimer.html.twig') }}
     {% endif %}
-
-    {{ include('tournament/supprimer.html.twig') }}
+#}
 
     <!-- Résultats parties-->
     <div class="container flex justify-center">
@@ -77,21 +88,16 @@
     <!-- Tableau du tournois -->
 
     <div class="container flex justify-center">
-        <h1 class="text-5xl font-bold">Tableau du tournois</h1>
+        <h2 class="text-4xl font-bold">Tableau du tournois</h2>
     </div>
         <div class="arbres">
             <div id="arbre1">
                 <div class="round1">
-                    {% for i in range(0, teams|length - 1, 2) %}
-                        <div class="equipeShuffled">
-                            <p><span class="mask mask-squircle w-12 h-12"><img src="{{ asset(teams[i].picture) }}" alt="{{ teams[i] }}"/></span>
-                                {{ teams[i] }}
-                            </p>
-                        </div>
-                        <div class="equipeShuffled2">
-                            <p><span class="mask mask-squircle w-12 h-12"><img src="{{ asset(teams[i + 1].picture) }}" alt="{{ teams[i + 1] }}"/></span>
-                                {{ teams[i + 1] }}
-                            </p>
+                    {% for team in teams %}
+                        <div class="equipeShuffled" id="{{ loop.index }}">
+                            <div class="text-gold">
+                                <span id="equipeGagnante" class="mask mask-squircle w-12 h-12"><img src="{{ asset(team.picture) }}" alt="{{ team }}"/></span>{{ team }}
+                            </div>
                         </div>
                     {% endfor %}
                 </div>

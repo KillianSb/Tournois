@@ -3,76 +3,42 @@
 {% block title %}Tournament index{% endblock %}
 
 {% block body %}
-    <h1 class="text-5xl font-bold">Tournois </h1>
-
-    <table class="table">
-                {#
-        <thead>
-            <tr>
-                <th>Nom du tournois</th>
-                <th>Régles</th>
-                <th>Date de début</th>
-                <th>Date limmite d'inscription</th>
-                <th>Date de création</th>
-                <th>Date de fin de tournois</th>
-                <th>Nombre d'équipe maximum</th>
-                <th>Actions</th>
-                <th>Informations du tournois</th>
-                <th>Prix d'entrée</th>
-                <th>Récompense 🤑</th>
-            </tr>
-        </thead>
-                #}
-        <tbody>
-        {% for tournament in tournaments %}
-            <tr>
-                <td>{{ tournament.name }}</td>
-                <td>{{ tournament.rules }}</td>
-                <td>{{ tournament.dateBeginTournament ? tournament.dateBeginTournament|date('d F Y H:i') : '' }}</td>
-                {#
-                <td>{{ tournament.dateLimitRegistration ? tournament.dateLimitRegistration|date('d F Y H:i') : '' }}</td>
-                <td>{{ tournament.dateCreation ? tournament.dateCreation|date('d F Y H:i') : '' }}</td>
-                <td>{{ tournament.dateEndTournament ? tournament.dateEndTournament|date('d F Y H:i') : '' }}</td>
-                <td>{{ tournament.nbTeamMax }}</td>
-                <td>
-                    <a href="{{ path('tournois_infos', {'id': tournament.id}) }}">Infos</a>
-                    <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}">Modifier</a>
-                </td>
-                #}
-                <td>{{ tournament.tournamentInfo }}</td>
-                <td>{{ tournament.entryPrice }}€</td>
-                <td>{{ tournament.reward }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">Aucun enregistrement trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <h1 class="text-5xl font-bold text-center">Tournois</h1>
 
     <div class="flex flex-col bg-blue-900">
-        <div class="grid grid-cols-1 grid-rows-4 gap-2 ">
+        <div class="grid grid-cols-1 gap-2 ">
             {% for tournament in tournaments %}
-                <div class="bg-green-900 flex-row ">
-                    <a href="{{ path('tournois_infos', {'id': tournament.id}) }}">
-                        <div class="left">
-                            <img src="{{ asset('/') }}" alt="">
-                            <div class="w-full">
-                                <p>{{ tournament.name }}</p>
+                    <div class="py-2 sm:py-3">
+                        <a href="{{ path('tournois_infos', {'id': tournament.id}) }}">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-2xl font-medium text-gray-900 truncate dark:text-white">
+                                        {{ tournament.name }}
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        {{ tournament.dateBeginTournament |date('d F Y H:i')}}
+                                    </p>
+                                </div>
+                                <div class="flex flex-col items-center text-base font-semibold text-green-500 dark:text-white">
+                                    {% for key, nbTeam in teamCounts %}
+                                        {% if key == tournament.id %}
+                                            <div>
+                                                {{ nbTeam }} / {{ tournament.nbTeamMax }}
+                                            </div>
+                                            {% if nbTeam == tournament.nbTeamMax %}
+                                                <p>Inscription cloturée</p>
+                                            {% else %}
+                                                <p>Inscription ouverte</p>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="w-full">
-                                {{ tournament.dateBeginTournament |date('d F Y H:i')}}
-                            </div>
-                            <div class="w-full">
-                                {{ tournament.reward}}
-                            </div>
-                        </div>
-                        <div class="right">
-                            Inscription ouverte
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    <hr class="">
+                    </div>
+            {% else %}
+                <p>Aucun enregistrement trouvé</p>
             {% endfor %}
         </div>
     </div>
