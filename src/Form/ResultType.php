@@ -6,6 +6,7 @@ use App\Entity\Result;
 use App\Entity\Team;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,14 +16,19 @@ class ResultType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('winnerTeam', EntityType::class, [
+            ->add('teamWinner', EntityType::class, [
                 'class' => Team::class,
                 'label' => 'Equipe gagnante par round du tournois',
-                'multiple' => true,
+                'multiple' => false,
                 'autocomplete' => true,
             ])
 
-            ->add('nbPartie', NumberType::class, [
+            ->add('nbPartie', ChoiceType::class, [
+                'choices' => [
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                ],
                 'label' => 'Numéro du round : ',
                 'label_attr' => [
                     'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'

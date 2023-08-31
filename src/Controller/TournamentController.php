@@ -126,7 +126,7 @@ class TournamentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-dd($result);
+            /*dd($result);*/
             $entityManager->persist($result);
             $entityManager->flush();
 
@@ -139,8 +139,8 @@ dd($result);
         return $this->render('tournament/infos.html.twig', [
             'tournament' => $tournament,
             'teams' => $teams,
-            'gameImage' => $gameImage
-            /*'form' => $form*/
+            'gameImage' => $gameImage,
+            'form' => $form
         ]);
     }
 

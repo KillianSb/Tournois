@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ResultRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ResultRepository::class)]
 class Result
@@ -13,35 +14,24 @@ class Result
     #[ORM\Column]
     private ?int $id = null;
 
-    // Faire une relation avec Team
-    #[ORM\Column]
-    private ?string $winnerTeam = null;
-
     #[ORM\OneToOne(mappedBy: 'result', cascade: ['persist', 'remove'])]
     private ?Game $game = null;
 
     #[ORM\Column]
+    #[Groups(['teamWinner'])]
     private ?int $nbPartie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'results')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Team $teamWinner = null;
 
     public function __toString(): string
     {
-        return $this->winnerTeam;
+        return $this->teamWinner;
     }
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getWinnerTeam(): ?string
-    {
-        return $this->winnerTeam;
-    }
-
-    public function setWinnerTeam(string $winnerTeam): static
-    {
-        $this->winnerTeam = $winnerTeam;
-
-        return $this;
     }
 
     public function getGame(): ?Game
@@ -72,4 +62,29 @@ class Result
 
         return $this;
     }
+
+    public function getTeamWinner(): ?Team
+    {
+        return $this->teamWinner;
+    }
+
+    public function setTeamWinner(?Team $teamWinner): static
+    {
+        $this->teamWinner = $teamWinner;
+
+        return $this;
+    }
+
+    public function __serialize(): array
+    {
+        // TODO: Implement __serialize() method.
+        return [
+            'id' => $this->getId(),
+            'nbPartie' => $this->getNbPartie(),
+            'equipe_position' => $this->getTeamWinner(),
+            'winners' => $this->getTeamWinner()
+        ];
+    }
+
+
 }
