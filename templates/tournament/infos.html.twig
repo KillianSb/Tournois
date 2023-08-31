@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tournament{% endblock %}
-{% block body %}
-    <h1 class="text-5xl font-bold">Tournament</h1>
+{% block title %}{{ tournament.name }}{% endblock %}
 
-    <div class="card bg-black-100 shadow-xl">
+{% block body %}
+    <h1 class="text-5xl font-bold text-center">Tournoi</h1>
+
+    <a href="{{ path('tournois_home') }}" class="valeurBtn text-white bg-gold hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-4 my-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Retour au tournois</a>
+
+    <div class="card bg-black-100 shadow-2xl">
         <figure><img class="hero h-em object-cover" src="{{ asset(gameImage) }}" alt="Image du jeux du tournois" /></figure>
-        <div class="card-body block">
+        <div class="card-body block shadow-2xl">
             <div>
                 <h2 class="card-title flex justify-center">
                     {{ tournament.name }}
@@ -20,6 +23,10 @@
                         <div class="badge badge-secondary">{{ tournament.status }}</div>
                     {% endif %}
                 </h2>
+            </div>
+            <div class="card-infos block m-7">
+                <p class="underline flex justify-center">Nombre d'équipes</p>
+                <p class="flex justify-center">{{ nbTeam }} / {{ tournament.nbTeamMax }}</p>
             </div>
 
             <div class="card-infos block m-7">
@@ -53,6 +60,15 @@
                     <div class="badge badge-outline flex inline-flex">{{ tournament.reward }}€</div>
                 </div>
             </div>
+            <div class="footer-card flex justify-center mt-4">
+                {% if user.id == tournament.user.id %}
+                    <a href="{{ path('tournois_modifier', {'id': tournament.id}) }}" class="valeurBtn text-white bg-gold hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-4 my-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Modifier</a>
+                {% endif %}
+
+                {% if tournament.dateBeginTournament|date < "now"|date   %}
+                    <a href="{{ path('tournois_join', {'id': tournament.id}) }}" class="valeurBtn text-white bg-gold hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-4 my-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Rejoindre</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 
@@ -73,8 +89,7 @@
     {% if tournament.dateBeginTournament|date > "now"|date   %}
         <a href="{{ path('tournois_join', {'id': tournament.id}) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Rejoindre</a>
     {% endif %}
-
-    {{ include('tournament/supprimer.html.twig') }}
+#}
 
     <!-- Gestion des parties -->
     <div class="container flex justify-center mx-auto">
@@ -86,10 +101,10 @@
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
     {{ form_end(form) }}
 
-
     <!-- Tableau du tournois -->
-    <div class="container flex justify-center mx-auto">
-        <h1 class="text-5xl font-bold text-gold">Tableau du tournois</h1>
+
+    <div class="container flex justify-center">
+        <h2 class="text-4xl font-bold">Tableau du tournois</h2>
     </div>
 
     {% if tournament.status == 'Ouvert' %}
@@ -109,6 +124,8 @@
                     {% endfor %}
                 </div>
             </div>
+
+
             <div class="round2">
                 <div class="container flex justify-center mx-auto">
                     <h2 class="text-4xl font-bold text-gold">Round 2</h2>
@@ -125,6 +142,9 @@
                     </div>
                 {% endfor %}
             </div>
+
+
+
             <div class="round3">
                 <div class="container flex justify-center mx-auto">
                     <h2 class="text-4xl font-bold text-gold">Round 3</h2>
@@ -141,7 +161,10 @@
             </div>
             <div class="round4">
                 <div class="container flex justify-center mx-auto">
-                    <h2 class="text-4xl font-bold text-gold">Winner</h2>
+                    <h2 class="text-4xl font-bold text-gold">Winner !</h2>
+                </div>
+                <div>
+                    <img class="flex  logo h-16 w-28" src="{{ asset('build/images/Crown.PNG') }}" alt="Logo de la multinationnal">
                 </div>
                 <div class="gagnant">
 
@@ -150,12 +173,5 @@
         </div>
     {% endif %}
     <br>
-
-    {#                        <form method="post" action="{{ path('tournois_infos', {'id': tournament.id}) }}">#}
-    {#                            <input type="hidden" name="result[winnerTeam]" value="{{ teams[i + 1] }}">#}
-    {#                            <button type="submit">#}
-    {#                                <img class="w-8 h-8" src="{{ asset('build/images/tick.svg') }}" alt="validation">#}
-    {#                            </button>#}
-    {#                        </form>#}
 
 {% endblock %}

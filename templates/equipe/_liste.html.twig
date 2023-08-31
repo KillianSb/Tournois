@@ -4,18 +4,18 @@
 
 {% block body %}
     <div class="container flex justify-center">
-        <h1 class="text-5xl font-bold">Liste des équipes</h1>
+        <h1 class="text-5xl font-bold text-center">Liste des équipes</h1>
     </div>
 
     <div class="overflow-x-auto">
         <table class="table container flex">
             <thead>
                 <tr>
-                    <th>Nom d'équipe</th>
-                    <th>Nombre de joueurs</th>
-                    <th>Bio del'équipe</th>
+                    <th class="text-gold text-lg">Nom d'équipe</th>
+                    <th class="text-gold text-lg">Nombre de joueurs</th>
+                    <th class="text-gold text-lg">Bio de l'équipe</th>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <th>Actions</th>
+                        <th class="text-gold text-lg">Actions</th>
                     {% endif %}
                 </tr>
             </thead>

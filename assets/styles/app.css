@@ -46,7 +46,7 @@ footer {
 }
 
 .team-row:hover {
-    background-color: #ff3f3f;
+    background-color: rgba(255, 255, 255, 0.15);
     transform: scale(1.01) translateZ(50px);
 }
 
@@ -188,4 +188,14 @@ table tr {
 .round3 span {
     display: flex;
     justify-content: center;
+}
+
+/* ------------------ Page Tournoi ------------------- */
+
+.valeurBtn {
+    color: #1a1a1aFF;
+}
+
+.inputForm {
+    background-color: #1a1a1aFF;
 }

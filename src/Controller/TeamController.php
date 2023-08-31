@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-
 #[Route('/equipe')]
 class TeamController extends AbstractController
 {
@@ -60,7 +59,7 @@ class TeamController extends AbstractController
             return $this->redirectToRoute('_liste', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('equipe/enregistrement.html.twig', [
-            'equipe' => $team,
+            'team' => $team,
             'form' => $form,
         ]);
     }
@@ -134,7 +133,7 @@ class TeamController extends AbstractController
         }
 
         return $this->render('equipe/modification.html.twig', [
-            'equipe' => $team,
+            'team' => $team,
             'form' => $form,
         ]);
     }
@@ -144,14 +143,15 @@ class TeamController extends AbstractController
     #[Route(
         '/supprimer{id}',
         name: '_supprimer',
-        methods: ['POST']
+        methods: ['POST'    ]
     )]
     #[IsGranted('ROLE_USER')]
     // TODO Mettre un champ "chef d'"équipe" pour faire la vérification
     public function supprimer(
         Request $request,
         Team $team,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        int $id
     ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$team->getId(), $request->request->get('_token'))) {
@@ -159,6 +159,7 @@ class TeamController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('_liste', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            '_liste', [], Response::HTTP_SEE_OTHER);
     }
 }
