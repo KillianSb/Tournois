@@ -129,7 +129,7 @@ class TournamentController extends AbstractController
         }
 
         $result = $resultRepository->findAll();
-        $resultTournament = $tableTeamTournamentRepository->findAll();
+        $resultTournament = $tableTeamTournamentRepository->findBy(['tournaments' => $tournament]);
 
 
         // Récupérer les IDs des équipes gagnantes
