@@ -40,8 +40,9 @@ class ResultType extends AbstractType
                 ]
             ])
 
-            ->add('idTournament', HiddenType::class, [
-                'data' => $this->tournament->getId(),
+            ->add('idTournament', EntityType::class, [
+                'class' => Tournament::class,
+                'multiple' => true
             ])
         ;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResultRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -26,13 +28,19 @@ class Result
     #[Groups(['teamWinner'])]
     private ?Team $teamWinner = null;
 
-    #[ORM\Column]
-    private ?int $idTournament = null;
+    #[ORM\ManyToMany(targetEntity: Tournament::class, inversedBy: 'results')]
+    private Collection $idTournament;
+
+    public function __construct()
+    {
+        $this->idTournament = new ArrayCollection();
+    }
 
     public function __toString(): string
     {
-        return $this->teamWinner;
+        return $this->teamWinner.' - '.$this->idTournament.' - '.$this->nbPartie;
     }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,14 +98,26 @@ class Result
         ];
     }
 
-    public function getIdTournament(): ?int
+    /**
+     * @return Collection<int, Tournament>
+     */
+    public function getIdTournament(): Collection
     {
         return $this->idTournament;
     }
 
-    public function setIdTournament(int $idTournament): static
+    public function addIdTournament(Tournament $idTournament): static
     {
-        $this->idTournament = $idTournament;
+        if (!$this->idTournament->contains($idTournament)) {
+            $this->idTournament->add($idTournament);
+        }
+
+        return $this;
+    }
+
+    public function removeIdTournament(Tournament $idTournament): static
+    {
+        $this->idTournament->removeElement($idTournament);
 
         return $this;
     }

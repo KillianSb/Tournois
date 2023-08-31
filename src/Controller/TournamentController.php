@@ -133,22 +133,22 @@ class TournamentController extends AbstractController
             /*dd($result);*/
             $entityManager->persist($result);
             $entityManager->flush();
-
-            return $this->redirectToRoute('tournois_infos', ['id' => $tournament->getId()], Response::HTTP_SEE_OTHER);
         }
 
         $idTableTeamTournament = $tableTeamTournamentRepository->findAll();
-        $results = $resultRepository->findAll();
+        $results = $resultRepository->findOneBy(['idTournament' => $tournament]);
 
 
         // Récupérer le chemin de l'image du jeu associé
         $gameImage = $tournament->getVideogame()->getPicture();
 
         return $this->render('tournament/infos.html.twig', [
-            'tournament' => $tournament,
+            'idTournament' => $tournament,
             'teams' => $teams,
             'gameImage' => $gameImage,
-            'form' => $form
+            'form' => $form,
+            'results' => $results,
+            'idTableTeamTournament' => $idTableTeamTournament
         ]);
     }
 

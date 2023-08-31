@@ -79,6 +79,9 @@ class Tournament
     #[ORM\OneToOne(mappedBy: 'tournaments', cascade: ['persist', 'remove'])]
     private ?TableTeamTournament $tableTeamTournament = null;
 
+    #[ORM\ManyToMany(targetEntity: Result::class, mappedBy: 'idTournament')]
+    private Collection $results;
+
     public function __construct()
     {
         //Initialisation des dates en fonction du fuseau horaire Paris
@@ -93,6 +96,7 @@ class Tournament
         $this->dateBeginTournament = new \DateTime('now', $timezoneParis);
         $this->setDateEndTournament($this->getDateBeginTournament()->add(new \DateInterval('P1D')));
         $this->setDateLimitRegistration($this->getDateBeginTournament());
+        $this->results = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -348,6 +352,33 @@ class Tournament
         }
 
         $this->tableTeamTournament = $tableTeamTournament;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Result>
+     */
+    public function getResults(): Collection
+    {
+        return $this->results;
+    }
+
+    public function addResult(Result $result): static
+    {
+        if (!$this->results->contains($result)) {
+            $this->results->add($result);
+            $result->addIdTournament($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResult(Result $result): static
+    {
+        if ($this->results->removeElement($result)) {
+            $result->removeIdTournament($this);
+        }
 
         return $this;
     }
