@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Result;
 use App\Entity\Team;
 use App\Entity\Tournament;
+use phpDocumentor\Reflection\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -42,7 +43,10 @@ class ResultType extends AbstractType
 
             ->add('idTournament', EntityType::class, [
                 'class' => Tournament::class,
-                'multiple' => true
+                'multiple' => true,
+                'attr' => [
+                    'type' => 'hidden'
+                ],
             ])
         ;
     }

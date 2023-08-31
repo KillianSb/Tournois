@@ -136,14 +136,14 @@ class TournamentController extends AbstractController
         }
 
         $idTableTeamTournament = $tableTeamTournamentRepository->findAll();
-        $results = $resultRepository->findOneBy(['idTournament' => $tournament]);
+        $results = $resultRepository->findAll();
 
 
         // Récupérer le chemin de l'image du jeu associé
         $gameImage = $tournament->getVideogame()->getPicture();
 
         return $this->render('tournament/infos.html.twig', [
-            'idTournament' => $tournament,
+            'tournament' => $tournament,
             'teams' => $teams,
             'gameImage' => $gameImage,
             'form' => $form,
