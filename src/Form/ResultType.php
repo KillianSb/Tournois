@@ -2,25 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Game;
+use App\Entity\Result;
+use App\Entity\Team;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-class GameType extends AbstractType
+class ResultType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('teams', null, [
+            ->add('winnerTeam', EntityType::class, [
+                'class' => Team::class,
                 'label' => 'Equipe gagnante par round du tournois',
-                'choices' => $options['selected_teams'],
+                'multiple' => true,
                 'autocomplete' => true,
             ])
 
-            ->add('result', NumberType::class, [
+            ->add('nbPartie', NumberType::class, [
                 'label' => 'Numéro du round : ',
                 'label_attr' => [
                     'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
@@ -35,8 +37,8 @@ class GameType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Game::class,
-            'selected_teams' => [],
+            'data_class' => Result::class,
+
         ]);
     }
 }

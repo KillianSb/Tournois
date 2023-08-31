@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Result;
+use App\Entity\Tournament;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
