@@ -1,31 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}VideoGame index{% endblock %}
+{% block title %}Jeux vidéo{% endblock %}
 
 {% block body %}
 
-        {#
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Jeu en ligne</th>
-                <th>Actions</th>
-                <th>Règles</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h1 class="mb-4 text-5xl font-bold text-gray-900 dark:text-white text-center">Nos Jeux</h1>
 
-        <tr>
-            <td>{{ video_game.name }}</td>
-            <td>{{ video_game.isOnline ? 'Oui' : 'Non' }}</td>
-            <td>{{ video_game.rules }}</td>
-            <td>
-                <a href="{{ path('video_game_show', {'id': video_game.id}) }}">Afficher</a>
-                <a href="{{ path('video_game_edit', {'id': video_game.id}) }}">Modifier</a>
-            </td>
-        </tr>
-        #}
+
     <div class="grid grid-cols-4 gap-6 place-content-center m-5">
         {% for video_game in video_games %}
 
@@ -40,17 +21,11 @@
                     </div>
                 </a>
             </div>
-
         {% else %}
-            <tr>
-                <td colspan="5">Aucun résultats</td>
-            </tr>
+                <p>Aucun résultats</p>
         {% endfor %}
     </div>
     {#
-        </tbody>
-    </table>
+        <a href="{{ path('video_game_new') }}">Ajouter un nouveau jeu</a>
     #}
-
-    <a href="{{ path('video_game_new') }}">Ajouter un nouveau jeu</a>
 {% endblock %}

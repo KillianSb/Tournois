@@ -20,8 +20,14 @@ class TeamType extends AbstractType
     {
         $builder
 
-            ->add('name', null,
-                ['label' => "Nom de l'équipe",
+            ->add('name', null, [
+                'label' => "Nom de l'équipe",
+                'label_attr' => [
+                    'class' => 'block mb-2 text-lg font-medium text-gray-900 dark:text-white'
+                ],
+                'attr' => [
+                    'class' => 'inputForm block mb-2 text-sm font-medium text-gray-900 dark:text-white border-b-2'
+                ],
             ])
 
             ->add('nbPlayer', HiddenType::class, [
@@ -30,24 +36,35 @@ class TeamType extends AbstractType
 
             ->add('bio', null, [
                 "label" => "Ajoute une bio à ton équipe",
-            ])
-
-            ->add('tournaments', EntityType::class, [
-                "class" => Tournament::class,
-                "label" => "Choix du tournois",
-                'multiple' => true,
-                'autocomplete' => true
+                'label_attr' => [
+                    'class' => 'block mb-2 text-lg font-medium text-gray-900 dark:text-white'
+                ],
+                'attr' => [
+                    'class' => 'inputForm block mb-2 text-sm font-medium text-gray-900 dark:text-white border-b-2'
+                ]
             ])
 
             ->add('user', EntityType::class, [
                 "class" => User::class,
-                'placeholder' => 'Nom du participant',
+                'label' => "Pseudo",
                 'multiple' => true,
-                'autocomplete' => true
+                'autocomplete' => true,
+                'label_attr' => [
+                    'class' => 'block mb-2 text-lg font-medium text-gray-900 dark:text-white'
+                ],
+                'attr' => [
+                    'class' => 'inputForm block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+                ]
             ])
 
             ->add('picture', null, [
-                "label" => "Image Equipe"
+                "label" => "Image Equipe",
+                'label_attr' => [
+                    'class' => 'block mb-2 text-lg font-medium text-gray-900 dark:text-white'
+                ],
+                'attr' => [
+                    'class' => 'inputForm block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+                ]
             ])
 
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {

@@ -20,12 +20,12 @@ class TournamentType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'label' => 'Nom du tournois',
+                'label' => 'Nom du tournoi',
                 'label_attr' => [
                     'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
                 ],
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                    'class' => ' inputForm text-sm rounded-lg focus:ring-primary-600 border-b-2 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
                 ]
             ])
             ->add('rules', null, [
@@ -35,13 +35,16 @@ class TournamentType extends AbstractType
                     'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
                 ],
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                    'class' => 'inputForm  text-gray-900 text-sm rounded-lg border-b-2 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
                 ]
             ])
             ->add('dateBeginTournament', null, [
                 'label' => 'Date de debut du tournois',
                 'label_attr' => [
                     'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+                ],
+                'attr' => [
+                    'class' => ''
                 ]
             ])
             //->add('dateEndTournament', null, [
@@ -63,16 +66,16 @@ class TournamentType extends AbstractType
                     'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
                 ],
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                    'class' => 'inputForm text-gray-900 text-sm rounded-lg border-b-2 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
                 ]
             ])
             ->add('tournamentInfo', TextType::class, [
                 'label' => 'Infos du tournois',
                 'label_attr' => [
-                    'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+                    'class' => ' block mb-2 text-sm font-medium text-gray-900 dark:text-white'
                 ],
                 'attr' => [
-                    'class' => 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    'class' => 'inputForm block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-b-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 ]
             ])
             ->add('entryPrice', null, [
@@ -81,7 +84,7 @@ class TournamentType extends AbstractType
                     'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
                 ],
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                    'class' => ' inputForm bg-gray-50 border-b-2 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
                 ]
             ])
             ->add('reward', null, [
@@ -90,7 +93,7 @@ class TournamentType extends AbstractType
                     'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
                 ],
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                    'class' => 'inputForm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
                 ]
             ])
 
@@ -98,10 +101,10 @@ class TournamentType extends AbstractType
                 'class' => Videogame::class,
                 'label' => 'Jeu du tournois',
                 'label_attr' => [
-                    'class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+                    'class' => 'block mb-2 text-text font-medium text-gray-900 dark:text-white'
                 ],
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    'class' => 'inputForm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 ]
             ])
             ->add('location', EntityType::class, [
@@ -112,7 +115,7 @@ class TournamentType extends AbstractType
                 'label' => 'Lieu du tournois',
                 'autocomplete' => true,
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    'class' => 'inputForm bg-gray-50 border-b-2  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 ]
             ])
             //->add('team', EntityType::class, [

@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Team{% endblock %}
+{% block title %} {{ team.name }}{% endblock %}
 
 {% block body %}
-    <h1>Modifier une équipe</h1>
+    <h1 class="text-5xl font-bold">Modifier l'équipe</h1>
 
-    {{ include('equipe/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <a href="{{ path('_liste') }}" class="valeurBtn text-white bg-gold focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  my-10 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none ">Retour</a>
 
-    <a href="{{ path('_liste') }}">back to list</a>
+    <div class="mt-5">
+        {{ include('equipe/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    </div>
 
-    {{ include('equipe/_delete_form.html.twig') }}
 {% endblock %}

@@ -15,7 +15,6 @@
     <div class="m-5">
 
         <form class="flex items-center">
-        <h2 class="mr-2">Tournois</h2>
             <label for="voice-search" class="sr-only">Search</label>
             <div class="relative w-full">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -49,9 +48,43 @@
 
         <h2>Tournois associés :</h2>
         <ul>
-            {% for tournament in tournaments %}
-                <li>{{ tournament.name }}</li>
-            {% endfor %}
+            <div class="flex flex-col bg-blue-900">
+                <div class="grid grid-cols-1 gap-2 ">
+                    {% for tournament in tournaments %}
+                        <div class="py-2 sm:py-3">
+                            <a href="{{ path('tournois_infos', {'id': tournament.id}) }}">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-2xl font-medium text-gray-900 truncate dark:text-white">
+                                            {{ tournament.name }}
+                                        </p>
+                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                            {{ tournament.dateBeginTournament |date('d F Y H:i')}}
+                                        </p>
+                                    </div>
+                                    <div class="flex flex-col items-center text-base font-semibold text-green-500 dark:text-white">
+                                        {% for key, nbTeam in teamCounts %}
+                                            {% if key == tournament.id %}
+                                                <div>
+                                                    {{ nbTeam }} / {{ tournament.nbTeamMax }}
+                                                </div>
+                                                {% if nbTeam == tournament.nbTeamMax %}
+                                                    <p>Inscription cloturée</p>
+                                                {% else %}
+                                                    <p>Inscription ouverte</p>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="">
+                        </div>
+                    {% else %}
+                        <p>Aucun enregistrement trouvé</p>
+                    {% endfor %}
+                </div>
+            </div>
         </ul>
     </div>
 {#
