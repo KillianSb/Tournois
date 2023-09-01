@@ -3,33 +3,6 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-{#
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('security_logout') }}">Se déconnecter</a>
-        </div>
-    {% endif %}
-    <h1 class="h3 mb-3 font-weight-normal">Connection</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Se connecter
-    </button>
-    <a href="{{ path('registration_register') }}">S'enregistrer</a>
-</form>
-#}
 <form method="post">
 
     {% if inactive_account_error %}
@@ -67,13 +40,9 @@
                                 Danger
                             </div>
                             <div class="text_box_warning border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 ">
-                                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                                <p>Mots de passe ou adresse mail invalide !</p>
                             </div>
                         </div>
-                        {#
-                        <div class="alert alert-danger text-red-700">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                        <div class="alert alert-danger">{{ error }}</div>
-                        #}
                     {% endif %}
                     <div class="form-control">
                         <label class="label" for="inputEmail">
