@@ -36,6 +36,18 @@
         <div class="alert alert-danger">{{ inactive_account_error }}</div>
     {% endif %}
 
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div>
+                <div class="divMess">
+                    <div class="messFlash">
+                        {{ message }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     {% if app.user %}
         <div class="mb-3">
             Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('security_logout') }}">Se déconnecter</a>

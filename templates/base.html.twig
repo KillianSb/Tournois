@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Tournaments Master{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="icon" href="{{ asset('/build/images/trophy.svg') }}">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -60,8 +60,8 @@
                 </div>
                 <div class="flex justify-end mx-2">
                     {% if app.user %}
-                        <div class="avatar">
-                            <div class="w-12 rounded-full mr-6">
+                        <div class="avatar online mr-6">
+                            <div class="w-12 rounded-full">
                                 <a href="{{ path('profil_infos') }}"><img src="{{ app.user.picture }}" alt="photo de profil" /></a>
                             </div>
                         </div>

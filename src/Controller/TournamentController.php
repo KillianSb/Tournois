@@ -94,32 +94,34 @@ class TournamentController extends AbstractController
         $teams = $teamRepository->findTeamsByTournament($tournament->getId());
 
         // Vérifier si le tableau d'équipes mélangées existe déjà pour ce tournoi
-        if ($tournament->getTableTeamTournament() == null) {
-            // Mélange des équipes
-            shuffle($teams);
+        if ($tournament->getStatus() == 'Cloturé'){
+            if ($tournament->getTableTeamTournament() == null) {
+                // Mélange des équipes
+                shuffle($teams);
 
-            // Créer un tableau d'IDs d'équipes mélangées
-            $shuffledTeamIds = array_map(function ($teams) {
-                return $teams->getId();
-            }, $teams);
+                // Créer un tableau d'IDs d'équipes mélangées
+                $shuffledTeamIds = array_map(function ($teams) {
+                    return $teams->getId();
+                }, $teams);
 
-            $tableTeamTournament = new TableTeamTournament();
-            $tableTeamTournament->setShuffleTableTeam($shuffledTeamIds);
+                $tableTeamTournament = new TableTeamTournament();
+                $tableTeamTournament->setShuffleTableTeam($shuffledTeamIds);
 
-            // Associer le tableau d'équipes mélangées au tournoi
-            $tournament->setTableTeamTournament($tableTeamTournament);
+                // Associer le tableau d'équipes mélangées au tournoi
+                $tournament->setTableTeamTournament($tableTeamTournament);
 
-            $entityManager->persist($tableTeamTournament);
-            $entityManager->flush();
+                $entityManager->persist($tableTeamTournament);
+                $entityManager->flush();
 
-        } else {
-            // Si le tableau est déjà créé, récupérez les IDs mélangés et récupérez les équipes correspondantes
-            $shuffledTeamIds = $tournament->getTableTeamTournament()->getShuffleTableTeam();
-            $shuffledTeams = [];
-            foreach ($shuffledTeamIds as $teamsId) {
-                $shuffledTeams[] = $teamRepository->find($teamsId);
+            } else {
+                // Si le tableau est déjà créé, récupérez les IDs mélangés et récupérez les équipes correspondantes
+                $shuffledTeamIds = $tournament->getTableTeamTournament()->getShuffleTableTeam();
+                $shuffledTeams = [];
+                foreach ($shuffledTeamIds as $teamsId) {
+                    $shuffledTeams[] = $teamRepository->find($teamsId);
+                }
+                $teams = $shuffledTeams;
             }
-            $teams = $shuffledTeams;
         }
 
     //Création tableau
