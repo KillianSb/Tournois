@@ -5,6 +5,8 @@
 # Tournois
 
 Création d'un site de gestions de tournois en projet de l'ENI.
+
+
 ## Badges
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.spec.whatwg.org/multipage/)
@@ -34,6 +36,15 @@ Cloner le repo, ensuite :
 ## Screenshots
 
 ![App Screenshot](https://github.com/KillianSb/Tournois/assets/27457778/adf68ec4-ef3d-4a06-904f-4b040abd1d38)
+
+## Features
+
+- Inscription/Connection
+- Création Tournoi
+- Gestion de sont Tournoi
+- Création d'une equipe
+- Gestion de sont equipe
+
 
 ## Color Reference
 
