@@ -1,5 +1,5 @@
 
-![TournamentMaster](https://github.com/KillianSb/Tournois/assets/27457778/adf68ec4-ef3d-4a06-904f-4b040abd1d38)
+![TournamentMaster](https://github.com/KillianSb/Tournois/assets/27457778/13322121-3c32-4910-9787-842b184bea84)
 
 
 # Tournois
@@ -33,7 +33,7 @@ Cloner le repo, ensuite :
     
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/KillianSb/Tournois/assets/27457778/adf68ec4-ef3d-4a06-904f-4b040abd1d38)
 
 ## Color Reference
 
