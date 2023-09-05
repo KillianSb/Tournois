@@ -45,7 +45,7 @@ Cloner le repo, ensuite :
 
 ## Authors
 
-- [@Killian.Sb](https://www.github.com/@Killian.Sb)
-- [@T-the-Moose](https://www.github.com/@T-the-Moose)
-- [@RedaDamene](https://www.github.com/@RedaDamene)
+- [@Killian.Sb](https://www.github.com/Killian.Sb)
+- [@T-the-Moose](https://www.github.com/T-the-Moose)
+- [@RedaDamene](https://www.github.com/RedaDamene)
 
