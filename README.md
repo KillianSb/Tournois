@@ -48,10 +48,12 @@ Cloner le repo, ensuite :
 
 ## Color Reference
 
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
-| Noir | ![#0a192f](https://via.placeholder.com/10/0a192f?text=+) #0a192f |
-| Gold | ![#ffd700](https://via.placeholder.com/10/ffd700?text=+) #ffd700 |
+| Color     | Hex                                                                |
+|-----------| ------------------------------------------------------------------ |
+| Noir      | ![#1a1a1aFF](https://via.placeholder.com/10/1a1a1aFF?text=+) #1a1a1aFF |
+| Noir Nuit | ![#0a192f](https://via.placeholder.com/10/0a192f?text=+) #0a192f |
+| Gold      | ![#DABE76](https://via.placeholder.com/10/DABE76?text=+) #DABE76 |
+
 
 
 ## Authors
