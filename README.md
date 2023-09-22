@@ -8,17 +8,14 @@ Création d'un site de gestions de tournois en projet de l'ENI.
 
 ## Badges
 
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.spec.whatwg.org/multipage/)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=&logo=html5&logoColor=white)](https://html.spec.whatwg.org/multipage/)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=&logo=css3&logoColor=white)](https://www.w3.org/TR/css-2022/)
+[![PHP](https://img.shields.io/badge/PHP-777BB4?style=&logo=php&logoColor=white)](https://www.php.net/)
+[![Symfony](https://img.shields.io/badge/symfony-%23323330.svg?style=&logo=symfony&logoColor=%B0B0B0)](https://symfony.com/)
+[![Tailwind_CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-005C84?style=&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![PHPStorm](http://img.shields.io/badge/-PHPStorm-181717?style=&logo=phpstorm&logoColor=white)](https://www.jetbrains.com/fr-fr/phpstorm/)
 
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3.org/TR/css-2022/)
-
-[![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
-
-[![Tailwind_CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-
-[![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
-
-[![PHPStorm](http://img.shields.io/badge/-PHPStorm-181717?style=for-the-badge&logo=phpstorm&logoColor=white)](https://www.jetbrains.com/fr-fr/phpstorm/)
 ## Installation
 
 Installer le projet:
